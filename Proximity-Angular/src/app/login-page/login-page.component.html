@@ -1,16 +1,16 @@
 <div>
-		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-			<input formControlName="username" placeholder="Username" type="text">
-			<br>
-			<input formControlName="password" placeholder="Password" type="password">
-			<br>
-			<button type="submit" [disabled]="!loginForm.valid">Login</button>
-			<br>
-			<div></div>
-			<br>
-			<button routerLink="/createAccount">Create an Account</button>
-			<br>
-			<button>Forgot Password</button>
-			<br>
-		</form>
-	</div>
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<input formControlName="username" placeholder="Username" type="text">
+		<br>
+		<input formControlName="password" placeholder="Password" type="password">
+		<br>
+		<button type="submit" [disabled]="!loginForm.valid">Login</button>
+		<br>
+		<div></div>
+		<br>
+		<button routerLink="/create-account">Create an Account</button>
+		<br>
+		<button routerLink="/reset-password">Forgot Password</button>
+		<br>
+	</form>
+</div>
