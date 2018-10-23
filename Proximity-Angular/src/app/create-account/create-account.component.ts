@@ -22,7 +22,7 @@ export class CreateAccountComponent implements OnInit {
 
   onSubmit() {
     let password = this.createAccount.get('password').value;
-    let passwordCheck = this.createAccount.get('password').value;
+    let passwordCheck = this.createAccount.get('passwordCheck').value;
 
     if(password == passwordCheck){
       this.isValid = true;

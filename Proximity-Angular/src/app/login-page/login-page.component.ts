@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder) { }
 
 	loginForm = this.fb.group({
 		username: ['', Validators.required],
@@ -22,5 +21,4 @@ export class LoginPageComponent implements OnInit {
 
 	onSubmit(){
 	}
-	title = 'Proximity';
 }
