@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { MapPageComponent } from './map-page/map-page.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,17 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     LoginPageComponent,
     CreateAccountComponent,
     ResetPasswordComponent,
+    MapPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyB3NnYM2L0mW6bo9rwYXULTgQOM5_sPSCc'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
