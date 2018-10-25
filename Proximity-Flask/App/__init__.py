@@ -1,4 +1,4 @@
-import mysql.connector
+import MySQLdb
 from flask import Flask
 
 from App.Models import (
@@ -6,14 +6,20 @@ from App.Models import (
 	DatabaseController
 )
 
+print("Launching...")
+
 """ Objects for backend """
 config = DefaultConfig()
+print("Config used: {}".format(config))
 
-db_conn = mysql.connector.connect(
+db_conn = MySQLdb.connect(
 	host=config.host,
 	user=config.user,
-	passwd=config.password
+	passwd=config.password,
+	db=config.database
 )
+
+print("Connected to database: {}".format(db_conn))
 
 database = DatabaseController(db_conn, config)
 
@@ -25,8 +31,11 @@ app = Flask(__name__)
 
 # supported APIs
 app.register_blueprint(account_api, url_prefix="/account/v1")
+print("Account API active")
 
 """ Test route """
-@app.route('/')
+@app.route('/test')
 def test():
 	return "Ok", 200
+
+print("Launched")

@@ -6,14 +6,15 @@ class DefaultConfig:
 	host = "proximitydatabase.cbcqll27hw91.us-west-2.rds.amazonaws.com"
 	user = "admin"
 	password = "4320Group16"
+	database = "proximity_database"
 
 	""" Databse Config Info """
 	user_table = "User"
 
 	""" Security Info """
-
-	private_key_filepath = "./Keys/private_key.pem"
-	public_key_filepath = "./Keys/public_key.pem"
+	
+	private_key_filepath = "/mnt/c/prog/2018Fall/4320/Software_Engineering_Project/Proximity-Flask/App/Keys/private_key.pem"
+	public_key_filepath = "/mnt/c/prog/2018Fall/4320/Software_Engineering_Project/Proximity-Flask/App/Keys/public_key.pem"
 
 	private_key_password = b"4320Group16"
 
@@ -22,9 +23,9 @@ class DefaultConfig:
 	def get_private_key(cls):
 		key = None
 		with open(cls.private_key_filepath) as file:
-			encrypted_key = file.read()
+			encrypted_key = file.read().encode()
 
-			key = load_pem_private_key(encrypted_key, password=cls.private_key_filepath, backend=default_backend())
+			key = load_pem_private_key(encrypted_key, password=cls.private_key_password, backend=default_backend())
 
 		return key
 
@@ -33,6 +34,9 @@ class DefaultConfig:
 	def get_public_key(cls):
 		key = None
 		with open(cls.public_key_filepath) as file:
-			key = file.read()
+			key = file.read().encode()
 
 		return key
+
+	def __str__(self):
+		return "Default Config"

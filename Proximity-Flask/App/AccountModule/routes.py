@@ -38,4 +38,21 @@ def account_create():
 
 @account_api.route('/login')
 def account_login():
-	pass
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		username = body.get('username')
+		password = body.get('password')
+
+		if username and password:
+			user = User(username, password)
+
+			if database.verify_user(user):
+				response["token"] = user.get_token().decode('utf8')
+				response["message"] = "Account {} logged in!".format(username)
+			else:
+				response["message"] = "Unable to login with account {}.".format(username)
+
+	return jsonify(response), 200
