@@ -10,6 +10,7 @@ class DefaultConfig:
 
 	""" Databse Config Info """
 	user_table = "User"
+	post_table = "Post"
 
 	""" Security Info """
 	

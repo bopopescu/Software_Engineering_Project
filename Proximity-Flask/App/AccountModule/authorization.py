@@ -1,3 +1,5 @@
+from functools import wraps
+
 from App.Models import (
     DefaultConfig,
     User
@@ -32,6 +34,7 @@ class DefaultAuthorization:
             """
             Function decorator for authorization
             """
+            @wraps(func)
             def wrapper(*args, **kwargs):
                 headers = request.headers
                 authorization = headers.get("Authorization", None)
@@ -46,6 +49,5 @@ class DefaultAuthorization:
                             return func(user)
 
                 return abort(401)
-                
             return wrapper
         return decorator

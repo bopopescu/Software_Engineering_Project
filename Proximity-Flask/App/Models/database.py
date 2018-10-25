@@ -1,4 +1,4 @@
-import time
+import datetime
 
 from werkzeug.security import check_password_hash
 
@@ -16,6 +16,7 @@ class DatabaseController:
 		self._database = database
 
 		self._cursor = self._database.cursor()
+
 
 	""" User Methods """
 
@@ -82,18 +83,32 @@ class DatabaseController:
 
 		return True
 
+
+
 	""" Post Methods """
 
 	def create_post(self, post):
 		"""
 		Creates a new post in the post database
 		"""
-		query_string = "INSERT INTO {} (user_id, title, body, timestamp) VALUES (%i, %s, %s, %s)".format(self._config.user_table)
+		query_string = "INSERT INTO {} (user_id, title, body, time, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s)".format(self._config.post_table)
 
-		self._cursor.execute(query_string, (user.id, post.title, post.body, time.time()))
+		self._cursor.execute(query_string, (post.user.id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
 		self._database.commit()
 
 		return True
 
-	""" Internal Methods """
 
+	def get_posts(self, lat, long, radius):
+		"""
+		Gets all posts made within a radius of the latitude and longitude provided
+		"""
+		query_string = """
+			SELECT id, user_id, title, body, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} HAVING distance < {} ORDER BY distance LIMIT 0 , 20
+		""".format(lat, long, lat, self._config.post_table, radius)
+		
+		self._cursor.execute(query_string)
+
+		rows = self._cursor.fetchall()
+
+		return rows
