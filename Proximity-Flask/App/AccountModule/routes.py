@@ -26,7 +26,7 @@ def account_create():
 		password = body.get('password')
 
 		if username and password:
-			user = User(username, password)
+			user = User(username=username, password=password)
 
 			if database.create_user(user):
 				response["message"] = "Account {} created!".format(username)
@@ -47,11 +47,16 @@ def account_login():
 		password = body.get('password')
 
 		if username and password:
-			user = User(username, password)
+			user = User(username=username, password=password)
 
 			if database.verify_user(user):
-				response["token"] = user.get_token().decode('utf8')
-				response["message"] = "Account {} logged in!".format(username)
+				token = user.get_token("AccountAccess")
+
+				if token:
+					response["token"] = token.decode('utf8')
+					response["message"] = "Account {} logged in!".format(username)
+				else:
+					response["message"] = "Error logging in with {}.".format(username)
 			else:
 				response["message"] = "Unable to login with account {}.".format(username)
 
@@ -70,7 +75,7 @@ def password_reset():
 		new_password = body.get('new_password')
 
 		if username and old_password and new_password:
-			user = User(username, old_password)
+			user = User(username=username, password=old_password)
 
 			if database.verify_user(user):
 				if database.update_user(user, password=new_password):

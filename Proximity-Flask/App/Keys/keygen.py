@@ -38,21 +38,3 @@ print(encoded)
 
 decoded = jwt.decode(encoded, public_pem, algorithms='RS256')
 print(decoded)
-
-# """ ECC """
-
-# from cryptography.hazmat.primitives.asymmetric import ec
-
-# key_pair = ec.generate_private_key(
-# 	ec.SECP384R1(), default_backend()
-# )
-
-# public_key = key_pair.public_key()
-
-# pem = public_key.public_bytes(
-# 	encoding=serialization.Encoding.PEM,
-# 	format=serialization.PublicFormat.SubjectPublicKeyInfo
-# )
-
-# with open("ecc_public_key.pem", "w") as key_file:
-# 	key_file.write(pem.decode('utf8'))
