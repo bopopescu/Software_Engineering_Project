@@ -56,3 +56,28 @@ def account_login():
 				response["message"] = "Unable to login with account {}.".format(username)
 
 	return jsonify(response), 200
+
+
+@account_api.route('/reset')
+def password_reset():
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		username = body.get('username')
+		old_password = body.get('old_password')
+		new_password = body.get('new_password')
+
+		if username and old_password and new_password:
+			user = User(username, old_password)
+
+			if database.verify_user(user):
+				if database.update_user(user, password=new_password):
+					response["message"] = "Password for {} has been changed.".format(username)
+				else:
+					response["message"] = "Error changing password for {}.".format(username)
+			else:
+				response["message"] = "Unable to verify user {} with that password".format(old_password)
+
+	return jsonify(response), 200

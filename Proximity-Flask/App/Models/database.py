@@ -1,6 +1,9 @@
 from werkzeug.security import check_password_hash
 
-from App.Models.config import DefaultConfig
+from App.Models import (
+	User,
+	DefaultConfig
+)
 
 class DatabaseController:
 	def __init__(self, database, config=None):
@@ -53,6 +56,27 @@ class DatabaseController:
 				return True
 
 		return False
+
+
+	def update_user(self, user, username=None, password=None):
+		"""
+		Changes the user's credentials to the new credentials given
+		"""
+		if password:
+			updated_user = User(username, password)
+
+			query_string = "UPDATE {} SET password_hash=%s WHERE username=%s".format(self._config.user_table)
+
+			self._cursor.execute(query_string, (updated_user.password_hash, user.username))
+
+		if username:
+			query_string = "UPDATE {} SET username=%s WHERE username=%s".format(self._config.user_table)
+
+			self._cursor.execute(query_string, (user.username, user.username))
+
+		self._database.commit()
+
+		return True
 
 	""" Internal Methods """
 
