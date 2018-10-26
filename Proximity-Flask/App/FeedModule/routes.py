@@ -66,3 +66,22 @@ def get_posts(user):
 				response["message"] = "Unable to find posts."
 
 	return jsonify(response), 200
+
+
+@feed_api.route('/delete')
+@authorization.require_auth("AccountAccess")
+def delete_post(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		post_id = body.get("id")
+
+		if post_id:
+			if database.delete_post(post_id):
+				response["message"] = "Post {} deleted.".format(post_id)
+			else:
+				response["message"] = "Unable to delete post."
+
+	return jsonify(response), 200

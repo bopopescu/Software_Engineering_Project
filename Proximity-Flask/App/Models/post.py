@@ -60,7 +60,6 @@ class Post:
 		posts = []
 
 		for datum in data:
-			print(datum)
 			posts.append(cls(user=User(id=datum[0]), title=datum[1], body=datum[2], time=datum[3], distance=datum[4]))
 
 		return posts

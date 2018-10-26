@@ -112,3 +112,49 @@ class DatabaseController:
 		rows = self._cursor.fetchall()
 
 		return rows
+
+
+	""" Message Methods """
+
+	def send_message(self, message):
+		"""
+		Creates a new message in the message database
+		"""
+		query_string = "INSERT INTO {} (from_id, to_id, body, time) VALUES (%s, %s, %s, %s)".format(self._config.message_table)
+
+		self._cursor.execute(query_string, (message.from_id, message.to_id, message.body, datetime.datetime.now()))
+		self._database.commit()
+
+		return True
+
+
+	def get_messages(self, to_id=None, from_id=None):
+		"""
+		Gets all messages with the given ids
+		"""
+		query_string = """
+			SELECT from_id, to_id, body, time FROM {} 
+		""".format(self._config.message_table)
+
+		rows = None
+
+		if to_id != None and from_id == None:
+			query_string += " WHERE to_id = %s"
+			self._cursor.execute(query_string, (to_id,))
+			rows = self._cursor.fetchall()
+
+		elif to_id == None and from_id != None:
+			query_string += " WHERE from_id = %s"
+			self._cursor.execute(query_string, (from_id,))
+			rows = self._cursor.fetchall()
+
+		elif to_id != None and from_id != None:
+			query_string += " WHERE to_id = %s AND from_id = %s"
+			self._cursor.execute(query_string, (to_id, from_id))
+			rows = self._cursor.fetchall()
+
+		else:
+			self._cursor.execute(query_string)
+			rows = self._cursor.fetchall()
+
+		return rows

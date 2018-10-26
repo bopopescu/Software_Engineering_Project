@@ -11,6 +11,8 @@ class DefaultConfig:
 	""" Databse Config Info """
 	user_table = "User"
 	post_table = "Post"
+	message_table = "Message"
+	group_table = "Group"
 
 	""" Security Info """
 	

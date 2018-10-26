@@ -29,7 +29,8 @@ def format_posts():
 			username VARCHAR(64),
 			password_hash VARCHAR(128)
 		)
-		""")
+		"""
+	)
 
 """ POSTS """
 
@@ -46,7 +47,24 @@ def format_users():
 			latitude DECIMAL(10,8),
 			longitude DECIMAL(11,8)
 		)
-		""")
+		"""
+	)
+
+""" MESSAGES """
+
+def format_messages():
+	cursor.execute("DROP TABLE IF EXISTS Message")
+	cursor.execute(
+		"""
+		CREATE TABLE Message (
+			id INT PRIMARY KEY AUTO_INCREMENT,
+			from_id INT,
+			to_id INT,
+			body TINYTEXT,
+			time DATETIME
+		)
+		"""
+	)
 
 """ Main Execution """
 
@@ -69,10 +87,20 @@ def run_tests():
 	delete("Post")
 	print(get("Post"))
 
+	print("\nMessage:")
+	print(get("Message"))
+	query = "INSERT INTO Message (from_id, to_id, body, time) VALUES ('0', '1', 'hello', '{}')".format(datetime.datetime.now())
+	print(query)
+	cursor.execute(query)
+	print(get("Message"))
+	delete("Message")
+	print(get("Message"))
+
 
 if __name__ == "__main__":
 	# Format all tables
 	format_users()
 	format_posts()
+	format_messages()
 
 	run_tests()
