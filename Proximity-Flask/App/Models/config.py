@@ -12,7 +12,7 @@ class DefaultConfig:
 	user_table = "User"
 	post_table = "Post"
 	message_table = "Message"
-	group_table = "Group"
+	group_table = "`Group`"
 
 	""" Security Info """
 	

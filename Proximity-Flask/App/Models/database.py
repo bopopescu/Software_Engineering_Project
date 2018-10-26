@@ -87,27 +87,27 @@ class DatabaseController:
 
 	""" Post Methods """
 
-	def create_post(self, post):
+	def create_post(self, post, group_id=0):
 		"""
 		Creates a new post in the post database
 		"""
-		query_string = "INSERT INTO {} (user_id, title, body, time, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s)".format(self._config.post_table)
+		query_string = "INSERT INTO {} (user_id, group_id, title, body, time, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s, %s)".format(self._config.post_table)
 
-		self._cursor.execute(query_string, (post.user.id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
+		self._cursor.execute(query_string, (post.user.id, group_id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
 		self._database.commit()
 
 		return True
 
 
-	def get_posts(self, lat, long, radius):
+	def get_posts(self, lat, long, radius, group_id=0):
 		"""
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
-		query_string = """
-			SELECT id, user_id, title, body, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} HAVING distance < {} ORDER BY distance LIMIT 0 , 20
-		""".format(lat, long, lat, self._config.post_table, radius)
+		query_string = "SELECT id, user_id, title, body, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} WHERE group_id = %s HAVING distance < {} ORDER BY distance LIMIT 0 , 20".format(lat, long, lat, self._config.post_table, radius)
 		
-		self._cursor.execute(query_string)
+		print(query_string)
+
+		self._cursor.execute(query_string, (group_id,))
 
 		rows = self._cursor.fetchall()
 
@@ -158,3 +158,17 @@ class DatabaseController:
 			rows = self._cursor.fetchall()
 
 		return rows
+
+
+	""" Group Methods """
+
+	def create_group(self, group):
+		"""
+		Creates a new group in the group database
+		"""
+		query_string = "INSERT INTO {} (name, private) VALUES (%s, %s)".format(self._config.group_table)
+
+		self._cursor.execute(query_string, (group.name, group.private))
+		self._database.commit()
+
+		return True

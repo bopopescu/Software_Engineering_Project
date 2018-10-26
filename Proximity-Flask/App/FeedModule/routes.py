@@ -53,9 +53,10 @@ def get_posts(user):
 	if body:
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
+		group_id = body.get("group_id", 0)
 
 		if latitude and longitude:
-			posts = Post.from_list(database.get_posts(latitude, longitude, 100))
+			posts = Post.from_list(database.get_posts(latitude, longitude, 100, group_id=group_id))
 
 			if posts:
 				response["message"] = "Posts found."

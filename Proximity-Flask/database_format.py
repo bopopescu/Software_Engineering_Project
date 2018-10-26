@@ -41,6 +41,7 @@ def format_users():
 		CREATE TABLE Post (
 			id INT PRIMARY KEY AUTO_INCREMENT,
 			user_id INT,
+			group_id INT,
 			title VARCHAR(64),
 			body TINYTEXT,
 			time DATETIME,
@@ -62,6 +63,20 @@ def format_messages():
 			to_id INT,
 			body TINYTEXT,
 			time DATETIME
+		)
+		"""
+	)
+
+""" GROUPS """
+
+def format_groups():
+	cursor.execute("DROP TABLE IF EXISTS `Group`")
+	cursor.execute(
+		"""
+		CREATE TABLE `Group` (
+			id INT PRIMARY KEY AUTO_INCREMENT,
+			name VARCHAR(32),
+			private BOOLEAN
 		)
 		"""
 	)
@@ -96,11 +111,21 @@ def run_tests():
 	delete("Message")
 	print(get("Message"))
 
+	print("\nGroup:")
+	print(get("`Group`"))
+	query = "INSERT INTO `Group` (name, private) VALUES ('Test Group', 1)"
+	print(query)
+	cursor.execute(query)
+	print(get("`Group`"))
+	delete("`Group`")
+	print(get("`Group`"))
+
 
 if __name__ == "__main__":
 	# Format all tables
 	format_users()
 	format_posts()
 	format_messages()
+	format_groups()
 
 	run_tests()
