@@ -1,5 +1,5 @@
 
-class Group:
+class Group(_BaseModel):
 	def __init__(self, id=None, name=None, private=None):
 		self._id = id
 		self._name = name

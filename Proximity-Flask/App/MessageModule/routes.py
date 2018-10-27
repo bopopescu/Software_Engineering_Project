@@ -29,7 +29,7 @@ def send_message(user):
 		message_to_id = body.get("to_id")
 
 		if message_body and message_to_id:
-			message = Message(user=user, to_id=message_to_id, body=message_body)
+			message = Message(from_id=user.id, to_id=message_to_id, body=message_body)
 			database.send_message(message)
 
 			response["message"] = "Sent {} to {}".format(message_body, message_to_id)

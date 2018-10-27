@@ -20,6 +20,7 @@ feed_api = Blueprint('FeedModule', __name__)
 @feed_api.route('/create')
 @authorization.require_auth("AccountAccess")
 def create_post(user):
+	print("Creating post for: ", user.id)
 	body = request.get_json()
 
 	response = {}
@@ -31,7 +32,7 @@ def create_post(user):
 		post_longitude = body.get("longitude")
 
 		if post_title and post_body and post_latitude and post_longitude:
-			post = Post(user=user, title=post_title, body=post_body, latitude=post_latitude, longitude=post_longitude)
+			post = Post(user_id=user.id, title=post_title, body=post_body, latitude=post_latitude, longitude=post_longitude)
 
 			if database.create_post(post):
 				response["message"] = "User {} made a post with title '{}' and body '{}'.".format(user.username, post.title, post.body)
@@ -61,6 +62,7 @@ def get_posts(user):
 			if posts:
 				response["message"] = "Posts found."
 				response["posts"] = []
+
 				for post in posts:
 					response["posts"].append(post.get_json())
 			else:

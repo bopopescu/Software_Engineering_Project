@@ -5,12 +5,14 @@ from flask import (
 )
 
 from App.Models import (
-	User
+	User,
+	Friendship
 )
 
 from App import (
 	database,
-	config
+	config,
+	authorization
 )
 
 account_api = Blueprint('AccountModule', __name__)
@@ -84,5 +86,48 @@ def password_reset():
 					response["message"] = "Error changing password for {}.".format(username)
 			else:
 				response["message"] = "Unable to verify user {} with that password".format(old_password)
+
+	return jsonify(response), 200
+
+
+@account_api.route('/friends/new')
+@authorization.require_auth("AccountAccess")
+def new_friend(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		friend_id = body.get('friend_id')
+
+		if friend_id != None:
+			friendship = Friendship(user.id, friend_id)
+
+			if database.new_friendship(friendship):
+				response["message"] = "Friendship between {} and {} added".format(user.id, friend_id)
+			else:
+				response["message"] = "Error adding friendship between {} and {}".format(user.id, friend_id)
+
+	return jsonify(response), 200
+
+
+@account_api.route('friends/fetch')
+@authorization.require_auth("AccountAccess")
+def get_friends(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		friends = User.from_list(database.get_friends(user.id))
+
+		if friends:
+			response["message"] = "Friends found."
+			request["friends"] = []
+
+			for friend in friends:
+				request["friends"].append(friend.get_json())
+		else:
+			response["message"] = "Unable to find friends."
 
 	return jsonify(response), 200

@@ -32,6 +32,17 @@ def format_posts():
 		"""
 	)
 
+def format_friends():
+	cursor.execute("DROP TABLE IF EXISTS Friendship")
+	cursor.execute(
+		"""
+		CREATE TABLE Friendship (
+			first_id INT,
+			second_id INT
+		)
+		"""
+	)
+
 """ POSTS """
 
 def format_users():

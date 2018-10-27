@@ -13,6 +13,7 @@ class DefaultConfig:
 	post_table = "Post"
 	message_table = "Message"
 	group_table = "`Group`"
+	friendship_table = "Friendship"
 
 	""" Security Info """
 	

@@ -80,6 +80,7 @@ class User:
 		claims = jwt.decode(token, DefaultConfig().get_public_key(), algorithms=['RS256'])
 
 		if claims:
+			print(claims)
 			user = cls(id=claims.get("id"), username=claims.get("username"), scope=claims.get("scope"))
 			return user
 

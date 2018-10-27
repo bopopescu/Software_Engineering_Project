@@ -83,6 +83,47 @@ class DatabaseController:
 
 		return True
 
+	def get_user(self, user_id):
+		"""
+		Get a user from the database
+		"""
+		query_string = "SELECT id, username FROM {} WHERE id = %s".format(self._config.user_table)
+		self._cursor.execute(query_string, (user_id,))
+		row = self._cursor.fetchone()
+
+		return row
+
+	""" Friendship Methods """
+
+	def new_friendship(self, friendship):
+		"""
+		Add a new friendship
+		"""
+		query_string = "INSERT INTO {} (first_id, second_id) VALUES (%s, %s)".format(self._config.friendship_table)
+
+		if friendship.user_one > friendship.user_two:
+			first = friendship.user_two
+			second = friendship.user_one
+		else:
+			first = friendship.user_one
+			second = friendship.user_two
+
+		self._cursor.execute(query_string, (first, second))
+		self._database.commit()
+
+		return True
+
+
+	def get_friends(self, user_id):
+		"""
+		Get a list of all friendships a user has
+		"""
+		query_string = "SELECT * FROM {} WHERE first_id = %s OR second_id = %s".format(self._config.friendship_table)
+
+		self._cursor.execute(query_string, (user_id, user_id))
+		rows = self._cursor.fetchall()
+
+		return rows
 
 
 	""" Post Methods """
@@ -93,7 +134,7 @@ class DatabaseController:
 		"""
 		query_string = "INSERT INTO {} (user_id, group_id, title, body, time, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s, %s)".format(self._config.post_table)
 
-		self._cursor.execute(query_string, (post.user.id, group_id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
+		self._cursor.execute(query_string, (post.user_id, group_id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
 		self._database.commit()
 
 		return True
@@ -103,13 +144,14 @@ class DatabaseController:
 		"""
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
-		query_string = "SELECT id, user_id, title, body, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} WHERE group_id = %s HAVING distance < {} ORDER BY distance LIMIT 0 , 20".format(lat, long, lat, self._config.post_table, radius)
-		
+		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} INNER JOIN User ON Post.user_id = User.id WHERE group_id = %s HAVING distance < {} ORDER BY distance".format(lat, long, lat, self._config.post_table, radius)
+
 		print(query_string)
 
 		self._cursor.execute(query_string, (group_id,))
-
 		rows = self._cursor.fetchall()
+
+		print(rows)
 
 		return rows
 

@@ -29,7 +29,7 @@ print("Database controller used: {}".format(DatabaseController))
 
 """ Authorization Provider """
 
-from App.AccountModule import DefaultAuthorization
+from App.Models import DefaultAuthorization
 
 authorization = DefaultAuthorization(config=config)
 print("Authorization used: {}".format(authorization))

@@ -1,8 +1,10 @@
 from App.Models import User
+from App.Models import _BaseModel
 
-class Post:
-	def __init__(self, user=None, title=None, body=None, time=None, latitude=None, longitude=None, distance=None):
-		self._user = user
+class Post(_BaseModel):
+	def __init__(self, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
+		self._user_id = user_id
+		self._username = username
 		self._title = title
 		self._body = body
 		self._time = time
@@ -14,7 +16,8 @@ class Post:
 
 	def get_json(self):
 		return {
-			"user_id": self.user.id,
+			"user_id": self.user_id,
+			"username": self.username,
 			"title": self.title,
 			"body": self.body,
 			"time": self.time,
@@ -23,8 +26,13 @@ class Post:
 
 
 	@property
-	def user(self):
-		return self._user
+	def user_id(self):
+		return self._user_id
+
+	@property
+	def username(self):
+		return self._username
+	
 
 	@property
 	def title(self):
@@ -50,16 +58,3 @@ class Post:
 	@property
 	def distance(self):
 		return self._distance
-	
-	
-
-	""" Class Methods """
-
-	@classmethod
-	def from_list(cls, data):
-		posts = []
-
-		for datum in data:
-			posts.append(cls(user=User(id=datum[0]), title=datum[1], body=datum[2], time=datum[3], distance=datum[4]))
-
-		return posts
