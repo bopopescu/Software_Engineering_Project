@@ -8,7 +8,7 @@ import { Location } from "../models/location"
 @Component({
   selector: 'app-map-page',
   templateUrl: './map-page.component.html',
-  styleUrls: ['./map-page.component.css']
+  styleUrls: ['./map-page.component.css', '../app.component.css']
 })
 
 
