@@ -1,16 +1,22 @@
-<div>
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-		<input formControlName="username" placeholder="Username" type="text">
-		<br>
-		<input formControlName="password" placeholder="Password" type="password">
-		<br>
-		<button type="submit" [disabled]="!loginForm.valid">Login</button>
-		<br>
-		<div></div>
-		<br>
-		<button routerLink="/create-account">Create an Account</button>
-		<br>
-		<button routerLink="/reset-password">Forgot Password</button>
-		<br>
-	</form>
+<div id="main" class="col-12">
+	<div id="inner" class="col-12">
+		<div id="logoDiv">
+		<p>Logo will go here</p>
+		</div>
+		<div id="slogan"><p>Text Box for information about Proximity or sogan</p></div>
+		<div id="logIn">
+			<form id="logInForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<button class="center" routerLink="/create-account">Create an Account</button>
+			<br>
+			<button routerLink="/reset-password">Forgot Password</button>
+			<br>
+			<br>
+			<input type="text" formControlName="username" placeholder="UserName">
+			<input type="text" formControlName="password" placeholder="Password">
+			<br>
+			<br>
+			<button type="submit">Login</button>
+			</form>
+		</div>
+	</div>
 </div>
