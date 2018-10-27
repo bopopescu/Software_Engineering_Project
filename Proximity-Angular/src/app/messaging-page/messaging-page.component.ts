@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-messaging-page',
   templateUrl: './messaging-page.component.html',
-  styleUrls: ['./messaging-page.component.css']
+  styleUrls: ['./messaging-page.component.css', '../app.component.css']
 })
 export class MessagingPageComponent implements OnInit {
 

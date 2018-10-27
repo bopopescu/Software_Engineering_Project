@@ -8,7 +8,7 @@ import { Location } from "../models/location"
 @Component({
   selector: 'app-map-page',
   templateUrl: './map-page.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['./map-page.component.css']
 })
 
 
@@ -35,9 +35,7 @@ export class MapPageComponent implements OnInit {
   isHidden = false;
 
   ngOnInit() {
-   this.httpClient.get<Location[]>("url").subscribe(() => {
-
-   })
+   this.httpClient.get<Location[]>("url").subscribe()
   }
 
   ngAfterContentInit() {

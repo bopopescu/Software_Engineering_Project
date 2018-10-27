@@ -5,7 +5,6 @@ import { routes } from './app-routing.module';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from '@angular/common';
 
-
 import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
