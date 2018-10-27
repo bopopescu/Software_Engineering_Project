@@ -1,44 +1,9 @@
-
-<div class="container">
-  <div style="text-align:center">
-    <p class="h1">
-      Google Maps in Angular 6
-    </p>
-  </div>
-  <br>
-
-  <div class="row">
-
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <form class="form-inline" #form="ngForm">
-        <div class="form-group">
-          <input type="text" class="form-control" name="latitude" [(ngModel)]="latitude" placeholder="Enter latitude" required>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" name="longitude" [(ngModel)]="longitude" placeholder="Enter longitude" required>
-        </div>
-        <button type="button" (click)="findMe()" class="btn btn-primary"> Go</button>
-
-
-      </form>
+<div id="main" class="col-12">
+  <div id="inner" class="col-12">
+    <div id="searchBarDiv" class="col-12">
+      <p id="searchText">Search For Posts or Events on Map: </p>
+      <input type="text" placeholder="Enter Search Here..." class="searchBar">
     </div>
-
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <label>Select Marker: </label>
-      <select [(ngModel)]="selectedMarkerType" name="category">
-        <option *ngFor="let marker of markerTypes" [value]="marker.value">{{marker.text}}</option>
-      </select>
-    </div>
-  </div>
-  <br>
-  <br>
-  <div class="row" >
-    <div class="col-md-12">
-      <div class="text-center">
-        <h3>
-          <div #gmap style="width:100%;height:400px" ></div>
-        </h3>
-      </div>
-    </div>
+    <div #gmap style="width:100%;height:400px"></div>
   </div>
 </div>
