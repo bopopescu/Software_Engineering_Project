@@ -8,7 +8,7 @@ import { Location } from "../models/location"
 @Component({
   selector: 'app-map-page',
   templateUrl: './map-page.component.html',
-  styleUrls: ['./map-page.component.css']
+  styleUrls: ['../app.component.css']
 })
 
 
@@ -35,7 +35,9 @@ export class MapPageComponent implements OnInit {
   isHidden = false;
 
   ngOnInit() {
-   this.httpClient.get<Location[]>("url").subscribe()
+   this.httpClient.get<Location[]>("url").subscribe(() => {
+
+   })
   }
 
   ngAfterContentInit() {
@@ -64,18 +66,6 @@ export class MapPageComponent implements OnInit {
 
     let location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     this.map.panTo(location);
-  }
-
-  setCenter() {
-    this.map.setCenter(new google.maps.LatLng(this.latitude, this.longitude));
-
-    let location = new google.maps.LatLng(this.latitude, this.longitude);
-
-    let marker = new google.maps.Marker({
-      position: location,
-      map: this.map,
-      title: 'Got you!'
-    });   
   }
 
   simpleMarkerHandler() {
