@@ -11,6 +11,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MapPageComponent } from './map-page/map-page.component';
+import { MessagingPageComponent } from './messaging-page/messaging-page.component';
+import { FeedPageComponent } from './feed-page/feed-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { MapPageComponent } from './map-page/map-page.component';
     LoginPageComponent,
     CreateAccountComponent,
     ResetPasswordComponent,
-    MapPageComponent
+    MapPageComponent,
+    MessagingPageComponent,
+    FeedPageComponent
   ],
   imports: [
     BrowserModule,

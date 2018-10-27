@@ -6,13 +6,17 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MapPageComponent } from './map-page/map-page.component';
+import { MessagingPageComponent } from './messaging-page/messaging-page.component';
+import { FeedPageComponent } from './feed-page/feed-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'map', component: MapPageComponent }
+  { path: 'map', component: MapPageComponent },
+  { path: 'messaging', component: MessagingPageComponent },
+  { path: 'feed', component: FeedPageComponent }
 ];
 
 @NgModule({
