@@ -13,6 +13,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { MapPageComponent } from './map-page/map-page.component';
 import { MessagingPageComponent } from './messaging-page/messaging-page.component';
 import { FeedPageComponent } from './feed-page/feed-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FeedPageComponent } from './feed-page/feed-page.component';
     ResetPasswordComponent,
     MapPageComponent,
     MessagingPageComponent,
-    FeedPageComponent
+    FeedPageComponent,
+    ProfilePageComponent
   ],
   imports: [
     BrowserModule,
