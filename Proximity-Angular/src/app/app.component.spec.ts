@@ -9,6 +9,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { MapPageComponent } from './map-page/map-page.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -17,7 +18,8 @@ describe('AppComponent', () => {
         AppComponent,
         LoginPageComponent,
         CreateAccountComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
+        MapPageComponent
       ],
       imports: [RouterModule.forRoot(routes),
       ReactiveFormsModule],
