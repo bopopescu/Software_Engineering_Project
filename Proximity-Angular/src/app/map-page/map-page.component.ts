@@ -21,6 +21,8 @@ export class MapPageComponent implements OnInit {
 
   latitude: any;
   longitude: any;
+  friendMarkers: google.maps.Marker[];
+  groupMarkers: google.maps.Marker[];
 
   iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
@@ -35,20 +37,51 @@ export class MapPageComponent implements OnInit {
   isHidden = false;
 
   ngOnInit() {
-   this.httpClient.get<Location[]>("url").subscribe()
+   this.httpClient.get<Location[]>("url").subscribe(
+     locations => {
+       for(var i = 0;i < this.friendMarkers.length; i++){
+         this.friendMarkers[i].setMap(null);
+         this.friendMarkers.length = 0;
+       }
+       for(var i = 0; i < locations.length; i++){
+         var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+         var marker = new google.maps.Marker({
+           position: position,
+           map: this.map
+         })
+         this.friendMarkers.push(marker);
+       }
+   })
+
+   this.httpClient.get<Location[]>("url").subscribe(
+    locations => {
+      for(var i = 0;i < this.groupMarkers.length; i++){
+        this.groupMarkers[i].setMap(null);
+        this.groupMarkers.length = 0;
+      }
+      for(var i = 0; i < locations.length; i++){
+        var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+        var marker = new google.maps.Marker({
+          position: position,
+          map: this.map
+        })
+        this.groupMarkers.push(marker);
+      }
+
+  })
   }
 
-  ngAfterContentInit() {
-    let mapProp = {
-      center: new google.maps.LatLng(18.5793, 73.8143),
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-    this.setToCurrenctLocation();
-  }
+  // ngAfterContentInit() {
+  //   let mapProp = {
+  //     center: new google.maps.LatLng(18.5793, 73.8143),
+  //     zoom: 15,
+  //     mapTypeId: google.maps.MapTypeId.ROADMAP
+  //   };
+  //   this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+  //   this.setToCurrentLocation();
+  // }
 
-  setToCurrenctLocation() {
+  setToCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.showPosition(position);
