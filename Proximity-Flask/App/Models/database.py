@@ -83,13 +83,28 @@ class DatabaseController:
 
 		return True
 
+
+	def update_user_location(self, user_id, latitude, longitude):
+		"""
+		Updates the user's most recent location
+		"""
+		query_string = "UPDATE {} SET latitude = %s, longitude = %s WHERE id = %s".format(self._config.user_table)
+		# print("{} {}".format(latitude, longitude))
+		self._cursor.execute(query_string , (latitude, longitude, user_id))
+		self._database.commit()
+
+		return True
+
+
 	def get_user(self, user_id):
 		"""
 		Get a user from the database
 		"""
-		query_string = "SELECT id, username FROM {} WHERE id = %s".format(self._config.user_table)
+		query_string = "SELECT id, username, latitude, longitude FROM {} WHERE id = %s".format(self._config.user_table)
 		self._cursor.execute(query_string, (user_id,))
 		row = self._cursor.fetchone()
+
+		print(row)
 
 		return row
 
@@ -123,7 +138,24 @@ class DatabaseController:
 		self._cursor.execute(query_string, (user_id, user_id))
 		rows = self._cursor.fetchall()
 
-		return rows
+		friends = []
+
+		for row in rows:
+			friend = None
+
+			if user_id != row[0]:
+				friend = self.get_user(row[0])
+
+			if user_id != row[1]:
+				friend = self.get_user(row[1])
+
+			if friend:
+				friends.append(friend)
+
+
+		print(friends)
+
+		return friends
 
 
 	""" Post Methods """

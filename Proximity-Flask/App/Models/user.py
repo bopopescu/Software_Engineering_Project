@@ -2,14 +2,18 @@ import jwt
 from werkzeug.security import generate_password_hash
 
 from App.Models.config import DefaultConfig
+from App.Models import _BaseModel
 
-class User:
+class User(_BaseModel):
 	"""
 	Represents a user in the database with functionality for creating and verifying accounts
 	"""
-	def __init__(self, id=None, username=None, password=None, config=None, scope=None):
+	def __init__(self, id=None, username=None, latitude=None, longitude=None, password=None, config=None, scope=None):
 		self._id = id
 		self._username = username
+		self._latitude = latitude
+		self._longitude = longitude
+
 		self._password = password
 		self._scope = scope
 
@@ -45,6 +49,8 @@ class User:
 			return {
 				"id": self.id,
 				"username": self.username,
+				"latitude": str(self.latitude),
+				"longitude": str(self.longitude)
 			}
 
 		return None
@@ -57,6 +63,15 @@ class User:
 	@property
 	def password(self):
 		return self._password
+
+	@property
+	def latitude(self):
+		return self._latitude
+	
+	@property
+	def longitude(self):
+		return self._longitude
+	
 
 
 	@property

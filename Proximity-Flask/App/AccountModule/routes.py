@@ -47,12 +47,17 @@ def account_login():
 	if body:
 		username = body.get('username')
 		password = body.get('password')
+		user_latitude = body.get('latitude')
+		user_longitude = body.get('longitude')
 
 		if username and password:
 			user = User(username=username, password=password)
 
 			if database.verify_user(user):
 				token = user.get_token("AccountAccess")
+
+				if user_latitude and user_longitude:
+					database.update_user_location(user.id, user_latitude, user_longitude)
 
 				if token:
 					response["token"] = token.decode('utf8')
@@ -123,10 +128,10 @@ def get_friends(user):
 
 		if friends:
 			response["message"] = "Friends found."
-			request["friends"] = []
+			response["friends"] = []
 
 			for friend in friends:
-				request["friends"].append(friend.get_json())
+				response["friends"].append(friend.get_json())
 		else:
 			response["message"] = "Unable to find friends."
 

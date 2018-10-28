@@ -20,14 +20,16 @@ def delete(table):
 
 """ USERS """
 
-def format_posts():
+def format_users():
 	cursor.execute("DROP TABLE IF EXISTS User")
 	cursor.execute(
 		"""
 		CREATE TABLE User (
 			id INT PRIMARY KEY AUTO_INCREMENT,
 			username VARCHAR(64),
-			password_hash VARCHAR(128)
+			password_hash VARCHAR(128),
+			latitude DECIMAL(10,8),
+			longitude DECIMAL(11,8)
 		)
 		"""
 	)
@@ -45,7 +47,7 @@ def format_friends():
 
 """ POSTS """
 
-def format_users():
+def format_posts():
 	cursor.execute("DROP TABLE IF EXISTS Post")
 	cursor.execute(
 		"""
@@ -138,5 +140,6 @@ if __name__ == "__main__":
 	format_posts()
 	format_messages()
 	format_groups()
+	format_friends()
 
 	run_tests()
