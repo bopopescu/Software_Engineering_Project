@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CreateAccountComponent } from './create-account.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -9,7 +11,8 @@ describe('CreateAccountComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateAccountComponent ],
-      imports: [ReactiveFormsModule]
+      imports: [ReactiveFormsModule, HttpClientModule],
+      providers: [ DataService ]
     })
     .compileComponents();
   }));
@@ -26,8 +29,8 @@ describe('CreateAccountComponent', () => {
   describe('onSubmit ', () => {
 
     it('given password and passwordCheck do not match, isValid should be false', () => {
-      var password = component.createAccount.get('password').value;
-      var passwordCheck = component.createAccount.get('passwordCheck').value;
+      var password = component.createAccount.get('password');
+      var passwordCheck = component.createAccount.get('passwordCheck');
       password.setValue('potatoe');
       passwordCheck.setValue('potatooooooo');
       component.onSubmit();
@@ -37,8 +40,8 @@ describe('CreateAccountComponent', () => {
     it('given password and passwordCheck match, isValid should be true', () => {
       component.isValid = false;
 
-      var password = component.createAccount.get('password').value;
-      var passwordCheck = component.createAccount.get('passwordCheck').value;
+      var password = component.createAccount.get('password');
+      var passwordCheck = component.createAccount.get('passwordCheck');
       password.setValue('potatoe');
       passwordCheck.setValue('potatoe');
       component.onSubmit();
