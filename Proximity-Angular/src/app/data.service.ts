@@ -21,7 +21,7 @@ export class DataService {
     return this.http.post<any>(this.baseUrl + '/account/v1/login', user)
       .pipe( map(usr => {
         if (usr && usr.token) {
-          sessionStorage.setItem('currentUser', JSON.stringify(user));
+          sessionStorage.setItem('currentUser', JSON.stringify(usr));
         }
         return usr;
       }));

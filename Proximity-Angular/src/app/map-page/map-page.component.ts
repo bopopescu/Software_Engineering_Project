@@ -41,18 +41,23 @@ export class MapPageComponent implements OnInit {
 		var friends = this.dataService.getFriends();
 		friends.subscribe(
 			locations => {
-				for (var i = 0; i < this.friendMarkers.length; i++) {
-					this.friendMarkers[i].setMap(null);
-					this.friendMarkers.length = 0;
+				console.log(locations);
+				if(this.friendMarkers){
+
+					for (var i = 0; i < this.friendMarkers.length; i++) {
+						this.friendMarkers[i].setMap(null);
+						this.friendMarkers.length = 0;
+					}
+					for (var i = 0; i < locations.length; i++) {
+						var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+						var marker = new google.maps.Marker({
+							position: position,
+							map: this.map
+						})
+						this.friendMarkers.push(marker);
+					}
 				}
-				for (var i = 0; i < locations.length; i++) {
-					var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-					var marker = new google.maps.Marker({
-						position: position,
-						map: this.map
-					})
-					this.friendMarkers.push(marker);
-				}
+				
 			})
 
 		//  this.httpClient.get<Location[]>("url").subscribe(
