@@ -2,8 +2,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
 import { Location } from "../models/location"
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-map-page',
@@ -13,7 +13,7 @@ import { Location } from "../models/location"
 
 
 export class MapPageComponent implements OnInit {
-  constructor(private httpClient:HttpClient) {}
+  constructor(private dataService: DataService) {}
   $locations: Observable<Location[]>;
 
   @ViewChild('gmap') gmapElement: any;
@@ -22,7 +22,7 @@ export class MapPageComponent implements OnInit {
   latitude: any;
   longitude: any;
   friendMarkers: google.maps.Marker[];
-  groupMarkers: google.maps.Marker[];
+  // groupMarkers: google.maps.Marker[];
 
   iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
@@ -37,7 +37,8 @@ export class MapPageComponent implements OnInit {
   isHidden = false;
 
   ngOnInit() {
-   this.httpClient.get<Location[]>("104.42.175.128/friends/fetch").subscribe(
+   var friends = this.dataService.getFriends();
+   friends.subscribe(
      locations => {
        for(var i = 0;i < this.friendMarkers.length; i++){
          this.friendMarkers[i].setMap(null);
@@ -53,21 +54,21 @@ export class MapPageComponent implements OnInit {
        }
    })
 
-   this.httpClient.get<Location[]>("url").subscribe(
-    locations => {
-      for(var i = 0;i < this.groupMarkers.length; i++){
-        this.groupMarkers[i].setMap(null);
-        this.groupMarkers.length = 0;
-      }
-      for(var i = 0; i < locations.length; i++){
-        var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-        var marker = new google.maps.Marker({
-          position: position,
-          map: this.map
-        })
-        this.groupMarkers.push(marker);
-      }
-  })
+  //  this.httpClient.get<Location[]>("url").subscribe(
+  //   locations => {
+  //     for(var i = 0;i < this.groupMarkers.length; i++){
+  //       this.groupMarkers[i].setMap(null);
+  //       this.groupMarkers.length = 0;
+  //     }
+  //     for(var i = 0; i < locations.length; i++){
+  //       var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+  //       var marker = new google.maps.Marker({
+  //         position: position,
+  //         map: this.map
+  //       })
+  //       this.groupMarkers.push(marker);
+  //     }
+  // })
   }
 
   ngAfterContentInit() {

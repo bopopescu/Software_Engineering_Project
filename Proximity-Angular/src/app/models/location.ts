@@ -1,5 +1,11 @@
 export class Location {
-    info: String;
+    info: string;
     latitude: number;
     longitude: number;
+
+    constructor(info: string, latitude: number, longitude: number){
+        this.info = info;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }

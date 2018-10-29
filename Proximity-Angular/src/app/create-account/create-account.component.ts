@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-create-account',
@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class CreateAccountComponent implements OnInit {
 	isValid: Boolean;
 
-	constructor(private fb: FormBuilder, private httpClient: HttpClient) {
+	constructor(private fb: FormBuilder, private dataService: DataService) {
 		this.isValid = true;
 	}
 	createAccount = this.fb.group({
@@ -27,24 +27,15 @@ export class CreateAccountComponent implements OnInit {
 
 		if (password == passwordCheck) {
 			this.isValid = true;
+			var username = this.createAccount.get('username').value;
+			this.dataService.createAccount(username, password);
 		}
 		else {
 			this.isValid = false;
 		}
-		var account = {
-			password: password,
-			username: this.createAccount.get('username').value
-		}
-
-		this.httpClient.post('104.42.175.128/login', account)
-			.subscribe(
-				response => 
-					console.log(response),
-				error => 
-					console.log(error)
-			)
 	}
 	ngOnInit() {
+
 	}
 
 }

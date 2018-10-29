@@ -26,8 +26,8 @@ describe('CreateAccountComponent', () => {
   describe('onSubmit ', () => {
 
     it('given password and passwordCheck do not match, isValid should be false', () => {
-      var password = component.createAccount.get('password');
-      var passwordCheck = component.createAccount.get('passwordCheck');
+      var password = component.createAccount.get('password').value;
+      var passwordCheck = component.createAccount.get('passwordCheck').value;
       password.setValue('potatoe');
       passwordCheck.setValue('potatooooooo');
       component.onSubmit();
@@ -37,8 +37,8 @@ describe('CreateAccountComponent', () => {
     it('given password and passwordCheck match, isValid should be true', () => {
       component.isValid = false;
 
-      var password = component.createAccount.get('password');
-      var passwordCheck = component.createAccount.get('passwordCheck');
+      var password = component.createAccount.get('password').value;
+      var passwordCheck = component.createAccount.get('passwordCheck').value;
       password.setValue('potatoe');
       passwordCheck.setValue('potatoe');
       component.onSubmit();
