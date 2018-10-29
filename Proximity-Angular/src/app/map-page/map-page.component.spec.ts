@@ -15,22 +15,22 @@ describe('MapPageComponent', () => {
 		TestBed.configureTestingModule({
 			declarations: [ MapPageComponent ],
 			imports: [HttpClientModule],
-			providers: [ { provide: DataService, useValue: dataServiceStub } ]
+			providers: [ { provide: DataService } ]
 		})
 			.compileComponents();
 	}));
 
-	const dataServiceStub = {
-		get() {
-			const locations = cold('--x', 
-				{
-					latitude: 5,
-					longitude: -2,
-					info: "Skittles are better than m&ms"
-				}
-			);
-		}
-	}
+	// const dataServiceStub = {
+	// 	get() {
+	// 		const locations = cold('--x', 
+	// 			{
+	// 				latitude: 5,
+	// 				longitude: -2,
+	// 				info: "Skittles are better than m&ms"
+	// 			}
+	// 		);
+	// 	}
+	// }
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(MapPageComponent);
@@ -42,8 +42,8 @@ describe('MapPageComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	describe('Map ', () => {
-		it('given friends should populate friendMarkers', () => {
-		})
-	})
+	// describe('Map ', () => {
+	// 	it('given friends should populate friendMarkers', () => {
+	// 	})
+	// })
 });

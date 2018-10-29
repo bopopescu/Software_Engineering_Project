@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+
 
 @Component({
 	selector: 'app-login-page',
@@ -10,7 +13,8 @@ import { DataService } from '../data.service';
 })
 export class LoginPageComponent implements OnInit {
 
-	constructor(private fb: FormBuilder, private dataService: DataService) { }
+	constructor(private fb: FormBuilder, private dataService: DataService, private route: ActivatedRoute, private router: Router) { }
+	returnUrl: string;
 
 	loginForm = this.fb.group({
 		username: ['', Validators.required],
@@ -20,6 +24,8 @@ export class LoginPageComponent implements OnInit {
 	user: User;
 
 	ngOnInit(): void {
+		this.dataService.logout();
+		this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 	}
 
 	onSubmit() {
@@ -31,12 +37,20 @@ export class LoginPageComponent implements OnInit {
 				this.user.latitude = position.coords.longitude;
 				this.user.username = this.loginForm.get('username').value;
 				this.user.password = this.loginForm.get('password').value;
+				this.dataService.login(this.user)
+				.pipe(first())
+				.subscribe( response => {
+					console.log(response);
+					this.router.navigate([this.returnUrl]);
+				},
+				error =>{
+					console.log(error);
+				})
 			},
 			() => {
 				console.log('Unable to get location');
 			}
 		);
-		this.dataService.login(this.user);
 	}
 }
 

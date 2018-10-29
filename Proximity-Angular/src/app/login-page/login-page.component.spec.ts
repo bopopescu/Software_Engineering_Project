@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { log } from 'util';
 import { DataService } from '../data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('LoginPageComponent', () => {
 	let component: LoginPageComponent;
@@ -14,7 +15,7 @@ describe('LoginPageComponent', () => {
 		TestBed.configureTestingModule({
 			imports: [ReactiveFormsModule, HttpClientModule],
 			declarations: [LoginPageComponent],
-			providers: [FormBuilder, DataService]	
+			providers: [FormBuilder, DataService, ActivatedRoute, Router]	
 		})
 			.compileComponents();
 	}));

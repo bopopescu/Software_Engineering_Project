@@ -9,16 +9,17 @@ import { MapPageComponent } from './map-page/map-page.component';
 import { MessagingPageComponent } from './messaging-page/messaging-page.component';
 import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
-  { path: 'create-account', component: CreateAccountComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'map', component: MapPageComponent },
-  { path: 'messaging', component: MessagingPageComponent },
-  { path: 'feed', component: FeedPageComponent },
-  { path: 'profile', component: ProfilePageComponent}
+  { path: 'create-account', component: CreateAccountComponent},
+  { path: 'reset-password', component: ResetPasswordComponent},
+  { path: 'map', component: MapPageComponent, canActivate: [AuthGuard] },
+  { path: 'messaging', component: MessagingPageComponent, canActivate: [AuthGuard] },
+  { path: 'feed', component: FeedPageComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

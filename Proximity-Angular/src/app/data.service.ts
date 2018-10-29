@@ -1,29 +1,34 @@
 import { Injectable } from '@angular/core';
 import { User } from './models/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginResponse } from './models/login-response';
 import { Location } from './models/location';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+
+  }
   baseUrl = 'http://104.42.175.128';
 
+
   login(user: User){
-    var response: LoginResponse;
-    this.http.post<LoginResponse>(this.baseUrl + '/account/v1/login', user)
-      .subscribe(res =>{
-        console.log(res.message);
-        response = res;
-      },
-			error => {
-        console.log(error)
-        response = error;
-      });
+    return this.http.post<any>(this.baseUrl + '/account/v1/login', user)
+      .pipe( map(usr => {
+        if (usr && usr.token) {
+          sessionStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return usr;
+      }));
+  }
+
+  logout(){
+    sessionStorage.removeItem('currentUser');
   }
 
   createAccount(username: string, password: string){

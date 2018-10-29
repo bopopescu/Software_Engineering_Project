@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +14,7 @@ import { MapPageComponent } from './map-page/map-page.component';
 import { MessagingPageComponent } from './messaging-page/messaging-page.component';
 import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { JwtInterceptor } from './models/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     MapPageComponent,
     MessagingPageComponent,
     FeedPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +35,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     RouterModule.forRoot(routes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
