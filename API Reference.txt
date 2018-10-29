@@ -1,0 +1,124 @@
+1) Create new user
+
+url: 104.42.175.128/account/v1/create
+
+header: None
+
+body:
+{
+	"username": <username>,
+	"password": <password>
+}
+
+
+2) Login
+
+url: 104.42.175.128/account/v1/login
+
+header: None
+
+body:
+{
+	"username": <username>,
+	"password": <password>,
+	"latitude": <latitude>,
+	"longitude": <longitude>
+}
+
+
+3) Change Password
+
+url: 104.42.175.128/account/v1/reset
+
+header: None
+
+{
+	"username": <username>,
+	"old_password": <old password>,
+	"new_password": <new password>
+}
+
+
+4) Add Friend
+
+url: 104.42.175.128/account/v1/friends/new
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"friend_id": <Friend's ID>
+}
+
+
+5) Get Friends
+
+url: 104.42.175.128/account/v1/friends/fetch
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"Anything": "Anything"  # I messed this up a little, it does a check on the body of the request but an empty body returns false so just put literally anything in it. I'll fix that soon.
+}
+
+
+6) Send Message
+
+url: 104.42.175.128/message/v1/send
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"to_id": <Recipient ID>,
+	"body": <Message>
+}
+
+
+7) Get Messages
+
+url: 104.42.175.128/message/v1/fetch
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"to_id": <Recipient ID>
+}
+
+
+8) Create Post
+
+url: 104.42.175.128/feed/v1/create
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"title": <Title>,
+	"body": <Post body>,
+	"group_id": <Group ID, 0 for global>,
+	"latitude": <Latitude>,
+	"longitude": <Longitude>
+}
+
+
+9) Get Posts
+
+url: 104.42.175.128/feed/v1/fetch
+
+header: 
+Authorization: Token <JWT>
+
+body:
+{
+	"latitude": <Latitude>,
+	"longitude": <Longitude>,
+	"group_id": <Group ID, 0 for global>
+}
