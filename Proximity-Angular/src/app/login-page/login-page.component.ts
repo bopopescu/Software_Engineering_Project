@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 @Component({
 	selector: 'app-login-page',
@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginPageComponent implements OnInit {
 
-	constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
+	constructor(private fb: FormBuilder, private dataService: DataService) { }
 
 	loginForm = this.fb.group({
 		username: ['', Validators.required],
@@ -36,13 +36,7 @@ export class LoginPageComponent implements OnInit {
 				console.log('Unable to get location');
 			}
 		);
-		this.httpClient.post<User>('104.42.175.128/login', this.user)
-			.subscribe(response => {
-				console.log(response);
-			},
-			error => {
-				console.log(error);
-			});
+		this.dataService.login(this.user);
 	}
 }
 

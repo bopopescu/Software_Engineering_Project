@@ -9,6 +9,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MapPageComponent } from './map-page/map-page.component';
+import { MessagingPageComponent } from './messaging-page/messaging-page.component';
+import { FeedPageComponent } from './feed-page/feed-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -18,7 +21,10 @@ describe('AppComponent', () => {
         LoginPageComponent,
         CreateAccountComponent,
         ResetPasswordComponent,
-        MapPageComponent
+        MapPageComponent,
+        MessagingPageComponent,
+        FeedPageComponent,
+        ProfilePageComponent
       ],
       imports: [RouterModule.forRoot(routes),
       ReactiveFormsModule],

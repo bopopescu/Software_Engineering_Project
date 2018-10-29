@@ -3,6 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginPageComponent } from './login-page.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { log } from 'util';
+import { DataService } from '../data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('LoginPageComponent', () => {
 	let component: LoginPageComponent;
@@ -10,9 +12,9 @@ describe('LoginPageComponent', () => {
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			imports: [ReactiveFormsModule],
+			imports: [ReactiveFormsModule, HttpClientModule],
 			declarations: [LoginPageComponent],
-			providers: [FormBuilder]
+			providers: [FormBuilder, DataService]	
 		})
 			.compileComponents();
 	}));

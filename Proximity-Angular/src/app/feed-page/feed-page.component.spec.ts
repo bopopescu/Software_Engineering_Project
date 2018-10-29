@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedPageComponent } from './feed-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 describe('FeedPageComponent', () => {
   let component: FeedPageComponent;
@@ -8,7 +10,9 @@ describe('FeedPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FeedPageComponent ]
+      declarations: [ FeedPageComponent ],
+      imports: [ HttpClientModule ],
+      providers: [ DataService ]
     })
     .compileComponents();
   }));
