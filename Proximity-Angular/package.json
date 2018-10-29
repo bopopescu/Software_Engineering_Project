@@ -24,6 +24,7 @@
     "@types/googlemaps": "^3.30.16",
     "angular-google-maps": "^2.4.1",
     "core-js": "^2.5.4",
+    "jasmine-marbles": "^0.4.0",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },

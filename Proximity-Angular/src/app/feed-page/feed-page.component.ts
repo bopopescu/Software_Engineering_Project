@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-feed-page',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedPageComponent implements OnInit {
 
-  constructor() { }
-
+  messages: Observable<string[]>;
+  
+  constructor(private dataService: DataService) { }
+  
   ngOnInit() {
+    this.messages = this.dataService.getFeed();
+    this.messages.subscribe();
   }
 
 }
