@@ -38,7 +38,7 @@ def account_create():
 	return jsonify(response), 200
 
 
-@account_api.route('/login')
+@account_api.route('/login', methods=['POST'])
 def account_login():
 	body = request.get_json()
 
