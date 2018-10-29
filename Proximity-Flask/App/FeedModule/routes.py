@@ -17,7 +17,7 @@ from App import (
 
 feed_api = Blueprint('FeedModule', __name__)
 
-@feed_api.route('/create')
+@feed_api.route('/create', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def create_post(user):
 	print("Creating post for: ", user.id)
@@ -71,7 +71,7 @@ def get_posts(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/delete')
+@feed_api.route('/delete', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def delete_post(user):
 	body = request.get_json()

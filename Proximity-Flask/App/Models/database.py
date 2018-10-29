@@ -90,7 +90,7 @@ class DatabaseController:
 		"""
 		query_string = "UPDATE {} SET latitude = %s, longitude = %s WHERE id = %s".format(self._config.user_table)
 		# print("{} {}".format(latitude, longitude))
-		self._cursor.execute(query_string , (latitude, longitude, user_id))
+		self._cursor.execute(query_string, (latitude, longitude, user_id))
 		self._database.commit()
 
 		return True
@@ -176,7 +176,7 @@ class DatabaseController:
 		"""
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
-		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( latitude ) ) ) ) AS distance FROM {} INNER JOIN User ON Post.user_id = User.id WHERE group_id = %s HAVING distance < {} ORDER BY distance".format(lat, long, lat, self._config.post_table, radius)
+		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN User ON Post.user_id = User.id WHERE group_id = %s HAVING distance < {} ORDER BY distance".format(lat, long, lat, self._config.post_table, radius)
 
 		print(query_string)
 
