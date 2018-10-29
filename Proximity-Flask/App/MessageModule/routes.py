@@ -17,7 +17,7 @@ from App import (
 
 message_api = Blueprint('MessageModule', __name__)
 
-@message_api.route('/send')
+@message_api.route('/send', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def send_message(user):
 	body = request.get_json()

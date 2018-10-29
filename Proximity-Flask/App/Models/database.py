@@ -90,7 +90,7 @@ class DatabaseController:
 		"""
 		query_string = "UPDATE {} SET latitude = %s, longitude = %s WHERE id = %s".format(self._config.user_table)
 		# print("{} {}".format(latitude, longitude))
-		self._cursor.execute(query_string , (latitude, longitude, user_id))
+		self._cursor.execute(query_string, (latitude, longitude, user_id))
 		self._database.commit()
 
 		return True

@@ -17,7 +17,7 @@ from App import (
 
 account_api = Blueprint('AccountModule', __name__)
 
-@account_api.route('/create')
+@account_api.route('/create', methods=['POST'])
 def account_create():
 	body = request.get_json()
 
@@ -70,7 +70,7 @@ def account_login():
 	return jsonify(response), 200
 
 
-@account_api.route('/reset')
+@account_api.route('/reset', methods=['POST'])
 def password_reset():
 	body = request.get_json()
 
@@ -95,7 +95,7 @@ def password_reset():
 	return jsonify(response), 200
 
 
-@account_api.route('/friends/new')
+@account_api.route('/friends/new', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def new_friend(user):
 	body = request.get_json()
