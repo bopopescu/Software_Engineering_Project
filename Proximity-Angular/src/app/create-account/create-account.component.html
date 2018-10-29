@@ -10,11 +10,9 @@
     <label>Please re-enter your password: </label>
     <input formControlName="passwordCheck" placeholder="Password" type="password">
 		<br>
-		<button routerLink="/comfirm-account-creation" type="submit">Create Account</button>
+		<button type="submit">Create Account</button>
     <br>
     <span>{{ isValid ? ' ' : 'Passwords do not match' }}</span>
-		<br>
-		<button routerLink="/create-account">Create an Account</button>
 		<br>
 		<button routerLink="/reset-password">Forgot Password</button>
 		<br>

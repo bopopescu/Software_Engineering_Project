@@ -37,7 +37,7 @@ export class MapPageComponent implements OnInit {
   isHidden = false;
 
   ngOnInit() {
-   this.httpClient.get<Location[]>("url").subscribe(
+   this.httpClient.get<Location[]>("104.42.175.128/friends/fetch").subscribe(
      locations => {
        for(var i = 0;i < this.friendMarkers.length; i++){
          this.friendMarkers[i].setMap(null);
@@ -67,19 +67,20 @@ export class MapPageComponent implements OnInit {
         })
         this.groupMarkers.push(marker);
       }
-
   })
   }
 
-  // ngAfterContentInit() {
-  //   let mapProp = {
-  //     center: new google.maps.LatLng(18.5793, 73.8143),
-  //     zoom: 15,
-  //     mapTypeId: google.maps.MapTypeId.ROADMAP
-  //   };
-  //   this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
-  //   this.setToCurrentLocation();
-  // }
+  ngAfterContentInit() {
+    this.initMap();
+    let mapProp = {
+      center: new google.maps.LatLng(this.latitude, this.longitude),
+      zoom: 15,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    this.setToCurrentLocation();
+    
+  }
 
   setToCurrentLocation() {
     if (navigator.geolocation) {
@@ -99,27 +100,6 @@ export class MapPageComponent implements OnInit {
     this.map.panTo(location);
   }
 
-  simpleMarkerHandler() {
-    alert('Simple Component\'s function...');
-  }
-
-  showCustomMarker(locations: Location[]) {
-
-
-    this.map.setCenter(new google.maps.LatLng(this.latitude, this.longitude));
-
-    let location = new google.maps.LatLng(this.latitude, this.longitude);
-
-    console.log(`selected marker: ${this.selectedMarkerType}`);
-
-    let marker = new google.maps.Marker({
-      position: location,
-      map: this.map,
-      icon: this.iconBase + this.selectedMarkerType,
-      title: 'Got you!'
-    });
-    
-  }
   initMap() {
     var infoWindow = new google.maps.InfoWindow;
 
