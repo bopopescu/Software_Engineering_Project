@@ -14,7 +14,6 @@ import { DataService } from '../data.service';
 
 export class MapPageComponent implements OnInit {
 	constructor(private dataService: DataService) { }
-	$locations: Observable<Location[]>;
 
 	@ViewChild('gmap') gmapElement: any;
 	map: google.maps.Map;
@@ -74,28 +73,21 @@ export class MapPageComponent implements OnInit {
 	}
 
 	initMap() {
-		var mapProp;
+		var mapProp = {
+			center: new google.maps.LatLng(38.951706, -92.334068),
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
 				position => {
 					this.latitude = position.coords.latitude;
 					this.longitude = position.coords.longitude;
-					mapProp = {
-						center: new google.maps.LatLng(this.latitude, this.longitude),
-						zoom: 15,
-						mapTypeId: google.maps.MapTypeId.ROADMAP
-					}
-					this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+					this.map.setCenter(new google.maps.LatLng(this.latitude, this.longitude));
 				}
 			)
-		}
-		else {
-			mapProp = {
-				center: new google.maps.LatLng(0, 0),
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-		this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
 		}
 	}
 }

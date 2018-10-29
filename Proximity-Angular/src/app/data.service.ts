@@ -15,7 +15,7 @@ export class DataService {
 
   login(user: User){
     var response: LoginResponse;
-    this.http.post<LoginResponse>(this.baseUrl + '/login', user)
+    this.http.post<LoginResponse>(this.baseUrl + '/account/v1/login', user)
       .subscribe(res =>{
         console.log(res.message);
         response = res;
@@ -31,8 +31,7 @@ export class DataService {
       username: username,
       password: password
     }
-
-    this.http.post(this.baseUrl + '/create', account)
+    this.http.post(this.baseUrl + '/account/v1/create', account)
 			.subscribe(
 				response => 
 					console.log(response),
@@ -42,11 +41,11 @@ export class DataService {
   }
 
   getFriends(): Observable<Location[]>{
-    return this.http.get<Location[]>(this.baseUrl + '/friends/fetch')
+    return this.http.get<Location[]>(this.baseUrl + '/account/v1/friends/fetch')
   }
 
   getFeed(): Observable<string[]>{
-    return this.http.get<string[]>(this.baseUrl + '/fetch');
+    return this.http.get<string[]>(this.baseUrl + '/feed/v1/fetch');
   }
 
 }
