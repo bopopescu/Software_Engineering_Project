@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './models/user';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { LoginResponse } from './models/login-response';
 import { Location } from './models/location';
 import { Observable } from 'rxjs';
@@ -45,12 +45,17 @@ export class DataService {
 			)
   }
 
-  getFriends(): Observable<Location[]>{
-    return this.http.get<Location[]>(this.baseUrl + '/account/v1/friends/fetch')
+  getFriends(): Observable<any>{
+    return this.http.get<any>(this.baseUrl + '/account/v1/friends/fetch');
   }
 
-  getFeed(): Observable<string[]>{
-    return this.http.get<string[]>(this.baseUrl + '/feed/v1/fetch');
+  getFeed(lat: number, long: number): Observable<any>{
+    // var params = new HttpParams();
+
+    // params.append('latitude', lat.toString());
+    // params.append('longitude', long.toString());
+
+    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {latitude: lat, longitude: long});
   }
 
 }

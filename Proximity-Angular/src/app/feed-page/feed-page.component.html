@@ -8,13 +8,13 @@
       </div>
       <div id="newsFeed" class="col-12">
             
-          <div *ngFor="let post of posts" class="w3-panel w3-card w3-white">
+          <div *ngFor="let post of posts.posts" class="w3-panel w3-card w3-white">
               <div class="w3-display-container">
 
                 <span>{{post.user_id}}</span>
-            ass="w3-display-topmiddle">{{post.title}}</span>
-                <img src={{post.prof_pic}} alt="Avatar" class="w3-left w3-circle w3-margin-right" 
-                  style="width:60px">
+                <span class="w3-display-topmiddle">{{post.title}}</span>
+                <!-- <img src={{post.prof_pic}} alt="Avatar" class="w3-left w3-circle w3-margin-right" 
+                  style="width:60px"> -->
                 <p>   
                     {{post.body}}
                 </p>

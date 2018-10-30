@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-feed-page',
@@ -12,20 +13,17 @@ import { HttpClient } from "@angular/common/http";
 })
 export class FeedPageComponent implements OnInit {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private dataService: DataService) { }
 
-  posts:any;
+  posts:Observable<any>;
 
   ngOnInit() {
-
-    //pulling dummy datat from JSON created to reflect format_posts() in database_format.py
-    //with the additon of profile photos, which we forgot to include in database
-    this.httpClient.get<Location[]>(0).subscribe(posts => {
-
-            console.log(JSON.parse(JSON.stringify(posts)));
-            this.posts=JSON.parse(JSON.stringify(posts));
-    }
-    )
+    navigator.geolocation.getCurrentPosition(position => {
+      this.dataService.getFeed(position.coords.latitude, position.coords.longitude)
+      .subscribe(posts => {
+        console.log(posts);
+        this.posts = posts;
+      })
+    })
   }
-    
 }

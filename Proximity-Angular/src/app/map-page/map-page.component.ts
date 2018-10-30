@@ -13,7 +13,8 @@ import { DataService } from '../data.service';
 
 
 export class MapPageComponent implements OnInit {
-	constructor(private dataService: DataService) { }
+	constructor(private dataService: DataService) {
+	}
 
 	@ViewChild('gmap') gmapElement: any;
 	map: google.maps.Map;
@@ -38,27 +39,26 @@ export class MapPageComponent implements OnInit {
 	ngOnInit() {
 		this.initMap();
 
-		var friends = this.dataService.getFriends();
-		friends.subscribe(
-			locations => {
-				console.log(locations);
-				if(this.friendMarkers){
-
-					for (var i = 0; i < this.friendMarkers.length; i++) {
-						this.friendMarkers[i].setMap(null);
-						this.friendMarkers.length = 0;
-					}
-					for (var i = 0; i < locations.length; i++) {
-						var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
+		this.dataService.getFriends()
+			.subscribe(
+				locations => {
+					// for (var i = 0; i < this.friendMarkers.length; i++) {
+					// 	this.friendMarkers[i].setMap(null);
+					// 	this.friendMarkers.length = 0;
+					// }
+					var loc = locations.friends;
+					for (var i = 0; i < loc.length; i++) {
+						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
 						var marker = new google.maps.Marker({
 							position: position,
-							map: this.map
+							map: this.map,
+							label: loc[i].username
 						})
-						this.friendMarkers.push(marker);
+						// this.friendMarkers.push(marker);
 					}
 				}
-				
-			})
+
+			)
 
 		//  this.httpClient.get<Location[]>("url").subscribe(
 		//   locations => {
