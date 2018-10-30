@@ -20,7 +20,7 @@ export class FeedPageComponent implements OnInit {
 
     //pulling dummy datat from JSON created to reflect format_posts() in database_format.py
     //with the additon of profile photos, which we forgot to include in database
-    this.httpClient.get<Location[]>("assets/testposts.json").subscribe(posts => {
+    this.httpClient.get<Location[]>(0).subscribe(posts => {
 
             console.log(JSON.parse(JSON.stringify(posts)));
             this.posts=JSON.parse(JSON.stringify(posts));
