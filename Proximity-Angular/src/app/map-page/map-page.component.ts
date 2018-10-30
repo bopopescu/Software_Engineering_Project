@@ -39,13 +39,29 @@ export class MapPageComponent implements OnInit {
 	ngOnInit() {
 		this.initMap();
 
+		// this.dataService.getFriends()
+		// 	.subscribe(
+		// 		locations => {
+		// 			var loc = locations.friends;
+		// 			for (var i = 0; i < loc.length; i++) {
+		// 				var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
+		// 				var marker = new google.maps.Marker({
+		// 					position: position,
+		// 					map: this.map,
+		// 					label: loc[i].username
+		// 				})
+		// 			}
+		// 		}
+
+		// 	)
+	}
+
+	doThings(){
 		this.dataService.getFriends()
 			.subscribe(
 				locations => {
-					// for (var i = 0; i < this.friendMarkers.length; i++) {
-					// 	this.friendMarkers[i].setMap(null);
-					// 	this.friendMarkers.length = 0;
-					// }
+					console.log(locations);
+					
 					var loc = locations.friends;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
@@ -54,27 +70,9 @@ export class MapPageComponent implements OnInit {
 							map: this.map,
 							label: loc[i].username
 						})
-						// this.friendMarkers.push(marker);
 					}
 				}
-
 			)
-
-		//  this.httpClient.get<Location[]>("url").subscribe(
-		//   locations => {
-		//     for(var i = 0;i < this.groupMarkers.length; i++){
-		//       this.groupMarkers[i].setMap(null);
-		//       this.groupMarkers.length = 0;
-		//     }
-		//     for(var i = 0; i < locations.length; i++){
-		//       var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-		//       var marker = new google.maps.Marker({
-		//         position: position,
-		//         map: this.map
-		//       })
-		//       this.groupMarkers.push(marker);
-		//     }
-		// })
 	}
 
 	initMap() {
