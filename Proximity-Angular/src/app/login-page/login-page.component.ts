@@ -25,10 +25,11 @@ export class LoginPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.dataService.logout();
-		this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 	}
 
 	onSubmit() {
+		this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+		
 		this.user = new User();
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
@@ -41,6 +42,7 @@ export class LoginPageComponent implements OnInit {
 				.pipe(first())
 				.subscribe( response => {
 					console.log(response);
+					console.log(this.returnUrl);
 					this.router.navigate([this.returnUrl]);
 				},
 				error =>{
