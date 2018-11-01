@@ -9,10 +9,10 @@ class DefaultConfig:
 	database = "proximity_database"
 
 	""" Databse Config Info """
-	user_table = "User"
+	user_table = "[User]"
 	post_table = "Post"
 	message_table = "Message"
-	group_table = "`Group`"
+	group_table = "[Group]"
 	friendship_table = "Friendship"
 
 	""" Security Info """

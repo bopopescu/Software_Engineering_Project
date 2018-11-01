@@ -44,10 +44,12 @@ def create_post(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/fetch')
+@feed_api.route('/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_posts(user):
 	body = request.get_json()
+
+	print(body, flush=True)
 
 	response = {}
 
@@ -56,8 +58,19 @@ def get_posts(user):
 		longitude = body.get("longitude")
 		group_id = body.get("group_id", 0)
 
+		# print(request.args, flush=True)
+		# print(request.query_string, flush=True)
+
+		# latitude = request.args.get("latitude")
+		# longitude = request.args.get("longitude")
+		# group_id = request.args.get("group_id", 0)
+
+		print("{} {}".format(latitude, longitude), flush=True)
+
 		if latitude and longitude:
 			posts = Post.from_list(database.get_posts(latitude, longitude, 100, group_id=group_id))
+
+			print(posts, flush=True)
 
 			if posts:
 				response["message"] = "Posts found."
@@ -67,6 +80,8 @@ def get_posts(user):
 					response["posts"].append(post.get_json())
 			else:
 				response["message"] = "Unable to find posts."
+
+	print(response, flush=True)
 
 	return jsonify(response), 200
 

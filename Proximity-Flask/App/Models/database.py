@@ -1,4 +1,6 @@
 import datetime
+import MySQLdb
+import pyodbc
 
 from werkzeug.security import check_password_hash
 
@@ -7,16 +9,25 @@ from App.Models import (
 	DefaultConfig
 )
 
+CONNECTION_STRING = "Driver={ODBC Driver 17 for SQL Server};Server=tcp:proximitydb.database.windows.net,1433;Database=Proximity;Uid=developer@proximitydb;Pwd=ProximityGroup16;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+
 class DatabaseController:
-	def __init__(self, database, config=None):
+	def __init__(self, database=None, config=None):
 		if not config:
 			config = DefaultConfig()
 
 		self._config = config
+
+		if not database:
+			# database = MySQLdb.connect(
+			# 	host = self._config.host,
+			# 	user = self._config.user,
+			# 	passwd = self._config.password,
+			# 	db = self._config.database
+			# )
+			database = pyodbc.connect(CONNECTION_STRING)
+
 		self._database = database
-
-		self._cursor = self._database.cursor()
-
 
 	""" User Methods """
 
@@ -24,18 +35,19 @@ class DatabaseController:
 		"""
 		Checks if the user account already exists, if it does not, create it
 		"""
-		query_string = "SELECT username FROM {} WHERE username = %s".format(self._config.user_table)
-		print(query_string)
+		cursor = self._database.cursor()
+		query_string = "SELECT username FROM {} WHERE username = ?".format(self._config.user_table)
+		print(query_string, flush=True)
 
-		self._cursor.execute(query_string, (user.username,))
+		cursor.execute(query_string, (user.username,))
 
-		row = self._cursor.fetchone()
-		print(row)
+		row = cursor.fetchone()
+		print(row, flush=True)
 
 		if not row:
-			query_string = "INSERT INTO {} (username, password_hash) VALUES (%s, %s)".format(self._config.user_table)
+			query_string = "INSERT INTO {} (username, password_hash) VALUES (?, ?)".format(self._config.user_table)
 
-			self._cursor.execute(query_string, (user.username, user.password_hash))
+			cursor.execute(query_string, (user.username, user.password_hash))
 			self._database.commit()
 
 			return True
@@ -47,13 +59,14 @@ class DatabaseController:
 		"""
 		Checks if the user credentials are valid for a user in the database
 		"""
-		query_string = "SELECT id, username, password_hash FROM {} WHERE username = %s".format(self._config.user_table)
-		print(query_string)
+		cursor = self._database.cursor()
+		query_string = "SELECT id, username, password_hash FROM {} WHERE username = ?".format(self._config.user_table)
+		print(query_string, flush=True)
 
-		self._cursor.execute(query_string, (user.username,))
+		cursor.execute(query_string, (user.username,))
 
-		row = self._cursor.fetchone()
-		print(row)
+		row = cursor.fetchone()
+		print(row, flush=True)
 
 		if row:
 			if check_password_hash(row[2], user.password):
@@ -67,17 +80,18 @@ class DatabaseController:
 		"""
 		Changes the user's credentials to the new credentials given
 		"""
+		cursor = self._database.cursor()
 		if password:
 			updated_user = User(username=username, password=password)
 
-			query_string = "UPDATE {} SET password_hash=%s WHERE username=%s".format(self._config.user_table)
+			query_string = "UPDATE {} SET password_hash=? WHERE username=?".format(self._config.user_table)
 
-			self._cursor.execute(query_string, (updated_user.password_hash, user.username))
+			cursor.execute(query_string, (updated_user.password_hash, user.username))
 
 		if username:
-			query_string = "UPDATE {} SET username=%s WHERE username=%s".format(self._config.user_table)
+			query_string = "UPDATE {} SET username=? WHERE username=?".format(self._config.user_table)
 
-			self._cursor.execute(query_string, (user.username, user.username))
+			cursor.execute(query_string, (user.username, user.username))
 
 		self._database.commit()
 
@@ -88,9 +102,10 @@ class DatabaseController:
 		"""
 		Updates the user's most recent location
 		"""
-		query_string = "UPDATE {} SET latitude = %s, longitude = %s WHERE id = %s".format(self._config.user_table)
+		cursor = self._database.cursor()
+		query_string = "UPDATE {} SET latitude = ?, longitude = ? WHERE id = ?".format(self._config.user_table)
 		# print("{} {}".format(latitude, longitude))
-		self._cursor.execute(query_string, (latitude, longitude, user_id))
+		cursor.execute(query_string, (latitude, longitude, user_id))
 		self._database.commit()
 
 		return True
@@ -100,11 +115,12 @@ class DatabaseController:
 		"""
 		Get a user from the database
 		"""
-		query_string = "SELECT id, username, latitude, longitude FROM {} WHERE id = %s".format(self._config.user_table)
-		self._cursor.execute(query_string, (user_id,))
-		row = self._cursor.fetchone()
+		cursor = self._database.cursor()
+		query_string = "SELECT id, username, latitude, longitude FROM {} WHERE id = ?".format(self._config.user_table)
+		cursor.execute(query_string, (user_id,))
+		row = cursor.fetchone()
 
-		print(row)
+		print(row, flush=True)
 
 		return row
 
@@ -114,7 +130,8 @@ class DatabaseController:
 		"""
 		Add a new friendship
 		"""
-		query_string = "INSERT INTO {} (first_id, second_id) VALUES (%s, %s)".format(self._config.friendship_table)
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO {} (first_id, second_id) VALUES (?, ?)".format(self._config.friendship_table)
 
 		if friendship.user_one > friendship.user_two:
 			first = friendship.user_two
@@ -123,7 +140,7 @@ class DatabaseController:
 			first = friendship.user_one
 			second = friendship.user_two
 
-		self._cursor.execute(query_string, (first, second))
+		cursor.execute(query_string, (first, second))
 		self._database.commit()
 
 		return True
@@ -133,10 +150,11 @@ class DatabaseController:
 		"""
 		Get a list of all friendships a user has
 		"""
-		query_string = "SELECT * FROM {} WHERE first_id = %s OR second_id = %s".format(self._config.friendship_table)
+		cursor = self._database.cursor()
+		query_string = "SELECT * FROM {} WHERE first_id = ? OR second_id = ?".format(self._config.friendship_table)
 
-		self._cursor.execute(query_string, (user_id, user_id))
-		rows = self._cursor.fetchall()
+		cursor.execute(query_string, (user_id, user_id))
+		rows = cursor.fetchall()
 
 		friends = []
 
@@ -153,7 +171,7 @@ class DatabaseController:
 				friends.append(friend)
 
 
-		print(friends)
+		print(friends, flush=True)
 
 		return friends
 
@@ -164,9 +182,10 @@ class DatabaseController:
 		"""
 		Creates a new post in the post database
 		"""
-		query_string = "INSERT INTO {} (user_id, group_id, title, body, time, latitude, longitude) VALUES (%s, %s, %s, %s, %s, %s, %s)".format(self._config.post_table)
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO {} (user_id, group_id, title, body, time, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?)".format(self._config.post_table)
 
-		self._cursor.execute(query_string, (post.user_id, group_id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
+		cursor.execute(query_string, (post.user_id, group_id, post.title, post.body, datetime.datetime.now(), post.latitude, post.longitude))
 		self._database.commit()
 
 		return True
@@ -176,16 +195,22 @@ class DatabaseController:
 		"""
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
-		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN User ON Post.user_id = User.id WHERE group_id = %s HAVING distance < {} ORDER BY distance".format(lat, long, lat, self._config.post_table, radius)
+		cursor = self._database.cursor()
+		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN [User] ON Post.user_id = [User].id WHERE group_id = ?".format(lat, long, lat, self._config.post_table, radius)
 
-		print(query_string)
+		print(query_string, flush=True)
 
-		self._cursor.execute(query_string, (group_id,))
-		rows = self._cursor.fetchall()
+		cursor.execute(query_string, (group_id,))
+		rows = cursor.fetchall()
 
-		print(rows)
+		print(rows, flush=True)
 
-		return rows
+		filtered_rows = []
+		for row in rows:
+			if row[5] < 50:
+				filtered_rows.append(row)
+
+		return filtered_rows
 
 
 	""" Message Methods """
@@ -194,9 +219,10 @@ class DatabaseController:
 		"""
 		Creates a new message in the message database
 		"""
-		query_string = "INSERT INTO {} (from_id, to_id, body, time) VALUES (%s, %s, %s, %s)".format(self._config.message_table)
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO {} (from_id, to_id, body, time) VALUES (?, ?, ?, ?)".format(self._config.message_table)
 
-		self._cursor.execute(query_string, (message.from_id, message.to_id, message.body, datetime.datetime.now()))
+		cursor.execute(query_string, (message.from_id, message.to_id, message.body, datetime.datetime.now()))
 		self._database.commit()
 
 		return True
@@ -206,6 +232,7 @@ class DatabaseController:
 		"""
 		Gets all messages with the given ids
 		"""
+		cursor = self._database.cursor()
 		query_string = """
 			SELECT from_id, to_id, body, time FROM {} 
 		""".format(self._config.message_table)
@@ -213,23 +240,25 @@ class DatabaseController:
 		rows = None
 
 		if to_id != None and from_id == None:
-			query_string += " WHERE to_id = %s"
-			self._cursor.execute(query_string, (to_id,))
-			rows = self._cursor.fetchall()
+			query_string += " WHERE to_id = ?"
+			cursor.execute(query_string, (to_id,))
+			rows = cursor.fetchall()
 
 		elif to_id == None and from_id != None:
-			query_string += " WHERE from_id = %s"
-			self._cursor.execute(query_string, (from_id,))
-			rows = self._cursor.fetchall()
+			query_string += " WHERE from_id = ?"
+			cursor.execute(query_string, (from_id,))
+			rows = cursor.fetchall()
 
 		elif to_id != None and from_id != None:
-			query_string += " WHERE to_id = %s AND from_id = %s"
-			self._cursor.execute(query_string, (to_id, from_id))
-			rows = self._cursor.fetchall()
+			query_string += " WHERE to_id = ? AND from_id = ?"
+			cursor.execute(query_string, (to_id, from_id))
+			rows = cursor.fetchall()
 
 		else:
-			self._cursor.execute(query_string)
-			rows = self._cursor.fetchall()
+			cursor.execute(query_string)
+			rows = cursor.fetchall()
+
+		print(rows, flush=True)
 
 		return rows
 
@@ -240,9 +269,10 @@ class DatabaseController:
 		"""
 		Creates a new group in the group database
 		"""
-		query_string = "INSERT INTO {} (name, private) VALUES (%s, %s)".format(self._config.group_table)
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO {} (name, private) VALUES (?, ?)".format(self._config.group_table)
 
-		self._cursor.execute(query_string, (group.name, group.private))
+		cursor.execute(query_string, (group.name, group.private))
 		self._database.commit()
 
 		return True

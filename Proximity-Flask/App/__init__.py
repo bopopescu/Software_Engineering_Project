@@ -14,15 +14,15 @@ print("Launching...")
 config = DefaultConfig()
 print("Config used: {}".format(config))
 
-db_conn = MySQLdb.connect(
-	host=config.host,
-	user=config.user,
-	passwd=config.password,
-	db=config.database
-)
-print("Connected to database: {}".format(db_conn))
+# db_conn = MySQLdb.connect(
+# 	host=config.host,
+# 	user=config.user,
+# 	passwd=config.password,
+# 	db=config.database
+# )
+# print("Connected to database: {}".format(db_conn))
 
-database = DatabaseController(db_conn, config)
+database = DatabaseController(None, config)
 print("Database controller used: {}".format(DatabaseController))
 
 

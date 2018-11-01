@@ -123,7 +123,7 @@ def get_friends(user):
 
 	response = {}
 
-	if body:
+	if body != None or True:
 		friends = User.from_list(database.get_friends(user.id))
 
 		if friends:
