@@ -1,5 +1,5 @@
 Run front end tests by making sure you have node installed on computer "install node on mac"
-	- Then go to folder on terminal and type "ng test"
+	- Then go to 1_code/Proximity-Angular folder on terminal and type "ng test"
 
 
 There are two options to run the backend unit tests, either hosting locally or using the instance that is being hosted on an Azure VM.
@@ -12,7 +12,7 @@ In either case:
 
 To host the backend API locally (Ubuntu):
 1) Follow the instructions at https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017 for you OS to install the ODBC drivers
-2) Navigate to the Software_Engineering_Project/Proximity-Flask folder that contains the wsgi.py file
+2) Navigate to the 1_code/Proximity-Flask folder that contains the wsgi.py file
 3) Run "flask run"
 
 

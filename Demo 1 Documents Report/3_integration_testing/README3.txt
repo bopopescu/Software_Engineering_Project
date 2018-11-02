@@ -2,7 +2,7 @@ Run integration tests by making sure you have node installed on computer "instal
 
 The integration test is written by combining unit tests from three components which is create account, login and feed. The map page test code is not working so it will not be part of this demo but will be for the next demo
 
-To run integration test, simply cd to the Proximity-Angular folder on terminal and type "ng e2e", and the program will automatically run integration test and give you back the result of which test failed and which is pass in the console.
+To run integration test, simply cd to 1_code/Proximity-Angular folder on terminal and type "ng e2e", and the program will automatically run integration test and give you back the result of which test failed and which is pass in the console.
 
 ***As for now, the integration tests is not be able to run probably and will give back all failed results, we will try to fix that in the next demo. 
 
