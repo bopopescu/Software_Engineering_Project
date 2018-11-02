@@ -4,7 +4,7 @@ import random
 import json
 import time
 
-LOCAL_ADDRESS = "localhost:5000"
+LOCAL_ADDRESS = "http://127.0.0.1:5000"
 REMOTE_ADDRESS = "http://104.42.175.128"
 
 LATITUDE = 38.951881
@@ -29,8 +29,13 @@ def test_create_account(address):
 		"password": password
 	}
 
-	response = requests.post(address, json=request_body).json()
-	print(response["message"])
+	try:
+		response = requests.post(address, json=request_body).json()
+		print(response["message"])
+	except Exception as error:
+		print("Error executing test_create_account: {}".format(error))
+		raise Exception(str(error))
+
 	return request_body
 
 
@@ -44,10 +49,13 @@ def test_login_account(address, account):
 		"longitude": str(LONGITUDE)
 	}
 
-	response = requests.post(address, json=request_body).json()
-
-	print(response["message"])
-	print("Access token: {}...".format(response["token"][:100]))
+	try:
+		response = requests.post(address, json=request_body).json()
+		print(response["message"])
+		print("Access token: {}...".format(response["token"][:100]))
+	except Exception as error:
+		print("Error executing test_login_account: {}".format(error))
+		raise Exception(str(error))
 
 	return response["token"]
 
@@ -68,9 +76,12 @@ def test_create_posts(address, token):
 			"longitude": str(LONGITUDE + random.uniform(-0.05, 0.05))
 		}
 
-		response = requests.post(address, headers=headers, json=request_body).json()
-
-		print(response["message"])
+		try:
+			response = requests.post(address, headers=headers, json=request_body).json()
+			print(response["message"])
+		except Exception as error:
+			print("Error executing test_create_posts: {}".format(error))
+			raise Exception(str(error))
 
 	print("\n")
 
@@ -87,13 +98,15 @@ def test_fetch_posts(address, token):
 		"longitude": LONGITUDE
 	}
 
-	response = requests.post(address, headers=headers, json=request_body).json()
-
-	print(response["message"])
-
-	for post in response["posts"]:
-		print(json.dumps(post, indent=4))
-		time.sleep(1)
+	try:
+		response = requests.post(address, headers=headers, json=request_body).json()
+		print(response["message"])
+		for post in response["posts"]:
+			print(json.dumps(post, indent=4))
+			time.sleep(1)
+	except Exception as error:
+		print("Error executing test_fetch_posts: {}".format(error))
+		raise Exception(str(error))
 
 
 def test_send_messages(address, token):
@@ -103,15 +116,18 @@ def test_send_messages(address, token):
 		"Authorization": "token {}".format(token)
 	}
 
-	for i in range(1,5):
-		request_body = {
-			"to_id": i,
-			"body": "Test body " + str(i)
-		}
+	try:
+		for i in range(1,5):
+			request_body = {
+				"to_id": i,
+				"body": "Test body " + str(i)
+			}
 
-		response = requests.post(address, headers=headers, json=request_body).json()
-		# print(response)
-		print(response["message"])
+			response = requests.post(address, headers=headers, json=request_body).json()
+			print(response["message"])
+	except Exception as error:
+		print("Error executing test_send_messages: {}".format(error))
+		raise Exception(str(error))
 
 
 def test_fetch_messages(address, token):
@@ -121,14 +137,18 @@ def test_fetch_messages(address, token):
 		"Authorization": "token {}".format(token)
 	}
 
-	for i in range(1,5):
-		request_body = {
-			"to_id": i
-		}
+	try:
+		for i in range(1,5):
+			request_body = {
+				"to_id": i
+			}
 
-		response = requests.get(address, headers=headers, json=request_body).json()
-		print(response["message"])
-		print(json.dumps(response["messages"][0], indent=4))
+			response = requests.get(address, headers=headers, json=request_body).json()
+			print(response["message"])
+			print(json.dumps(response["messages"][0], indent=4))
+	except Exception as error:
+		print("Error executing test_fetch_messages: {}".format(error))
+		raise Exception(str(error))
 	
 
 def test_add_friends(address, token):
@@ -138,13 +158,17 @@ def test_add_friends(address, token):
 		"Authorization": "token {}".format(token)
 	}
 
-	for i in range(2, 5):
-		request_body = {
-			"friend_id": i
-		}
+	try:
+		for i in range(2, 5):
+			request_body = {
+				"friend_id": i
+			}
 
-		response = requests.post(address, headers=headers, json=request_body).json()
-		print(response["message"])
+			response = requests.post(address, headers=headers, json=request_body).json()
+			print(response["message"])
+	except Exception as error:
+		print("Error executing test_add_friends: {}".format(error))
+		raise Exception(str(error))
 
 
 def test_fetch_friends(address, token):
@@ -154,12 +178,16 @@ def test_fetch_friends(address, token):
 		"Authorization": "token {}".format(token)
 	}
 
-	response = requests.get(address, headers=headers).json()
+	try:
+		response = requests.get(address, headers=headers).json()
 
-	print(response["message"])
-	print("Location is updated when the user signs in so these may have null locations")
-	for friend in response["friends"]:
-		print(json.dumps(friend, indent=4))
+		print(response["message"])
+		print("Location is updated when the user signs in so these may have null locations")
+		for friend in response["friends"]:
+			print(json.dumps(friend, indent=4))
+	except Exception as error:
+		print("Error executing test_fetch_friends: {}".format(error))
+		raise Exception(str(error))
 
 """ MAIN EXECUTION """
 
@@ -226,6 +254,7 @@ def main(argv):
 def error_message(argv):
 	print("Invalid command line arguments.\n{} <hosting>".format(argv[0]))
 	print("Hosting choices are '--local' or '--remote'")
+	sys.exit()
 
 if __name__ == "__main__":
 	main(sys.argv)
