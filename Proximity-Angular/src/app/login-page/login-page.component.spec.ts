@@ -6,16 +6,21 @@ import { log } from 'util';
 import { DataService } from '../data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DebugElement } from '@angular/core';
 
 describe('LoginPageComponent', () => {
 	let component: LoginPageComponent;
 	let fixture: ComponentFixture<LoginPageComponent>;
+	let debugElement: DebugElement;
+	let dataService: DataService;
+	let dataServiceSpy;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
 			imports: [ReactiveFormsModule, HttpClientModule],
 			declarations: [LoginPageComponent],
-			providers: [FormBuilder, DataService, ActivatedRoute, Router]	
+			providers: [FormBuilder, DataService, {provide: ActivatedRoute, useValue: '/' },
+			 { provide: Router, useClass: class {router = jasmine.createSpy('router')}} ]	
 		})
 			.compileComponents();
 	}));
@@ -24,6 +29,10 @@ describe('LoginPageComponent', () => {
 		fixture = TestBed.createComponent(LoginPageComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
+
+		debugElement = fixture.debugElement;
+		dataService = debugElement.injector.get(DataService);
+    	dataServiceSpy = spyOn(dataService, 'login');
 	});
 
 	it('should create', () => {

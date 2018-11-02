@@ -6,23 +6,18 @@ import { Observable } from 'rxjs';
   selector: 'app-feed-page',
   templateUrl: './feed-page.component.html',
   styleUrls: ['./feed-page.component.css', '../app.component.css']
-
-  
-
-
 })
 export class FeedPageComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
 
-  posts:Observable<any>;
+  posts = [];
 
   ngOnInit() {
     navigator.geolocation.getCurrentPosition(position => {
       this.dataService.getFeed(position.coords.latitude, position.coords.longitude)
       .subscribe(posts => {
-        console.log(posts);
-        this.posts = posts;
+        this.posts = posts.posts;
       })
     })
   }

@@ -21,7 +21,7 @@ export class MapPageComponent implements OnInit {
 
 	latitude: any;
 	longitude: any;
-	friendMarkers: google.maps.Marker[];
+	friendMarkers: google.maps.Marker[] = [];
 	groupMarkers: google.maps.Marker[];
 
 	iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -38,30 +38,10 @@ export class MapPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.initMap();
-
-		// this.dataService.getFriends()
-		// 	.subscribe(
-		// 		locations => {
-		// 			var loc = locations.friends;
-		// 			for (var i = 0; i < loc.length; i++) {
-		// 				var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
-		// 				var marker = new google.maps.Marker({
-		// 					position: position,
-		// 					map: this.map,
-		// 					label: loc[i].username
-		// 				})
-		// 			}
-		// 		}
-
-		// 	)
-	}
-
-	doThings(){
 		this.dataService.getFriends()
 			.subscribe(
 				locations => {
-					console.log(locations);
-					
+
 					var loc = locations.friends;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
@@ -70,10 +50,13 @@ export class MapPageComponent implements OnInit {
 							map: this.map,
 							label: loc[i].username
 						})
+						this.friendMarkers.push(marker);
 					}
 				}
 			)
 	}
+
+
 
 	initMap() {
 		var mapProp = {
