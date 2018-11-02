@@ -1,0 +1,176 @@
+* {
+    box-sizing: border-box !important;
+}
+#navigation{
+    font-family: 'Times New Roman', Times, serif !important;
+}
+#navigationList {
+    list-style-type: none !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding: 10px !important;
+    background-color: #00A8E8 !important;
+    width: 100% !important;
+}
+.navItem{
+    box-sizing: border-box !important;
+    display: inline-block !important;
+    width: 15% !important;
+    text-align: center !important;
+    
+    border: 1px solid white !important;
+    font-size: 2em !important;   
+}
+a{
+    color: white !important;
+    text-decoration: none !important;
+}
+h1{
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background-color: #003459 !important;
+    font-size: 3em !important;
+    padding-left: 5px !important;
+    padding-bottom: 2px !important;
+    color: white !important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+h2{
+    display: inline !important;
+    padding: 5px !important;
+}
+#main{
+    height: 800px !important;
+    background-color: #007EA7 !important;
+    float: left !important;
+}
+#newsFeed{
+    background-color: #FFE66D !important;
+    height: 650px !important;
+    float: left !important;
+}
+#searchText{
+    margin-left: 15px !important;
+    display: inline !important;
+    font-size: 1.5em !important;
+    font-family: 'Times New Roman', Times, serif !important;
+}
+#searchBarDiv{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#profileDiv{
+    background-color: #FFE66D;
+    height: 700px;
+    padding-top: 100px;
+    border-radius: 15px;
+}
+#profileImage{
+    background-color: aliceblue;
+    height: 250px;
+    width: 250px;
+    margin: 0 auto;
+    border-radius: 50px;
+}
+.searchBar{
+    font-size: 1.1em;
+}
+#nameDiv{
+       text-align: center;
+    font-size: 1.5em;
+}
+#profileInfo{
+    text-align: center;
+    background-color: #003459;
+    height: 200px;
+    color: white;
+}
+#logoDiv, img{
+    height: 275px;
+    width: 275px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 20px;
+}
+#logIn{
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 25px;
+    padding-top: 20px;
+}
+#slogan{
+    width: 250px;
+    text-align: center;
+    margin: 0 auto;
+}
+button{
+    width: 130px;
+    
+}
+#logInForm{
+    text-align: center;
+}
+#map{
+    background-color: green;
+    height: 700px;
+}
+#friends{
+    height: 75px;
+    background-color: #FFE66D;
+}
+.friendsProfiles{
+    margin: 20px;
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+    border-radius: 25px;
+    display: inline-block;
+}
+#messageList{
+    
+}
+.message{
+    height: 70px;
+    background-color: white;
+    width: 100%;
+    font-size: 1.5em;
+}
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+
+
+@media only screen and (min-width: 600px) {
+    /* For tablets: */
+    .col-s-1 {width: 8.33%;}
+    .col-s-2 {width: 16.66%;}
+    .col-s-3 {width: 25%;}
+    .col-s-4 {width: 33.33%;}
+    .col-s-5 {width: 41.66%;}
+    .col-s-6 {width: 50%;}
+    .col-s-7 {width: 58.33%;}
+    .col-s-8 {width: 66.66%;}
+    .col-s-9 {width: 75%;}
+    .col-s-10 {width: 83.33%;}
+    .col-s-11 {width: 91.66%;}
+    .col-s-12 {width: 100%;}
+}
+
+@media only screen and (min-width: 768px ) {
+    /* For desktop: */
+    .col-1 {width: 8.33% !important;}
+    .col-2 {width: 16.66% !important;}
+    .col-3 {width: 25% !important;}
+    .col-4 {width: 33.33% !important;}
+    .col-5 {width: 41.66% !important;}
+    .col-6 {width: 50% !important;}
+    .col-7 {width: 58.33% !important;}
+    .col-8 {width: 66.66% !important;}
+    .col-9 {width: 75% !important;}
+    .col-10 {width: 83.33% !important;}
+    .col-11 {width: 91.66% !important;}
+    .col-12 {width: 100% !important;}
+} 
