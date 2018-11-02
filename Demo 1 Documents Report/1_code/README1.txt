@@ -7,7 +7,7 @@ Go to our Github page (https://github.com/Rdubya54/Software_Engineering_Project)
 Install the latest version of Node.js on your machine.
 
 Open the program “Node.js command prompt”.
-Cd into the downloaded folder. Keep cding until you are inside the folder Proximity Angular.
+Cd into the downloaded folder. Keep cding until you are inside the folder Proximity-Angular.
 
 Now run the command “npm install -g @angular/cli”. This installs Angular on your machine which is required to run our app locally.
 
