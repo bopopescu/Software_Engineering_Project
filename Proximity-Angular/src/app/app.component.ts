@@ -7,5 +7,15 @@ import { RouterModule } from '@angular/router';
 	styleUrls: ['./app.component.css']
 })
 
+
 export class AppComponent{
+	constructor(){
+
+	}
+	str = '<li class="navItem">Logout</li>';
+	logoutDisplay(){
+		if(sessionStorage.getItem('currentUser')){
+			return this.str;
+	}
+	}
 }
