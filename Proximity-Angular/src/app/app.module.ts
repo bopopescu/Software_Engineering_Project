@@ -16,8 +16,6 @@ import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { JwtInterceptor } from './models/jwt-interceptor';
 
-//import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-//import {MatSidenavModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -37,8 +35,6 @@ import { JwtInterceptor } from './models/jwt-interceptor';
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     HttpClientModule
-    //BrowserAnimationsModule,
-    //MatSidenavModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
