@@ -1,3 +1,8 @@
 button, input{
     margin-left: 10px
 }
+
+#main {
+    margin: auto;
+    width: 70%;
+}

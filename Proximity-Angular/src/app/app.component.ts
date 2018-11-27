@@ -1,5 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { MatSidenav, MatSidenavContent, MatSidenavContainer } from 'angular-material';
+import { AuthGuard } from './auth.guard';
 
 @Component({
 	selector: 'app-root',
@@ -9,13 +10,7 @@ import { RouterModule } from '@angular/router';
 
 
 export class AppComponent{
-	constructor(){
-
-	}
-	str = '<li class="navItem">Logout</li>';
-	logoutDisplay(){
-		if(sessionStorage.getItem('currentUser')){
-			return this.str;
-	}
-	}
+	constructor(private auth: AuthGuard){}
+	shouldRun = true;
+	
 }

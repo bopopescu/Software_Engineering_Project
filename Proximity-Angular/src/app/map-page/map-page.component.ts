@@ -8,7 +8,7 @@ import { DataService } from '../data.service';
 @Component({
 	selector: 'app-map-page',
 	templateUrl: './map-page.component.html',
-	styleUrls: ['./map-page.component.css', '../app.component.css']
+	styleUrls: [ '../app.component.css', './map-page.component.css']
 })
 
 
