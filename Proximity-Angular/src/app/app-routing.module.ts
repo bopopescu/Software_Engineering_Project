@@ -18,7 +18,7 @@ export const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent},
   { path: 'map', component: MapPageComponent },
   { path: 'messaging', component: MessagingPageComponent, canActivate: [AuthGuard] },
-  { path: 'feed', component: FeedPageComponent},
+  { path: 'feed', component: FeedPageComponent },
   { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]}
 ];
 

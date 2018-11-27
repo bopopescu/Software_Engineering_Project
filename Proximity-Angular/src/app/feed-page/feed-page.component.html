@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div id="main" class="col-12">
   <div id="inner" class="col-12">
@@ -13,8 +13,8 @@
 
                 <span>{{post.user_id}}</span>
                 <span class="w3-display-topmiddle">{{post.title}}</span>
-                <!-- <img src={{post.prof_pic}} alt="Avatar" class="w3-left w3-circle w3-margin-right" 
-                  style="width:60px"> -->
+                <img src={{post.prof_pic}} alt="Avatar" class="w3-left w3-circle w3-margin-right" 
+                  style="width:60px"> 
                 <p>   
                     {{post.body}}
                 </p>
@@ -30,4 +30,19 @@
 
   <div>  
     </div>
+</div> -->
+
+<div *ngFor="let post of posts">
+    <mat-card>
+        <mat-card-title>{{post.title}}</mat-card-title>
+        <mat-card-subtitle>{{post.user}}</mat-card-subtitle>
+        <!-- <img mat-card-avatar src={{post.prof_pic}}> -->
+        <mat-card-content>{{post.body}}</mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button>Like</button>
+            <button mat-raised-button>Dislike</button>
+            <button mat-raised-button>Comment</button>
+        </mat-card-actions>
+        <mat-card-footer>Distance: {{post.distance}}</mat-card-footer>
+    </mat-card>
 </div>
