@@ -12,7 +12,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/feed', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'create-account', component: CreateAccountComponent},
   { path: 'reset-password', component: ResetPasswordComponent},

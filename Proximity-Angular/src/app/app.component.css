@@ -68,3 +68,7 @@
   button {
       color: "accent";
   }
+
+  mat-side-nav {
+    min-height: 100%;
+  }

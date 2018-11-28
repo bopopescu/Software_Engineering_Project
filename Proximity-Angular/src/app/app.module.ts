@@ -18,6 +18,7 @@ import { MessagingPageComponent } from './messaging-page/messaging-page.componen
 import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { JwtInterceptor } from './models/jwt-interceptor';
+import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { JwtInterceptor } from './models/jwt-interceptor';
     MessagingPageComponent,
     FeedPageComponent,
     ProfilePageComponent,
+    LogoutDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,9 +43,9 @@ import { JwtInterceptor } from './models/jwt-interceptor';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule
-
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LogoutDialogComponent]
 })
 export class AppModule { }
