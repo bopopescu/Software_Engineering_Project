@@ -91,7 +91,8 @@ export class MapPageComponent implements OnInit {
 	}
 
 	private filterSearch(value: string): google.maps.Marker[]{
-		const filterValue = value.toLowerCase();
+		console.log(value.search.toString().toLowerCase());
+		const filterValue = value.search.toString().toLowerCase();
 
 		return this.friendMarkers.filter(marker => marker.getTitle().toLowerCase().includes(filterValue));
 	}
