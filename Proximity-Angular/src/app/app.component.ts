@@ -3,6 +3,7 @@ import { AuthGuard } from './auth.guard';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {LogoutDialogComponent} from './logout-dialog/logout-dialog.component'
+import { UserService } from './user.service';
 
 @Component({
 	selector: 'app-root',
@@ -12,7 +13,7 @@ import {LogoutDialogComponent} from './logout-dialog/logout-dialog.component'
 
 
 export class AppComponent{
-	constructor(private auth: AuthGuard, private router: Router, public dialog: MatDialog){}
+	constructor(private userService: UserService, private auth: AuthGuard, private router: Router, public dialog: MatDialog){}
 	
 	get loggedIn(): Boolean {
 		return this.auth.isLoggedIn();

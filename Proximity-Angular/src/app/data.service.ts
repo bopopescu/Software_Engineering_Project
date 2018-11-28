@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './models/user';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { LoginResponse } from './models/login-response';
-import { Location } from './models/location';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

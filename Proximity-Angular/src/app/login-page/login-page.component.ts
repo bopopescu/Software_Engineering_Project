@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { UserService } from '../user.service';
+import { User } from '../models/user';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { first } from 'rxjs/operators';
 })
 export class LoginPageComponent implements OnInit {
 
-	constructor(private fb: FormBuilder, private dataService: DataService, private route: ActivatedRoute, private router: Router) { }
+	constructor(private fb: FormBuilder, private userService: UserService, private dataService: DataService, private route: ActivatedRoute, private router: Router) { }
 	returnUrl: string;
 
 	loginForm = this.fb.group({
@@ -21,7 +22,7 @@ export class LoginPageComponent implements OnInit {
 		password: ['', Validators.required]
 	})
 
-	user: User;
+	user: any;
 
 	ngOnInit(): void {
 		this.dataService.logout();
@@ -30,19 +31,22 @@ export class LoginPageComponent implements OnInit {
 	onSubmit() {
 		this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 		
-		this.user = new User();
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				console.log(position);
-				this.user.latitude = position.coords.latitude;
-				this.user.latitude = position.coords.longitude;
-				this.user.username = this.loginForm.get('username').value;
-				this.user.password = this.loginForm.get('password').value;
+				var user = {
+					latitude: position.coords.latitude,
+					longitude: position.coords.longitude,
+					username: this.loginForm.get('username').value,
+					password: this.loginForm.get('password').value
+				}
 				this.dataService.login(this.user)
 				.pipe(first())
 				.subscribe( response => {
 					console.log(response);
 					console.log(this.returnUrl);
+					var user = new User(response.name, response.id)
+					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);
 				},
 				error =>{
