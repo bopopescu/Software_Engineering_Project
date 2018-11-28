@@ -1,14 +1,40 @@
-<div id="main" class="col-12">
+<!-- <div id="main" class="col-12">
   <div id="inner" class="col-12">
       <div id="profileDiv">
           <div id="profileImage">
           
           </div>
           <div id="nameDiv"><p>Name Appears Here</p></div>
-      <div id="profileInfo">
-          <p>Profile information will be displayed here</p>
-      </div>
+      <div id="profileInfo"> -->
+<form id="profileData" [formGroup]="profileData" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+        <input matInput type="text" [(ngModel)]="profile.firstName" formControlName="firstName" placeholder="First Name">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" [(ngModel)]="profile.lastName" formControlName="lastName" placeholder="Last Name">
+    </mat-form-field>
+    <mat-divider></mat-divider>
+
+</form>
+<h1>stuff</h1>
+<mat-divider></mat-divider>
+<div *ngFor="let post of profile.posts">
+    <mat-card>
+            <mat-card-title>{{post.title}}</mat-card-title>
+            <mat-card-subtitle>{{post.creator}}</mat-card-subtitle>
+            <!-- <img mat-card-avatar src="../map-page/friend.png"> -->
+        <mat-card-content>{{post.body}}</mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button>Like</button>
+            <button mat-raised-button>Dislike</button>
+            <button mat-raised-button>Comment</button>
+            <button mat-raised-button>Add Friend</button>
+        </mat-card-actions>
+        <mat-card-footer>Distance: {{post.distance}}</mat-card-footer>
+    </mat-card>
+</div>
+<!-- </div>
       </div>
 
   </div>
-</div>
+</div> -->

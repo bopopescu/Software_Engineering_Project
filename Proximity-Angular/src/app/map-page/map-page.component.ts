@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
-import { Location } from "../models/location"
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
@@ -89,23 +88,24 @@ export class MapPageComponent implements OnInit {
 				}
 			)
 	}
-
-	private filterSearch(value: string): google.maps.Marker[]{
-		console.log(value.search.toString().toLowerCase());
-		const filterValue = value.search.toString().toLowerCase();
-
-		return this.friendMarkers.filter(marker => marker.getTitle().toLowerCase().includes(filterValue));
-	}
-
+	
 	search() {
 		var search = this.friendMarkers.find((element) => {
 			return element.getTitle().toLowerCase() == this.searchBar.get('search').value.toLowerCase();
 		});
 
 		if(search){
-			this.map.setCenter(search.getPosition());
+			this.map.panTo(search.getPosition());
 		}
 	}
+
+	private filterSearch(value: string): google.maps.Marker[]{
+		const filterValue = value.search.toString().toLowerCase();
+
+		return this.friendMarkers.filter(marker => marker.getTitle().toLowerCase().includes(filterValue));
+	}
+
+
 
 	private initMap() {
 		var mapProp = {
@@ -124,6 +124,11 @@ export class MapPageComponent implements OnInit {
 				}
 			)
 		}
+
+		this.testData();
+	}
+
+	private testData(){
 		var loc = {
 			name: "bob",
 			distance: 32.7,
@@ -144,7 +149,7 @@ export class MapPageComponent implements OnInit {
 		var marker = new google.maps.Marker({
 			position: position,
 			map: this.map,
-			title: loc.name
+			title: loc.name,
 		})
 
 		marker.addListener('click', () => {

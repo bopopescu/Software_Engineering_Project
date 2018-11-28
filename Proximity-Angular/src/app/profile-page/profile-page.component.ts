@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRouteSnapshot } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from "rxjs";
-import { Friend } from '../models/friend';
+import { User } from '../models/user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -12,26 +13,51 @@ import { Friend } from '../models/friend';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(private dataService: DataService, private activatedRoute: ActivatedRouteSnapshot
-    , private fb: FormBuilder) { }
+  constructor(private dataService: DataService, private activatedRoute: ActivatedRoute
+    , private fb: FormBuilder, private userService: UserService) { }
 
     profileData = this.fb.group({
       firstName: [''],
       lastName: [''],
       email: [''],
-
     })
 
-    profile: Observable<Friend>;
+    // profile: Observable<Friend>;
+    profile: User
 
 
 
   ngOnInit() {
-    var id: Number = this.activatedRoute.params.id;
+    var id: Number = Number.parseInt(this.activatedRoute.snapshot.url[1].path);
+    this.profileData.disable();
     // this.dataService.getProfileInfo(id)
     //   .subscribe(info => {
     //     this.profile = info;
     //   })
+
+    setTimeout(() => {
+      if(id == 5){
+        this.profile =  {
+          firstName: "Miley",
+          lastName: "Cyrus",
+          id: 5,
+          email: "WreckingHoes@Career.gov",
+          posts: [
+            {
+              body: "Something I just wonder what would have happened if I focused more on my career.",
+              creator: "Miley Cyrus",
+              title: "My career is a dump now...",
+            },
+            {
+              body: "Something something daddy issues. JKFDS:JFK:LDFJSK L: Jfkljfakldsfj iaj eilj afis;j flsakjiewjo pdjfkad;slfj a;sdjfs da;fjkas; fjdakl ;fj",
+              creator: "Miley Cyrus",
+              title: "My dad sucks"
+            }
+          ]
+        }
+        console.log(this.profile);
+      }
+    }, 3000);
   }
 
 }

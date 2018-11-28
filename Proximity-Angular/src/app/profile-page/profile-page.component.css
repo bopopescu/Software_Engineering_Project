@@ -1,0 +1,14 @@
+input:disabled {
+    color: black;
+}
+
+mat-card {
+    width: 60%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+mat-card-header {
+    margin: auto;
+    text-align: center;
+}

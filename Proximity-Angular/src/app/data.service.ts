@@ -48,7 +48,7 @@ export class DataService {
   }
 
   getProfileInfo(id: Number): Observable<any>{
-    return this.http.get<any>(this.baseUrl + '/account/v1/id',{params: {id: id.toString()}});
+    return this.http.get<any>(this.baseUrl + '/account/v1/' + id);
   }
 
   getFeed(lat: number, long: number): Observable<any>{
