@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 @Component({
 	selector: 'app-map-page',
 	templateUrl: './map-page.component.html',
-	styleUrls: [ '../app.component.css', './map-page.component.css']
+	styleUrls: ['../app.component.css', './map-page.component.css']
 })
 
 
 export class MapPageComponent implements OnInit {
-	constructor(private dataService: DataService, private router: Router) {
+	constructor(private router: Router, private dataService: DataService ) {
 	}
 
 	@ViewChild('gmap') gmapElement: any;
@@ -45,7 +45,7 @@ export class MapPageComponent implements OnInit {
 					var loc = locations.friends;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
-						var contentString = 
+						var contentString =
 							'<p><b>Name</b>: ' + loc[i].name + '</br>' +
 							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
 							'</p>';
@@ -55,30 +55,30 @@ export class MapPageComponent implements OnInit {
 
 						var marker = new google.maps.Marker({
 							position: position,
-							map: this.map	
+							map: this.map
 						})
 
-						marker.addListener('click', function() {
-							this.router.navigateByUrl("/profile/{{loc[i].id}}");
+						marker.addListener('click', () => {
+							this.router.navigateByUrl('/profile/' + loc.id);
 						});
 
-						marker.addListener('mouseover', function() {
+						marker.addListener('mouseover', () => {
 							infoWindow.open(this.map, marker);
 						});
-						
-						marker.addListener('mouseout', function() {
+
+						marker.addListener('mouseout', () => {
 							infoWindow.close();
 						});
-						
-						this.friendMarkers.push(marker);
+						setTimeout(() => {
+							this.friendMarkers.push(marker);
+						}, 100);
 					}
 				}
 			)
 	}
 
 
-
-	initMap() {
+	private initMap() {
 		var mapProp = {
 			center: new google.maps.LatLng(38.951706, -92.334068),
 			zoom: 15,
@@ -95,5 +95,38 @@ export class MapPageComponent implements OnInit {
 				}
 			)
 		}
+		var loc = {
+			name: "bob",
+			distance: 32.7,
+			latitude: 38.951706,
+			longitude: -92.334068,
+			id: 1
+
+		}
+		var position = new google.maps.LatLng(loc.latitude, loc.longitude);
+						var contentString =
+							'<p><b>Name</b>: ' + loc.name + '</br>' +
+							'<b>Distance</b>: ' + loc.distance + '</br>' +
+							'</p>';
+						var infoWindow = new google.maps.InfoWindow({
+							content: contentString
+						})
+
+						var marker = new google.maps.Marker({
+							position: position,
+							map: this.map
+						})
+
+						marker.addListener('click',() => {
+							this.router.navigateByUrl("/profile/" + loc.id);
+						});
+
+						marker.addListener('mouseover', () => {
+							infoWindow.open(this.map, marker);
+						});
+
+						marker.addListener('mouseout',() => {
+							infoWindow.close();
+						});
 	}
 }

@@ -19,7 +19,7 @@ export const routes: Routes = [
   { path: 'map', component: MapPageComponent },
   { path: 'messaging', component: MessagingPageComponent, canActivate: [AuthGuard] },
   { path: 'feed', component: FeedPageComponent },
-  { path: 'profile/:userId', component: ProfilePageComponent, canActivate: [AuthGuard]}
+  { path: 'profile/:userId', component: ProfilePageComponent}
 ];
 
 @NgModule({
