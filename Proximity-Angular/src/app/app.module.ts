@@ -19,6 +19,7 @@ import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { JwtInterceptor } from './models/jwt-interceptor';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
     FeedPageComponent,
     ProfilePageComponent,
     LogoutDialogComponent,
+    HomePageComponent,
   ],
   imports: [
     BrowserModule,
