@@ -52,12 +52,9 @@ def get_messages(user):
 			messages = Message.from_list(database.get_messages(to_id, from_id))
 
 			if messages:
-				response["message"] = "Messages found."
-				response["messages"] = []
+				response = []
 
 				for message in messages:
-					response["messages"].append(message.get_json())
-			else:
-				response["message"] = "Unable to find messages."
+					response.append(message.get_json())
 
 	return jsonify(response), 200

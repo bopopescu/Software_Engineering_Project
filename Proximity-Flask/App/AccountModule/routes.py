@@ -127,12 +127,9 @@ def get_friends(user):
 		friends = User.from_list(database.get_friends(user.id))
 
 		if friends:
-			response["message"] = "Friends found."
-			response["friends"] = []
+			response = []
 
 			for friend in friends:
-				response["friends"].append(friend.get_json())
-		else:
-			response["message"] = "Unable to find friends."
+				response.append(friend.get_json())
 
 	return jsonify(response), 200
