@@ -1,25 +1,17 @@
-export class User {
-	private id: Number;
-	private name: String
+import { Friend } from "./friend";
+export class User extends Friend{
+    constructor(id: Number, name: String, friends: Array<Friend>){
+        super(name, id);
+        this.friends = friends;
+    } 
 
-	constructor(name: String, id: Number){
-		this.name = name;
-		this.id = id;
-	}
+    private friends: Array<Friend>;
 
-	getId(){
-		return this.id;
-	}
+    getFriends(): Array<Friend>{
+        return this.friends;
+    }
 
-	setId(id: Number){
-		this.id = id;
-	}
-
-	getName(){
-		return this.name;
-	}
-
-	setName(name: String){
-		this.name = name;
-	}
+    addFriend(friend: Friend){
+        this.friends.concat(friend);
+    }
 }

@@ -45,7 +45,7 @@ export class LoginPageComponent implements OnInit {
 				.subscribe( response => {
 					console.log(response);
 					console.log(this.returnUrl);
-					var user = new User(response.name, response.id)
+					var user = new User(response.name, response.id, response.friends)
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);
 				},

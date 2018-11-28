@@ -15,10 +15,7 @@ export class UserService {
   }
 
   getId(): Number{
-    if(this.user){
-      return this.user.getId();
-    }
-    return -1;
+    return this.user.getId();
   }
 
   getUser(): User{
