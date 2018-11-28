@@ -1,9 +1,11 @@
 export class Friend {
 	private id: Number;
-	private name: String
+	private lastName: String
+	private firstName: String
 
-	constructor(name: String, id: Number){
-		this.name = name;
+	constructor(firstName: String, lastName: String, id: Number){
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.id = id;
 	}
 
@@ -16,10 +18,11 @@ export class Friend {
 	}
 
 	getName(){
-		return this.name;
+		return this.firstName + " " + this.lastName;
 	}
 
-	setName(name: String){
-		this.name = name;
+	setName(firstName: String, lastName: String){
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 }

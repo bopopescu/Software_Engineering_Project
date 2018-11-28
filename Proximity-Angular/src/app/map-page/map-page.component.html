@@ -1,4 +1,4 @@
-<div id="main" class="col-12">
+<!-- <div id="main" class="col-12">
   <div id="inner" class="col-12">
     <div id="searchBarDiv" class="col-12">
       <p id="searchText">Search For Posts or Events on Map: </p>
@@ -7,4 +7,21 @@
     <div #gmap style="width:100%;height:400px"></div>
   </div>
   <button (click)="doThings()">Populate map</button>
-</div>
+</div> -->
+
+<form id="searchBar" [formGroup]="searchBar" (ngSubmit)="search()">
+
+<mat-form-field>
+  <input matInput type="text" formControlName="search" placeholder="Search friends" [matAutocomplete]='auto'>
+</mat-form-field>
+<button mat-raised-button (click)='search()' type="submit">Search</button>
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let result of results | async" [value]="result">
+    {{ result.getTitle() }}
+  </mat-option>
+</mat-autocomplete>
+
+</form>
+
+<div #gmap style="width:100%;height:400px"></div>

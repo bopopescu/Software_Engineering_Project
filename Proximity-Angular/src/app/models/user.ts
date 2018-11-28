@@ -1,7 +1,7 @@
 import { Friend } from "./friend";
 export class User extends Friend{
-    constructor(id: Number, name: String, friends: Array<Friend>){
-        super(name, id);
+    constructor(id: Number, firstName: String, lastName: String, friends: Array<Friend>, ){
+        super(firstName, lastName, id);
         this.friends = friends;
     } 
 

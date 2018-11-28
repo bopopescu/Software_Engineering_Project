@@ -47,13 +47,17 @@ export class DataService {
     return this.http.get<any>(this.baseUrl + '/account/v1/friends/fetch');
   }
 
+  getProfileInfo(id: Number): Observable<any>{
+    return this.http.get<any>(this.baseUrl + '/account/v1/id',{params: {id: id.toString()}});
+  }
+
   getFeed(lat: number, long: number): Observable<any>{
     // var params = new HttpParams();
 
     // params.append('latitude', lat.toString());
     // params.append('longitude', long.toString());
 
-    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {latitude: lat, longitude: long});
+    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {params: {latitude: lat, longitude:long} });
   }
 
 }

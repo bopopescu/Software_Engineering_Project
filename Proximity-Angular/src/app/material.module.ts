@@ -10,7 +10,8 @@ import {
   MatSidenavModule,
   MatFormFieldModule,
   MatInputModule,
-  MatDialogModule
+  MatDialogModule,
+  MatAutocompleteModule
 
 } from '@angular/material';
 
@@ -31,7 +32,8 @@ import {
     MatSidenavModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule {}
