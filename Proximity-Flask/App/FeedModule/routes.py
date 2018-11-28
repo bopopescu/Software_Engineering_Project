@@ -77,6 +77,8 @@ def get_posts(user):
 
 				for post in posts:
 					response.append(post.get_json())
+			else:
+				response["message"] = "Unable to find posts."
 
 	print(response, flush=True)
 

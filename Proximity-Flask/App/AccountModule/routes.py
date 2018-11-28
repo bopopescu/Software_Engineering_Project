@@ -131,5 +131,7 @@ def get_friends(user):
 
 			for friend in friends:
 				response.append(friend.get_json())
+		else:
+			response["message"] = "Unable to find friends."
 
 	return jsonify(response), 200

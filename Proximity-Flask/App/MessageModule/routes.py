@@ -56,5 +56,7 @@ def get_messages(user):
 
 				for message in messages:
 					response.append(message.get_json())
+			else:
+				response["message"] = "Unable to find messages."
 
 	return jsonify(response), 200
