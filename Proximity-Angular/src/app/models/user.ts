@@ -16,13 +16,13 @@
 //     }
 // }
 import{ Post } from "./post"
+import { Location } from "./location"
 export interface User{
     firstName: String
     lastName: String
     id: Number
     email: String
-    latitude?: Number
-    longitude?: Number
+    location: Location
     posts?: Array<Post>
     friends?: Array<User>
 }

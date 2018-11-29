@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { CreateAccountComponent } from './create-account.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { DebugElement } from '@angular/core';
 
 describe('CreateAccountComponent', () => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from "./models/user"
+import { User } from "../models/user"
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,14 @@ export class UserService {
 
   constructor() { }
 
-  user: User; 
+  private user: User; 
 
   setUser(user: User){
     this.user = user;
   }
 
   getId(): Number{
-    return this.user.getId();
+    return this.user.id;
   }
 
   getUser(): User{

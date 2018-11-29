@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
@@ -88,7 +88,7 @@ export class MapPageComponent implements OnInit {
 				}
 			)
 	}
-	
+
 	search() {
 		var search = this.friendMarkers.find((element) => {
 			return element.getTitle().toLowerCase() == this.searchBar.get('search').value.toLowerCase();

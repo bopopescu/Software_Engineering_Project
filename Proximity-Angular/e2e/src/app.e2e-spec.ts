@@ -11,7 +11,7 @@ import { LoginPageComponent } from '../../src/app/login-page/login-page.componen
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from '../../src/app/data.service';
+import { DataService } from '../../src/app/services/data.service';
 import { DebugElement } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 

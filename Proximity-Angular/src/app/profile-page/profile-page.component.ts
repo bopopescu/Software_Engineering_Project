@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from "rxjs";
 import { User } from '../models/user';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -42,6 +42,10 @@ export class ProfilePageComponent implements OnInit {
           lastName: "Cyrus",
           id: 5,
           email: "WreckingHoes@Career.gov",
+          location: {
+            lat: 50,
+            long: 20
+          },
           posts: [
             {
               body: "Something I just wonder what would have happened if I focused more on my career.",
@@ -53,7 +57,7 @@ export class ProfilePageComponent implements OnInit {
               creator: "Miley Cyrus",
               title: "My dad sucks"
             }
-          ]
+          ]          
         }
         console.log(this.profile);
       }

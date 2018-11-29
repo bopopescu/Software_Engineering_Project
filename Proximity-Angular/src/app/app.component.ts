@@ -1,9 +1,9 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './services/auth.guard';
 import { Router } from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {LogoutDialogComponent} from './logout-dialog/logout-dialog.component'
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 
 @Component({
 	selector: 'app-root',

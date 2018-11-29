@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginPageComponent } from './login-page.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { log } from 'util';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DebugElement } from '@angular/core';

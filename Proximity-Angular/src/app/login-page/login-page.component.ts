@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 
 
@@ -25,7 +25,7 @@ export class LoginPageComponent implements OnInit {
 	user: any;
 
 	ngOnInit(): void {
-		this.dataService.logout();
+		// this.dataService.logout();
 	}
 
 	onSubmit() {
@@ -43,9 +43,14 @@ export class LoginPageComponent implements OnInit {
 				this.dataService.login(this.user)
 				.pipe(first())
 				.subscribe( response => {
-					console.log(response);
-					console.log(this.returnUrl);
-					var user = new User(response.firstName, response.lastName, response.id, response.friends)
+					console.log("Successful Login");
+					var user: User = {
+						firstName: response.firstName,
+						lastName: response.lastName,
+						email: response.email,
+						id: response.id,
+						location: response.location
+					}
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);
 				},
