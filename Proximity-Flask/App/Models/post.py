@@ -1,4 +1,3 @@
-from App.Models import User
 from App.Models import _BaseModel
 
 class Post(_BaseModel):

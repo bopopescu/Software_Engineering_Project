@@ -207,7 +207,7 @@ class DatabaseController:
 
 		filtered_rows = []
 		for row in rows:
-			if row[5] < 50:
+			if row[5] < radius:
 				filtered_rows.append(row)
 
 		return filtered_rows
@@ -270,9 +270,65 @@ class DatabaseController:
 		Creates a new group in the group database
 		"""
 		cursor = self._database.cursor()
-		query_string = "INSERT INTO {} (name, private) VALUES (?, ?)".format(self._config.group_table)
+		query_string = "INSERT INTO {} (owner, name, private, latitude, longitude) VALUES (?, ?, ?, ?, ?)".format(self._config.group_table)
 
-		cursor.execute(query_string, (group.name, group.private))
+		cursor.execute(query_string, (group.owner, group.name, group.private, group.latitude, group.longitude))
 		self._database.commit()
 
 		return True
+
+
+	def get_groups(self, lat, long):
+		"""
+		Fetches a list of groups that were created nearby
+		"""
+		cursor = self._database.cursor()
+		distance_string = get_distance_string(lat, long, "[Group]")
+		query_string = "SELECT *, {} FROM {}".format(distance_string, "[Group]")
+
+		cursor.execute(query_string)
+		rows = cursor.fetchall()
+
+		print(rows, flush=True)
+
+		# filtered_rows = []
+		# for row in rows:
+		# 	if row[5] < 50:
+		# 		filtered_rows.append(row)
+
+		return rows
+
+
+	def delete_group(self, group_id):
+		"""
+		Deletes a group from the group table
+		"""
+		cursor = self._database.cursor()
+
+		query_string = "DELETE FROM {} WHERE id = ?".format("[Group]")
+
+		cursor.execute(query_string, (group_id,))
+		cursor.commit()
+
+		return True
+
+
+	def get_group(self, group_id):
+		"""
+		Fetches all the info on a single group based on its ID
+		"""
+		cursor = self._database.cursor()
+		query_string = "SELECT * FROM {} WHERE id = ?".format("[Group]")
+
+		cursor.execute(query_string, (group_id,))
+
+		row = cursor.fetchone()
+
+		return row
+
+
+""" UTILITIES """
+
+def get_distance_string(latitude, longitude, table_name):
+	distance_string = "(3959 * acos( cos( radians({}) ) * cos( radians( {}.latitude ) ) * cos( radians( {}.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( {}.latitude ) ) ) ) AS distance"
+	return distance_string.format(latitude, table_name, table_name, longitude, latitude, table_name)

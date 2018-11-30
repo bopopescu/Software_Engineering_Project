@@ -10,6 +10,9 @@ class _BaseModel:
 		datum["username"] = user[1]
 		# and whatever else we want to add
 
+	@classmethod
+	def from_row(cls, datum):
+		return cls(*datum)
 
 	@classmethod
 	def from_list(cls, data):
