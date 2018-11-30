@@ -156,6 +156,8 @@ class DatabaseController:
 		cursor.execute(query_string, (user_id, user_id))
 		rows = cursor.fetchall()
 
+		print(rows, flush=True)
+
 		friends = []
 
 		for row in rows:
