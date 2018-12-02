@@ -1,6 +1,6 @@
 from App.Models import _BaseModel
 
-class Post(_BaseModel):
+class Comment(_BaseModel):
 	def __init__(self, id=None, user_id=None, post_id=None, time=None, body=None):
 		self._id = id
 		self._user_id = user_id
