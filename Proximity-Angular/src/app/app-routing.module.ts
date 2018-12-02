@@ -11,6 +11,7 @@ import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { HomePageComponent} from './home-page/home-page.component';
 import { AuthGuard } from './services/auth.guard';
+import { EventPageComponent } from './event-page/event-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,7 +22,9 @@ export const routes: Routes = [
   { path: 'messaging', component: MessagingPageComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'feed', component: FeedPageComponent, /*canActivate: [AuthGuard]*/  },
   { path: 'home', component: HomePageComponent},
+  { path: 'event', component: EventPageComponent},
   { path: 'profile/:userId', component: ProfilePageComponent, /*canActivate: [AuthGuard]*/  }
+
 ];
 
 @NgModule({
