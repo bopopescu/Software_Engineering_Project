@@ -18,7 +18,7 @@ from App import (
 event_api = Blueprint('EventModule', __name__)
 
 
-@feed_api.route('/create', methods=['POST'])
+@event_api.route('/create', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def create_event(user):
 	body = request.get_json()
@@ -44,7 +44,7 @@ def create_event(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/fetch', methods=['POST'])
+@event_api.route('/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_events(user):
 	body = request.get_json()
@@ -56,7 +56,7 @@ def get_events(user):
 		longitude = body.get("longitude")
 
 
-@feed_api.route('/attendees/create', methods=['POST'])
+@event_api.route('/attendees/create', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def create_attendee(user):
 	body = request.get_json()
@@ -79,9 +79,9 @@ def create_attendee(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/attendees/fetch', methods=['POST'])
+@event_api.route('/attendees/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
-def create_attendee(user):
+def get_attendees(user):
 	body = request.get_json()
 
 	response = {}

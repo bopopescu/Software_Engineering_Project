@@ -135,7 +135,7 @@ def get_comments(user):
 
 @feed_api.route('/comments/create', methods=['POST'])
 @authorization.require_auth("AccountAccess")
-def get_comments(user):
+def create_comment(user):
 	body = request.get_json()
 
 	response = {}
