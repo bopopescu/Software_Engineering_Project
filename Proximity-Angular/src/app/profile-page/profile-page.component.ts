@@ -7,6 +7,9 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
+import {MatDialog} from '@angular/material';
+import { CreatePostDialogComponent } from '../create-post-dialog/create-post-dialog.component';
+
 
 @Component({
 	selector: 'app-profile-page',
@@ -16,32 +19,33 @@ import { Comment } from '../models/comment';
 export class ProfilePageComponent implements OnInit {
 
 	constructor(private dataService: DataService, private activatedRoute: ActivatedRoute
-		, private fb: FormBuilder, private userService: UserService) { }
+		, private fb: FormBuilder, private userService: UserService, private dialog: MatDialog) { }
 
 	profileData = this.fb.group({
 		firstName: [''],
 		lastName: [''],
 		email: [''],
+		createPost: ['']
 	})
 
-	// profile: Observable<User>;
+	oprofile: Observable<User>;
 	profile: User
 	notFriend: Boolean
-
-
+	id: Number
 
 	ngOnInit() {
-		var id: Number = Number.parseInt(this.activatedRoute.snapshot.url[1].path);
+		this.id = Number.parseInt(this.activatedRoute.snapshot.url[1].path);
 		this.profileData.disable();
-		// this.dataService.getProfileInfo(id)
-		//   .subscribe(info => {
-		//     this.profile = info;
-		//   })
-
-
+		if(this.id !== 5){
+			this.profileData.get('createPost').disable();
+		}
+		this.dataService.getProfileInfo(this.id)
+		  .subscribe(info => {
+		    this.oprofile = info;
+		  })
 
 		setTimeout(() => {
-			if (id == 5) {
+			if (this.id == 5) {
 				var thing: Comment;
 				thing = {
 					body: "My comment has stuff in it",
@@ -82,7 +86,11 @@ export class ProfilePageComponent implements OnInit {
 		}, 10);
 	}
 
-	displayComments(post: Post) {
-		post.displayComments = !post.displayComments;
+	createPost() {
+		this.dialog.open(CreatePostDialogComponent,{
+			data: {
+				name: this.profile.fullName
+			}
+		});
 	}
 }

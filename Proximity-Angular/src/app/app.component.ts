@@ -21,8 +21,7 @@ export class AppComponent{
 
 	loginDialog(){
 		if(this.auth.isLoggedIn()){
-			this.dialog.open(LogoutDialogComponent, {
-			});
+			this.dialog.open(LogoutDialogComponent);
 		}
 		else{
 			this.router.navigateByUrl("/login");

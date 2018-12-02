@@ -16,7 +16,8 @@
 </form>
 <mat-divider></mat-divider>
 
-<h1>stuff</h1>
+<h1 >{{profile.firstName}}'s Feed</h1>
+<button mat-raised-button (click)=createPost() formControlName="createPost">Create Post</button>
 <div *ngFor="let post of profile.posts">
     <app-post [post]="post"></app-post>
 </div>
