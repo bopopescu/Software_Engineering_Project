@@ -193,6 +193,7 @@ class DatabaseController:
 		return True
 
 
+	# TODO: SORT AGAINST TIME
 	def get_posts(self, lat, long, radius, group_id=0):
 		"""
 		Gets all posts made within a radius of the latitude and longitude provided
