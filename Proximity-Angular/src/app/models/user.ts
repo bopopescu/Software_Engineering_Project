@@ -20,9 +20,11 @@ import { Location } from "./location"
 export interface User{
     firstName: String
     lastName: String
+    fullName: String
     id: Number
     email: String
-    location: Location
+    distance?: Number
     posts?: Array<Post>
     friends?: Array<User>
+    events?: Array<Event>
 }

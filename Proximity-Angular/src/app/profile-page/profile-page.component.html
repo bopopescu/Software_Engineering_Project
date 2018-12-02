@@ -21,8 +21,7 @@
 <div *ngFor="let post of profile.posts">
     <mat-card>
             <mat-card-title>{{post.title}}</mat-card-title>
-            <mat-card-subtitle>{{post.creator}}</mat-card-subtitle>
-            <!-- <img mat-card-avatar src="../map-page/friend.png"> -->
+            <mat-card-subtitle>{{post.name}}</mat-card-subtitle>
         <mat-card-content>{{post.body}}</mat-card-content>
         <mat-card-actions>
             <button mat-raised-button>Like</button>

@@ -49,7 +49,7 @@ export class LoginPageComponent implements OnInit {
 						lastName: response.lastName,
 						email: response.email,
 						id: response.id,
-						location: response.location
+						fullName: response.fullName
 					}
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);

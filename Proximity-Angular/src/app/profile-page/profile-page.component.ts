@@ -42,22 +42,20 @@ export class ProfilePageComponent implements OnInit {
           lastName: "Cyrus",
           id: 5,
           email: "WreckingHoes@Career.gov",
-          location: {
-            lat: 50,
-            long: 20
-          },
+          distance: 50,
           posts: [
             {
               body: "Something I just wonder what would have happened if I focused more on my career.",
-              creator: "Miley Cyrus",
+              name: "Miley Cyrus",
               title: "My career is a dump now...",
             },
             {
               body: "Something something daddy issues. JKFDS:JFK:LDFJSK L: Jfkljfakldsfj iaj eilj afis;j flsakjiewjo pdjfkad;slfj a;sdjfs da;fjkas; fjdakl ;fj",
-              creator: "Miley Cyrus",
+              name: "Miley Cyrus",
               title: "My dad sucks"
             }
-          ]          
+          ],
+          fullName: "Miley Cyrus"          
         }
         console.log(this.profile);
       }

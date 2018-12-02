@@ -24,9 +24,7 @@
 export interface Post{
     title: String
     body: String
-    creator: String
-    timeCreated?: DateConstructor
-    avatar?: HTMLDivElement
+    name: String
+    time?: DateConstructor
     comments?: Array<Comment>
-
 }
