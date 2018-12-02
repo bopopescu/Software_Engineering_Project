@@ -27,5 +27,9 @@ export interface Post{
     name: String
     time?: DateConstructor
     comments?: Array<Comment>
-    displayComments: Boolean
+    displayComments?: Boolean
+    isFriend?: Boolean
+    userId: Number
+    postId: Number
+    distance: Number
 }

@@ -25,4 +25,9 @@ export class UserService {
   userIsSet(): Boolean{
     return this.user === null;
   }
+
+  isFriend(id: Number): Boolean{
+    var friend = this.user.friends.find(friend => friend.id === id);
+    return this.user.friends.includes(friend);
+  }
 }

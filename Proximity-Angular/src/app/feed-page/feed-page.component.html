@@ -33,17 +33,5 @@
 </div> -->
 
 <div *ngFor="let post of posts">
-    <mat-card>
-        <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>{{post.user}}</mat-card-subtitle>
-        <!-- <img mat-card-avatar src={{post.prof_pic}}> -->
-        <mat-card-content>{{post.body}}</mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button>Like</button>
-            <button mat-raised-button>Dislike</button>
-            <button mat-raised-button>Comment</button>
-            <button mat-raised-button>Add Friend</button> 
-        </mat-card-actions>
-        <mat-card-footer>Distance: {{post.distance}}</mat-card-footer>
-    </mat-card>
+    <app-post [post]=post></app-post>
 </div>

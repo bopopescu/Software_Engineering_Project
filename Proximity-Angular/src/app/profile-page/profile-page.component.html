@@ -18,32 +18,5 @@
 
 <h1>stuff</h1>
 <div *ngFor="let post of profile.posts">
-    <mat-card>
-            <mat-card-title>{{post.title}}</mat-card-title>
-            <mat-card-subtitle>{{post.name}}</mat-card-subtitle>
-        <mat-card-content>{{post.body}}</mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button>Like</button>
-            <button mat-raised-button>Dislike</button>
-            <button mat-raised-button>Comment</button>
-            <button mat-raised-button>Add Friend</button>
-        </mat-card-actions>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <span>Distance: {{profile.distance}} </span><span>Time: {{post.time}}</span>
-            <button mat-button class="comments" (click)="displayComments(post)">Comments</button>
-        </mat-card-content>
-        <div *ngIf="post.displayComments">
-            <mat-divider></mat-divider>
-            <mat-card-footer>
-                <div *ngFor="let comment of post.comments">
-                    <mat-card-subtitle>{{comment.name}}</mat-card-subtitle>
-                    <mat-card-content>{{comment.body}}</mat-card-content>
-                    <mat-card-content>{{comment.time}}</mat-card-content>
-                    <mat-divider></mat-divider>
-                </div>
-            </mat-card-footer>
-        </div>
-        
-    </mat-card>
+    <app-post [post]="post"></app-post>
 </div>

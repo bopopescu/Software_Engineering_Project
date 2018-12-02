@@ -26,6 +26,7 @@ export class ProfilePageComponent implements OnInit {
 
 	// profile: Observable<User>;
 	profile: User
+	notFriend: Boolean
 
 
 
@@ -59,13 +60,19 @@ export class ProfilePageComponent implements OnInit {
 							name: "Miley Cyrus",
 							title: "My career is a dump now...",
 							displayComments: false,
-							comments: array
+							comments: array,
+							userId: 5,
+							postId: 2,
+							distance: 20
 						},
 						{
 							body: "Something something daddy issues. JKFDS:JFK:LDFJSK L: Jfkljfakldsfj iaj eilj afis;j flsakjiewjo pdjfkad;slfj a;sdjfs da;fjkas; fjdakl ;fj",
 							name: "Miley Cyrus",
 							title: "My dad sucks",
-							displayComments: false
+							displayComments: false,
+							userId: 5,
+							postId: 1,
+							distance: 50
 						}
 					],
 					fullName: "Miley Cyrus"
@@ -79,4 +86,3 @@ export class ProfilePageComponent implements OnInit {
 		post.displayComments = !post.displayComments;
 	}
 }
-
