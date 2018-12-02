@@ -22,6 +22,7 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PostComponent } from './post/post.component';
 import { EventPageComponent } from './event-page/event-page.component';
+import { EventsComponent } from './events/events.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { EventPageComponent } from './event-page/event-page.component';
     HomePageComponent,
     PostComponent,
     EventPageComponent,
+    EventsComponent,
   ],
   imports: [
     BrowserModule,
