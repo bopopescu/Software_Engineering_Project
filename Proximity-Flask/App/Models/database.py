@@ -199,7 +199,7 @@ class DatabaseController:
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
 		cursor = self._database.cursor()
-		query_string = "SELECT id, user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN [User] ON Post.user_id = [User].id WHERE group_id = ? ORDER BY time DESC".format(lat, long, lat, self._config.post_table, radius)
+		query_string = "SELECT [Post].id, user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN [User] ON Post.user_id = [User].id WHERE group_id = ? ORDER BY time DESC".format(lat, long, lat, self._config.post_table, radius)
 
 		print(query_string, flush=True)
 
