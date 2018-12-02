@@ -15,8 +15,8 @@ class Event(_BaseModel):
 			"id": self.id,
 			"owner": self.owner,
 			"title": self.title,
-			"latitude": self.latitude,
-			"longitude": self.longitude,
+			"latitude": str(self.latitude),
+			"longitude": str(self.longitude),
 			"time": self.time,
 			"distance": self.distance
 		}

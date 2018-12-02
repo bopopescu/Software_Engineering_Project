@@ -26,7 +26,6 @@ def format_users():
 			username VARCHAR(64),
 			first_name VARCHAR(64),
 			last_name VARCHAR(64),
-			full_name VARCHAR(256),
 			password_hash VARCHAR(128),
 			latitude DECIMAL(10,8),
 			longitude DECIMAL(11,8)

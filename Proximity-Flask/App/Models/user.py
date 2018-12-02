@@ -8,11 +8,15 @@ class User(_BaseModel):
 	"""
 	Represents a user in the database with functionality for creating and verifying accounts
 	"""
-	def __init__(self, id=None, username=None, latitude=None, longitude=None, password=None, config=None, scope=None):
+	def __init__(self, id=None, username=None, first_name="", last_name="", latitude=None, longitude=None, distance=None, password=None, config=None, scope=None):
 		self._id = id
 		self._username = username
+		self._first_name = first_name
+		self._last_name = last_name
+
 		self._latitude = latitude
 		self._longitude = longitude
+		self._distance = distance
 
 		self._password = password
 		self._scope = scope
@@ -49,8 +53,12 @@ class User(_BaseModel):
 			return {
 				"id": self.id,
 				"username": self.username,
+				"first_name": self.first_name,
+				"last_name": self.last_name,
+				"full_name": self.first_name + " " + self.last_name,
 				"latitude": str(self.latitude),
-				"longitude": str(self.longitude)
+				"longitude": str(self.longitude),
+				"distance": self.distance
 			}
 
 		return None
@@ -58,6 +66,15 @@ class User(_BaseModel):
 	@property
 	def username(self):
 		return self._username
+
+	@property
+	def first_name(self):
+		return self._first_name
+	
+	@property
+	def last_name(self):
+		return self._last_name
+	
 
 
 	@property
@@ -71,6 +88,10 @@ class User(_BaseModel):
 	@property
 	def longitude(self):
 		return self._longitude
+	
+	@property
+	def distance(self):
+		return self._distance
 	
 
 

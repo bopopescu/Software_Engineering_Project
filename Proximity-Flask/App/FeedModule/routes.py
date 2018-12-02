@@ -105,7 +105,7 @@ def delete_post(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/comments/fetch', methods=['POST'])
+@feed_api.route('/comments/fetch')
 @authorization.require_auth("AccountAccess")
 def get_comments(user):
 	body = request.get_json()

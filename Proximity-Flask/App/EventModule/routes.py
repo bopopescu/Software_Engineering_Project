@@ -44,7 +44,7 @@ def create_event(user):
 	return jsonify(response), 200
 
 
-@event_api.route('/fetch', methods=['POST'])
+@event_api.route('/fetch')
 @authorization.require_auth("AccountAccess")
 def get_events(user):
 	body = request.get_json()
@@ -54,6 +54,21 @@ def get_events(user):
 	if body:
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
+
+		if latitude and longitude:
+			events = Event.from_list(database.get_events(latitude, longitude, 100))
+
+			if events:
+				response = []
+
+				for event in events:
+					response.append(event.get_json())
+			else:
+				response["message"] = "No events found"
+
+	print(response, flush=True)
+
+	return jsonify(response), 200
 
 
 @event_api.route('/attendees/create', methods=['POST'])
@@ -79,7 +94,7 @@ def create_attendee(user):
 	return jsonify(response), 200
 
 
-@event_api.route('/attendees/fetch', methods=['POST'])
+@event_api.route('/attendees/fetch')
 @authorization.require_auth("AccountAccess")
 def get_attendees(user):
 	body = request.get_json()

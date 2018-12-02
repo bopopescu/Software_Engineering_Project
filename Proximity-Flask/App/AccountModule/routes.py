@@ -26,9 +26,11 @@ def account_create():
 	if body:
 		username = body.get('username')
 		password = body.get('password')
+		first_name = body.get('first_name')
+		last_name = body.get('last_name')
 
-		if username and password:
-			user = User(username=username, password=password)
+		if username and password and first_name and last_name:
+			user = User(username=username, password=password, first_name=first_name, last_name=last_name)
 
 			if database.create_user(user):
 				response["message"] = "Account {} created!".format(username)
@@ -123,15 +125,19 @@ def get_friends(user):
 
 	response = {}
 
-	if body != None or True:
-		friends = User.from_list(database.get_friends(user.id))
+	if body:
+		latitude = body.get("latitude")
+		longitude = body.get("longitude")
 
-		if friends:
-			response = []
+		if latitude and longitude:
+			friends = User.from_list(database.get_friends(user.id, latitude, longitude))
 
-			for friend in friends:
-				response.append(friend.get_json())
-		else:
-			response["message"] = "Unable to find friends."
+			if friends:
+				response = []
+
+				for friend in friends:
+					response.append(friend.get_json())
+			else:
+				response["message"] = "Unable to find friends."
 
 	return jsonify(response), 200

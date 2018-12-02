@@ -45,9 +45,9 @@ class DatabaseController:
 		print(row, flush=True)
 
 		if not row:
-			query_string = "INSERT INTO {} (username, password_hash) VALUES (?, ?)".format(self._config.user_table)
+			query_string = "INSERT INTO {} (username, password_hash, first_name, last_name) VALUES (?, ?, ?, ?)".format(self._config.user_table)
 
-			cursor.execute(query_string, (user.username, user.password_hash))
+			cursor.execute(query_string, (user.username, user.password_hash, user.first_name, user.last_name))
 			self._database.commit()
 
 			return True
@@ -111,13 +111,18 @@ class DatabaseController:
 		return True
 
 
-	def get_user(self, user_id):
+	def get_user(self, user_id, latitude=None, longitude=None):
 		"""
 		Get a user from the database
 		"""
 		cursor = self._database.cursor()
-		query_string = "SELECT id, username, latitude, longitude FROM {} WHERE id = ?".format(self._config.user_table)
-		cursor.execute(query_string, (user_id,))
+		if latitude and longitude:
+			print("Distance requested in user request.\nFinding distance from {} {}".format(latitude, longitude))
+			query_string = "SELECT id, username, first_name, last_name, latitude, longitude, {} FROM {} WHERE id = ?".format(get_distance_string(latitude, longitude, '[User]'), '[User]')
+			cursor.execute(query_string, (user_id,))
+		else:
+			query_string = "SELECT id, username, first_name, last_name, latitude, longitude FROM {} WHERE id = ?".format(self._config.user_table)
+			cursor.execute(query_string, (user_id,))
 		row = cursor.fetchone()
 
 		print(row, flush=True)
@@ -146,7 +151,7 @@ class DatabaseController:
 		return True
 
 
-	def get_friends(self, user_id):
+	def get_friends(self, user_id, latitude=None, longitude=None):
 		"""
 		Get a list of all friendships a user has
 		"""
@@ -164,12 +169,12 @@ class DatabaseController:
 			friend = None
 
 			if user_id != row[0]:
-				friend = self.get_user(row[0])
+				friend = self.get_user(row[0], latitude, longitude)
 
 			if user_id != row[1]:
-				friend = self.get_user(row[1])
+				friend = self.get_user(row[1], latitude, longitude)
 
-			if friend:
+			if friend:		
 				friends.append(friend)
 
 
@@ -210,8 +215,13 @@ class DatabaseController:
 
 		filtered_rows = []
 		for row in rows:
-			if row[5] < radius:
-				filtered_rows.append(row)
+			if row[6] < radius:
+				user = User.from_row(self.get_user(row[1]))
+
+				if user:
+					row[1] = user.get_json()
+
+					filtered_rows.append(row)
 
 		return filtered_rows
 
@@ -239,9 +249,20 @@ class DatabaseController:
 		cursor.execute(query_string, (post_id,))
 		rows = cursor.fetchall()
 
-		print(rows, flush=True)
+		filtered_rows = []
 
-		return rows
+		for row in rows:
+			user = User.from_row(self.get_user(row[1]))
+
+			if user:
+				row[1] = user.get_json()
+
+				filtered_rows.append(row)
+
+
+		print(filtered_rows, flush=True)
+
+		return filtered_rows
 
 
 	""" Message Methods """
@@ -385,12 +406,15 @@ class DatabaseController:
 
 		print(rows, flush=True)
 
-		# filtered_rows = []
-		# for row in rows:
-		# 	if row[5] < 50:
-		# 		filtered_rows.append(row)
+		filtered_rows = []
+		for row in rows:
+			if row[6] < 50:
+				user = User.from_row(self.get_user(row[1]))
 
-		return rows
+				if user:
+					row[1] = user.get_json()
+					filtered_rows.append(row)
+		return filtered_rows
 
 	def create_attendee(self, attendee):
 		"""

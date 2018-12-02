@@ -11,7 +11,7 @@ class Comment(_BaseModel):
 	def get_json(self):
 		return {
 			"id": self.id,
-			"user_id": self.user_id,
+			"user": self.user_id,
 			"post_id": self.post_id,
 			"body": self.body,
 			"time": self.time

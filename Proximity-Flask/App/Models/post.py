@@ -2,6 +2,7 @@ from App.Models import _BaseModel
 
 class Post(_BaseModel):
 	def __init__(self, id=None, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
+		self._id = id
 		self._user_id = user_id
 		self._username = username
 		self._title = title
@@ -16,7 +17,7 @@ class Post(_BaseModel):
 	def get_json(self):
 		return {
 			"id": self.id,
-			"user_id": self.user_id,
+			"user": self.user_id,
 			"username": self.username,
 			"title": self.title,
 			"body": self.body,
