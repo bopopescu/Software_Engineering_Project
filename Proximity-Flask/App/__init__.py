@@ -46,6 +46,7 @@ from App.AccountModule import account_api
 from App.FeedModule import feed_api
 from App.MessageModule import message_api
 from App.GroupModule import group_api
+from App.EventModule import event_api
 
 app.register_blueprint(account_api, url_prefix="/account/v1")
 print("Account API active")
@@ -55,7 +56,8 @@ app.register_blueprint(message_api, url_prefix="/message/v1")
 print("Message API active")
 app.register_blueprint(group_api, url_prefix="/group/v1")
 print("Group API active")
-
+app.register_blueprint(event_api, url_prefix="/event/v1")
+print("Event API active")
 
 
 """ Test route """

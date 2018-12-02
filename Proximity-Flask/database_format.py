@@ -24,6 +24,9 @@ def format_users():
 		CREATE TABLE [User] (
 			id INT PRIMARY KEY Identity(1,1),
 			username VARCHAR(64),
+			first_name VARCHAR(64),
+			last_name VARCHAR(64),
+			full_name VARCHAR(256),
 			password_hash VARCHAR(128),
 			latitude DECIMAL(10,8),
 			longitude DECIMAL(11,8)
@@ -94,6 +97,54 @@ def format_groups():
 		"""
 	)
 
+
+""" COMMENTS """
+
+def format_comments():
+	cursor.execute("DROP TABLE IF EXISTS [Comment]")
+	cursor.execute(
+			"""
+			CREATE TABLE [Comment] (
+				id INT PRIMARY KEY Identity(1,1),
+				user_id INT,
+				post_id INT,
+				time DATETIME,
+				body TEXT
+			)
+			"""
+		)
+
+
+""" EVENTS """
+
+def format_events():
+	cursor.execute("DROP TABLE IF EXISTS [Event]")
+	cursor.execute(
+			"""
+			CREATE TABLE [Event] (
+				id INT PRIMARY KEY Identity(1,1),
+				owner INT,
+				title VARCHAR(64),
+				latitude DECIMAL(10,8),
+				longitude DECIMAL(11,8),
+				time DATETIME
+			)
+			"""
+		)
+	
+
+def format_attendees():
+	cursor.execute("DROP TABLE IF EXISTS [Attendee]")
+	cursor.execute(
+			"""
+			CREATE TABLE [Attendee] (
+				id INT PRIMARY KEY Identity(1,1),
+				event_id INT,
+				user_id INT
+			)
+			"""
+		)
+
 """ Main Execution """
 
 def run_tests():
@@ -133,6 +184,33 @@ def run_tests():
 	delete("[Group]")
 	print(get("[Group]"))
 
+	print("\nComment:")
+	print(get("[Comment]"))
+	query = "INSERT INTO [Comment] (user_id, post_id, time, body) VALUES (1, 1, ?, 'Test Comment')"
+	print(query)
+	cursor.execute(query, (datetime.datetime.now(),))
+	print(get("[Comment]"))
+	delete("[Comment]")
+	print(get("[Comment]"))
+
+	print("\nEvent:")
+	print(get("[Event]"))
+	query = "INSERT INTO [Event] (owner, title, latitude, longitude, time) VALUES (1, 'Test Event', 37.972811, -121.275131, ?)"
+	print(query)
+	cursor.execute(query, (datetime.datetime.now(),))
+	print(get("[Event]"))
+	delete("[Event]")
+	print(get("[Event]"))
+
+	print("\nAttendee:")
+	print(get("[Attendee]"))
+	query = "INSERT INTO [Attendee] (event_id, user_id) VALUES (1, 1)"
+	print(query)
+	cursor.execute(query)
+	print(get("[Attendee]"))
+	delete("[Attendee]")
+	print(get("[Attendee]"))
+
 	database.commit()
 
 
@@ -143,5 +221,8 @@ if __name__ == "__main__":
 	format_messages()
 	format_groups()
 	format_friends()
+	format_comments()
+	format_events()
+	format_attendees()
 
 	run_tests()

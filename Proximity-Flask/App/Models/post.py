@@ -1,7 +1,7 @@
 from App.Models import _BaseModel
 
 class Post(_BaseModel):
-	def __init__(self, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
+	def __init__(self, id=None, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
 		self._user_id = user_id
 		self._username = username
 		self._title = title
@@ -15,6 +15,7 @@ class Post(_BaseModel):
 
 	def get_json(self):
 		return {
+			"id": self.id
 			"user_id": self.user_id,
 			"username": self.username,
 			"title": self.title,
@@ -23,6 +24,9 @@ class Post(_BaseModel):
 			"distance": self.distance
 		}
 
+	@property
+	def id(self):
+		return self._id	
 
 	@property
 	def user_id(self):
@@ -31,7 +35,6 @@ class Post(_BaseModel):
 	@property
 	def username(self):
 		return self._username
-	
 
 	@property
 	def title(self):
@@ -44,7 +47,6 @@ class Post(_BaseModel):
 	@property
 	def time(self):
 		return self._time
-	
 	
 	@property
 	def latitude(self):

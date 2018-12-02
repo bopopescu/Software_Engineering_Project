@@ -6,7 +6,8 @@ from flask import (
 
 from App.Models import (
 	User,
-	Post
+	Post,
+	Comment
 )
 
 from App import (
@@ -100,5 +101,52 @@ def delete_post(user):
 				response["message"] = "Post {} deleted.".format(post_id)
 			else:
 				response["message"] = "Unable to delete post."
+
+	return jsonify(response), 200
+
+
+@feed_api.route('/comments/fetch', methods=['POST'])
+@authorization.require_auth("AccountAccess")
+def get_comments(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		post_id = body.get("post_id")
+
+		if post_id:
+			comments = Comment.from_list(database.get_comments(post_id = post_id))
+
+			print(comments, flush=True)
+
+			if comments:
+				response = []
+
+				for comment in comments:
+					response.append(comment.get_json())
+			else:
+				response["message"] = "Unable to find comments."
+
+	print(response, flush=True)
+
+	return jsonify(response), 200
+
+
+@feed_api.route('/comments/create', methods=['POST'])
+@authorization.require_auth("AccountAccess")
+def get_comments(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		post_id = body.get("post_id")
+		comment_body = body.get("body")
+
+		comment = Comment(user_id = user.id, post_id = post_id, body=comment_body)
+
+		if database.create_comment(comment):
+			response["message"] = "Created comment"
 
 	return jsonify(response), 200

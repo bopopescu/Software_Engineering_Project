@@ -199,7 +199,7 @@ class DatabaseController:
 		Gets all posts made within a radius of the latitude and longitude provided
 		"""
 		cursor = self._database.cursor()
-		query_string = "SELECT user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN [User] ON Post.user_id = [User].id WHERE group_id = ?".format(lat, long, lat, self._config.post_table, radius)
+		query_string = "SELECT id, user_id, username, title, body, time, ( 3959 * acos( cos( radians({}) ) * cos( radians( Post.latitude ) ) * cos( radians( Post.longitude ) - radians({}) ) + sin( radians({}) ) * sin( radians( Post.latitude ) ) ) ) AS distance FROM {} INNER JOIN [User] ON Post.user_id = [User].id WHERE group_id = ? ORDER BY time DESC".format(lat, long, lat, self._config.post_table, radius)
 
 		print(query_string, flush=True)
 
@@ -214,6 +214,34 @@ class DatabaseController:
 				filtered_rows.append(row)
 
 		return filtered_rows
+
+	def create_comment(self, comment):
+		"""
+		Creates a new comment in the comment database
+		"""
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO [Comment] (user_id, post_id, time, body) VALUES (?,?,?,?)"
+
+		cursor.execute(query_string, (comment.user_id, comment.post_id, datetime.datetime.now(), comment.body))
+		self._database.commit()
+
+		return True
+
+	def get_comments(self, post_id):
+		"""
+		Gets all comments on a post
+		"""
+		cursor = self._database.cursor()
+		query_string = "SELECT * FROM [Comment] WHERE post_id = ?"
+
+		print(query_string, flush=True)
+
+		cursor.execute(query_string, (post_id,))
+		rows = cursor.fetchall()
+
+		print(rows, flush=True)
+
+		return rows
 
 
 	""" Message Methods """
@@ -328,6 +356,70 @@ class DatabaseController:
 		row = cursor.fetchone()
 
 		return row
+
+
+	""" EVENT METHODS """
+
+	def create_event(self, event):
+		"""
+		Create an event in the events database
+		"""
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO [Event] (owner, title, latitude, longitude, time) VALUES (?, ?, ?, ?, ?)"
+
+		cursor.execute(query_string, (event.owner, event.title, event.latitude, event.longitude, event.time))
+		self._database.commit()
+
+		return True
+
+	def get_events(self, latitude, longitude, radius):
+		"""
+		Fetches all nearby events
+		"""
+		cursor = self._database.cursor()
+		distance_string = get_distance_string(latitude, longitude, "[Event]")
+		query_string = "SELECT *, {} FROM {}".format(distance_string, "[Event]")
+
+		cursor.execute(query_string)
+		rows = cursor.fetchall()
+
+		print(rows, flush=True)
+
+		# filtered_rows = []
+		# for row in rows:
+		# 	if row[5] < 50:
+		# 		filtered_rows.append(row)
+
+		return rows
+
+	def create_attendee(self, attendee):
+		"""
+		Create a new attendee
+		"""
+		cursor = self._database.cursor()
+		query_string = "INSERT INTO [Attendee] (event_id, user_id) VALUES (?,?)"
+
+		cursor.execute(query_string, (attendee.event_id, attendee.user_id))
+		self._database.commit()
+
+		return True
+
+	def get_attendees(self, event_id):
+		"""
+		Fecthes all attendees of an event
+		"""
+		cursor = self._database.cursor()
+		query_string = "SELECT user_id FROM [Attendee] WHERE event_id = ?"
+
+		cursor.execute(query_string, (event_id,))
+		rows = cursor.fetchall()
+
+		users = []
+		for row in rows:
+			user = get_user(row[0])
+			user.append(user)
+
+		return users
 
 
 """ UTILITIES """
