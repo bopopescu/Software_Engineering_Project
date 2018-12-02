@@ -15,7 +15,7 @@ class Post(_BaseModel):
 
 	def get_json(self):
 		return {
-			"id": self.id
+			"id": self.id,
 			"user_id": self.user_id,
 			"username": self.username,
 			"title": self.title,
