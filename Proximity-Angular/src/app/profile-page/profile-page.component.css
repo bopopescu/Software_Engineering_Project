@@ -12,3 +12,11 @@ mat-card-header {
     margin: auto;
     text-align: center;
 }
+
+.comments{
+    color: blue;
+}
+
+span {
+    padding: 40px;
+}

@@ -1,4 +1,4 @@
-// import { Comment } from './comment';
+import { Comment } from './comment';
 
 // export class Post{
 //     constructor(title: String, body: String, comments: Array<Comment>){
@@ -27,4 +27,5 @@ export interface Post{
     name: String
     time?: DateConstructor
     comments?: Array<Comment>
+    displayComments: Boolean
 }

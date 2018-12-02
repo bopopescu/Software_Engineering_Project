@@ -6,18 +6,17 @@
           </div>
           <div id="nameDiv"><p>Name Appears Here</p></div>
       <div id="profileInfo"> -->
-<form id="profileData" [formGroup]="profileData" (ngSubmit)="onSubmit()">
+<form id="profileData" [formGroup]="profileData">
     <mat-form-field>
         <input matInput type="text" [(ngModel)]="profile.firstName" formControlName="firstName" placeholder="First Name">
     </mat-form-field>
     <mat-form-field>
         <input matInput type="text" [(ngModel)]="profile.lastName" formControlName="lastName" placeholder="Last Name">
     </mat-form-field>
-    <mat-divider></mat-divider>
-
 </form>
-<h1>stuff</h1>
 <mat-divider></mat-divider>
+
+<h1>stuff</h1>
 <div *ngFor="let post of profile.posts">
     <mat-card>
             <mat-card-title>{{post.title}}</mat-card-title>
@@ -29,11 +28,22 @@
             <button mat-raised-button>Comment</button>
             <button mat-raised-button>Add Friend</button>
         </mat-card-actions>
-        <mat-card-footer>Distance: {{post.distance}}</mat-card-footer>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <span>Distance: {{profile.distance}} </span><span>Time: {{post.time}}</span>
+            <button mat-button class="comments" (click)="displayComments(post)">Comments</button>
+        </mat-card-content>
+        <div *ngIf="post.displayComments">
+            <mat-divider></mat-divider>
+            <mat-card-footer>
+                <div *ngFor="let comment of post.comments">
+                    <mat-card-subtitle>{{comment.name}}</mat-card-subtitle>
+                    <mat-card-content>{{comment.body}}</mat-card-content>
+                    <mat-card-content>{{comment.time}}</mat-card-content>
+                    <mat-divider></mat-divider>
+                </div>
+            </mat-card-footer>
+        </div>
+        
     </mat-card>
 </div>
-<!-- </div>
-      </div>
-
-  </div>
-</div> -->
