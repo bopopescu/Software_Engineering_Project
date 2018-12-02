@@ -44,6 +44,8 @@ def account_create():
 def account_login():
 	body = request.get_json()
 
+	print(str(body), flush=True)
+
 	response = {}
 
 	if body:
