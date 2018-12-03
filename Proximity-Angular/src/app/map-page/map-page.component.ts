@@ -187,8 +187,7 @@ export class MapPageComponent implements OnInit {
 		})
 
 		marker.addListener('click', () => {
-			//this.router.navigateByUrl("/profile/" + loc.id);
-			this.router.navigateByUrl("/event");
+			this.router.navigateByUrl("/profile/" + loc.id);
 		});
 
 		marker.addListener('mouseover', () => {
