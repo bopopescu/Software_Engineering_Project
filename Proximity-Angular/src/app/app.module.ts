@@ -43,6 +43,10 @@ import { MessageComponent } from './message/message.component';
     PostComponent,
     CreatePostDialogComponent,
     EventPageComponent,
+<<<<<<< HEAD
+=======
+    EventsComponent,
+>>>>>>> created messaging-page comp and messaging comp also added button to navbar
     MessageComponent,
   ],
   imports: [
