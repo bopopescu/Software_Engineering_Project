@@ -8,3 +8,18 @@ body {
   mat-sidenav-container {
     min-height: 100vh;
   }
+  #inner{
+    margin-bottom: 10px;
+  }
+  #logInForm{
+    margin-bottom: 10px;
+  }
+  #createAccountForm{
+    margin-bottom: 10px;
+  }
+  #mapView{
+    width: 90%;
+    height: 75vh;
+    margin: auto;
+
+  }
