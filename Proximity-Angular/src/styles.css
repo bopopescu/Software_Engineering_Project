@@ -17,3 +17,9 @@ body {
   #createAccountForm{
     margin-bottom: 10px;
   }
+  #mapView{
+    width: 90%;
+    height: 80vh;
+    margin: auto;
+    
+  }
