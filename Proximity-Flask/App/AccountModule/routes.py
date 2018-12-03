@@ -143,8 +143,11 @@ def get_friends(user):
 	response = {}
 
 	if body:
-		latitude = body.get("latitude")
-		longitude = body.get("longitude")
+		# latitude = body.get("latitude")
+		# longitude = body.get("longitude")
+
+		latitude = user.latitude
+		longitude = user.longitude
 
 		if latitude and longitude:
 			friends = User.from_list(database.get_friends(user.id, latitude, longitude))
