@@ -23,7 +23,7 @@ class Post(_BaseModel):
 			"title": self.title,
 			"body": self.body,
 			"time": self.time.strftime("%Y-%m-%d %H:%M:%S"),
-			"distance": str(self.distance.quantize(Decimal('.01')))
+			"distance": str(self.distance)
 		}
 
 	@property
