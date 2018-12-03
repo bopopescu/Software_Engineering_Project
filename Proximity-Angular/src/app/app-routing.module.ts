@@ -18,12 +18,12 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'create-account', component: CreateAccountComponent},
   { path: 'reset-password', component: ResetPasswordComponent},
-  { path: 'map', component: MapPageComponent, /*canActivate: [AuthGuard]*/},
-  { path: 'messaging', component: MessagingPageComponent, /*canActivate: [AuthGuard]*/ },
-  { path: 'feed', component: FeedPageComponent, /*canActivate: [AuthGuard]*/  },
+  { path: 'map', component: MapPageComponent, canActivate: [AuthGuard]},
+  { path: 'messaging', component: MessagingPageComponent, canActivate: [AuthGuard] },
+  { path: 'feed', component: FeedPageComponent, canActivate: [AuthGuard]  },
   { path: 'home', component: HomePageComponent},
-  { path: 'events', component: EventPageComponent},
-  { path: 'profile/:userId', component: ProfilePageComponent, /*canActivate: [AuthGuard]*/  }
+  { path: 'events', component: EventPageComponent, canActivate: [AuthGuard]},
+  { path: 'profile/:userId', component: ProfilePageComponent, canActivate: [AuthGuard]  }
 
 ];
 

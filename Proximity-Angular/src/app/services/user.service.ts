@@ -13,7 +13,7 @@ export class UserService {
 
   setUser(user: User){
     this.user = user;
-    console.log(this.user);
+    console.log("User set");
   }
 
   getId(): Number{
@@ -21,6 +21,7 @@ export class UserService {
   }
 
   getUser(): User{
+    console.log("Getting user" + this.user);
     return this.user;
   }
 

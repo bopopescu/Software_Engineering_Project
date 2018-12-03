@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {Event} from "../models/event"
+import { UserService } from '../services/user.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ import {Event} from "../models/event"
 
 
 export class MapPageComponent implements OnInit {
-	constructor(private fb: FormBuilder,private router: Router, private dataService: DataService) {
+	constructor(private fb: FormBuilder,private router: Router, private dataService: DataService, private userService: UserService) {
 	}
 
 	searchBar = this.fb.group({
@@ -55,11 +56,12 @@ export class MapPageComponent implements OnInit {
 		this.dataService.getFriends()
 			.subscribe(
 				locations => {
-					var loc = locations.friends;
+					console.log(locations);
+					var loc = locations;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
 						var contentString =
-							'<p><b>Name</b>: ' + loc[i].name + '</br>' +
+							'<p><b>Name</b>: ' + loc[i].full_name + '</br>' +
 							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
 							'</p>';
 						var infoWindow = new google.maps.InfoWindow({
@@ -92,6 +94,7 @@ export class MapPageComponent implements OnInit {
 			this.dataService.getEvents(this.latitude,this.longitude)
 			.subscribe(
 				events => {
+					console.log("events: " + events)
 					var loc = events.friends;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);

@@ -18,11 +18,11 @@ export class LogoutDialogComponent implements OnInit {
   onYesClick(){
     this.router.navigateByUrl("/login");
     this.dataService.logout();
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onNoClick(){
-    this.dialogRef.close();
+    this.dialogRef.close(true);
   }
 
 }

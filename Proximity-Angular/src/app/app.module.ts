@@ -42,7 +42,7 @@ import { UserService } from './services/user.service';
     PostComponent,
     CreatePostDialogComponent,
     EventPageComponent,
-    EventsComponent
+    EventsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,8 @@ import { UserService } from './services/user.service';
     MaterialModule,
     FlexLayoutModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+              UserService],
   bootstrap: [AppComponent],
   entryComponents: [LogoutDialogComponent]
 })
