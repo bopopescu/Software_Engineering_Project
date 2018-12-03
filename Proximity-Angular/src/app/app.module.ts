@@ -22,11 +22,9 @@ import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PostComponent } from './post/post.component';
 import { EventPageComponent } from './event-page/event-page.component';
-<<<<<<< HEAD
 import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
-=======
 import { EventsComponent } from './events/events.component';
->>>>>>> 833a57662a10d7e925899adc9860e729bfbb01ea
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -42,13 +40,9 @@ import { EventsComponent } from './events/events.component';
     LogoutDialogComponent,
     HomePageComponent,
     PostComponent,
-<<<<<<< HEAD
     CreatePostDialogComponent,
     EventPageComponent,
-=======
-    EventPageComponent,
-    EventsComponent,
->>>>>>> 833a57662a10d7e925899adc9860e729bfbb01ea
+    EventsComponent
   ],
   imports: [
     BrowserModule,

@@ -22,11 +22,7 @@ export const routes: Routes = [
   { path: 'messaging', component: MessagingPageComponent, /*canActivate: [AuthGuard]*/ },
   { path: 'feed', component: FeedPageComponent, /*canActivate: [AuthGuard]*/  },
   { path: 'home', component: HomePageComponent},
-<<<<<<< HEAD
-  { path: 'event/:eventId', component: EventPageComponent},
-=======
   { path: 'events', component: EventPageComponent},
->>>>>>> 833a57662a10d7e925899adc9860e729bfbb01ea
   { path: 'profile/:userId', component: ProfilePageComponent, /*canActivate: [AuthGuard]*/  }
 
 ];
