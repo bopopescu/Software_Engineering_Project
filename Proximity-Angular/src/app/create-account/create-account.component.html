@@ -1,4 +1,4 @@
-	<form [formGroup]="createAccount" (ngSubmit)="onSubmit()">
+	<form id="createAccountForm" [formGroup]="createAccount" (ngSubmit)="onSubmit()">
     <mat-form-field>
       <input matInput formControlName="username" placeholder="Username" type="text">
     </mat-form-field>
