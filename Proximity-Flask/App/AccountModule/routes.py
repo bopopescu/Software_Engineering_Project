@@ -19,7 +19,7 @@ from App import (
 account_api = Blueprint('AccountModule', __name__)
 
 
-@account_api.route('/profile/<int:user_id>')
+@account_api.route('/profile/<int:user_id>', methods=['POST'])
 def profile(user_id):
 	user_data = database.get_user(user_id)
 
@@ -135,7 +135,7 @@ def new_friend(user):
 	return jsonify(response), 200
 
 
-@account_api.route('friends/fetch')
+@account_api.route('friends/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_friends(user):
 	body = request.get_json()

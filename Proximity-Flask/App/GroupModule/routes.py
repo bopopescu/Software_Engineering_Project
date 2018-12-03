@@ -19,7 +19,7 @@ from App import (
 group_api = Blueprint('GroupModule', __name__)
 
 
-@group_api.route('/fetch')
+@group_api.route('/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_groups(user):
 	body = request.get_json()
