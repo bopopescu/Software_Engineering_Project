@@ -110,7 +110,7 @@ def create_group_invite(user):
 		if recipient:
 			group = Group.from_row(database.get_group(group_id))
 
-			message = Message(from_id=user.id, to_id=recipient, body="{} has invited you to join {}!".format(user.username, group.name))
+			message = Message(from_id=user.id, to_id=recipient, body="{} has invited you to join {}".format(user.username, group.name))
 			database.send_message(message)
 
 			response["message"] = "Sent {} to {}".format(message.body, message.to_id)

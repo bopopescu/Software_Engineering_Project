@@ -1,7 +1,8 @@
 from flask import (
 	Blueprint, 
 	request,
-	jsonify
+	jsonify,
+	abort
 )
 
 from App.Models import (
@@ -20,11 +21,14 @@ account_api = Blueprint('AccountModule', __name__)
 
 @account_api.route('/profile/<int:user_id>')
 def profile(user_id):
-	user = User.from_row(database.get_user(user_id))
+	user_data = database.get_user(user_id)
 
-	response = user.get_json()
+	if user_data:
+		user = User.from_row(user_data)
+		response = user.get_json()
+		return jsonify(response), 200
 
-	return jsonify(response), 200
+	return abort(404)
 
 
 @account_api.route('/create', methods=['POST'])
@@ -75,6 +79,7 @@ def account_login():
 
 				if token:
 					response["token"] = token.decode('utf8')
+					response["user"] = user.get_json()
 					response["message"] = "Account {} logged in!".format(username)
 				else:
 					response["message"] = "Error logging in with {}.".format(username)

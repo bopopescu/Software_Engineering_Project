@@ -107,7 +107,31 @@ class User(_BaseModel):
 	def scope(self):
 		return self._scope
 	
+	""" Setters """
+
+	@id.setter
+	def id(self, id):
+		self._id = id
+
+	@username.setter
+	def username(self, un):
+		self._username = un
 	
+	@first_name.setter
+	def first_name(self, fn):
+		self._first_name = fn
+
+	@last_name.setter
+	def last_name(self, ln):
+		self._last_name = ln
+
+	@longitude.setter
+	def longitude(self, long):
+		self._longitude = long
+
+	@latitude.setter
+	def latitude(self, lat):
+		self._latitude = lat
 
 	""" Class methods """
 

@@ -60,7 +60,7 @@ class DatabaseController:
 		Checks if the user credentials are valid for a user in the database
 		"""
 		cursor = self._database.cursor()
-		query_string = "SELECT id, username, password_hash FROM {} WHERE username = ?".format(self._config.user_table)
+		query_string = "SELECT * FROM {} WHERE username = ?".format(self._config.user_table)
 		print(query_string, flush=True)
 
 		cursor.execute(query_string, (user.username,))
@@ -69,8 +69,13 @@ class DatabaseController:
 		print(row, flush=True)
 
 		if row:
-			if check_password_hash(row[2], user.password):
-				user._id = row[0]
+			if check_password_hash(row[4], user.password):
+				user.id = row[0]
+				user.username = row[1]
+				user.first_name = row[2]
+				user.last_name = row[3]
+				user.latitude = row[5]
+				user.longitude = row[6]
 				return True
 
 		return False
