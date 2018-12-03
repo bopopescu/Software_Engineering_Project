@@ -40,16 +40,16 @@ export class LoginPageComponent implements OnInit {
 					username: this.loginForm.get('username').value,
 					password: this.loginForm.get('password').value
 				}
-				this.dataService.login(this.user)
+				this.dataService.login(user)
 				.pipe(first())
 				.subscribe( response => {
 					console.log("Successful Login");
 					var user: User = {
-						firstName: response.firstName,
-						lastName: response.lastName,
-						email: response.email,
-						id: response.id,
-						fullName: response.fullName
+						first_name: response.user.first_name,
+						last_name: response.user.last_name,
+						email: "whatever",
+						id: response.user.id,
+						full_name: response.user.full_name
 					}
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);

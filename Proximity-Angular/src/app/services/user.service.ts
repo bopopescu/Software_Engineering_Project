@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from "../models/user"
+import { Observable } from 'rxjs/Observable';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class UserService {
 
   setUser(user: User){
     this.user = user;
+    console.log(this.user);
   }
 
   getId(): Number{
@@ -19,6 +21,10 @@ export class UserService {
   }
 
   getUser(): User{
+    return this.user;
+  }
+
+  getUserObservable(): User{
     return this.user;
   }
 

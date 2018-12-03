@@ -16,8 +16,8 @@
 <div *ngIf="post.displayComments" class="comment">
     <mat-divider></mat-divider>
     <mat-card-footer>
-        <div *ngFor="let comment of post.comments">
-            <mat-card-title>{{comment.name}}</mat-card-title>
+        <div *ngFor="let comment of comments">
+            <mat-card-title>{{comment.user.full_name}}</mat-card-title>
             <mat-card-content>{{comment.body}}</mat-card-content>
             <mat-card-content>{{comment.time}}</mat-card-content>
             <mat-divider></mat-divider>

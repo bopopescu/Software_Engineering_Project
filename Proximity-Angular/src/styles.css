@@ -4,3 +4,7 @@
 body {
     margin: 0;
   }
+
+  mat-sidenav-container {
+    min-height: 100vh;
+  }

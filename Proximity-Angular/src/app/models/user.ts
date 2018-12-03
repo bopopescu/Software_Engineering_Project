@@ -1,26 +1,8 @@
-// import { Friend } from "./friend";
-// export class User extends Friend{
-//     constructor(id: Number, firstName: String, lastName: String, friends: Array<Friend>, ){
-//         super(firstName, lastName, id);
-//         this.friends = friends;
-//     } 
-
-//     private friends: Array<Friend>;
-
-//     getFriends(): Array<Friend>{
-//         return this.friends;
-//     }
-
-//     addFriend(friend: Friend){
-//         this.friends.concat(friend);
-//     }
-// }
 import{ Post } from "./post"
-import { Location } from "./location"
 export interface User{
-    firstName: String
-    lastName: String
-    fullName: String
+    first_name: String
+    last_name: String
+    full_name: String
     id: Number
     email: String
     distance?: Number

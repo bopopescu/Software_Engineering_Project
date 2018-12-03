@@ -14,18 +14,13 @@
         <mat-icon class="icon">face</mat-icon>
         <span class="label">Feed</span>
       </a>
-      <a mat-list-item *ngIf="this.userService.userIsSet()" routerLink="/profile/{{userService.getId()}}">
+      <!-- <a mat-list-item *ngIf="loggedIn">
         <mat-icon class="icon">account_circle</mat-icon>
         <span class="label">Profile</span>
-      </a>
-      <a mat-list-item *ngIf="!loggedIn" routerLink="/login">
+      </a> -->
+      <a mat-list-item routerLink="/login">
         <mat-icon class="icon">input</mat-icon>
-        <span class="label">Login</span>
-      </a>
-
-      <a mat-list-item *ngIf="loggedIn" routerLink="/login" type="button">
-        <mat-icon class="icon">input</mat-icon>
-        <span class="label">LogOut</span>
+        <span class="label">{{ loggedIn ? "Logout" : "Login" }}</span>
       </a>
     </mat-nav-list>
   </mat-sidenav>

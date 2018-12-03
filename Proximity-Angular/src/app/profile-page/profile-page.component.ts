@@ -28,68 +28,68 @@ export class ProfilePageComponent implements OnInit {
 		createPost: ['']
 	})
 
-	oprofile: Observable<User>;
-	profile: User
+	profile: Observable<User>
 	notFriend: Boolean
 	id: Number
 
 	ngOnInit() {
 		this.id = Number.parseInt(this.activatedRoute.snapshot.url[1].path);
 		this.profileData.disable();
-		if(this.id !== 5){
+		if(this.id !== this.userService.getId()){
 			this.profileData.get('createPost').disable();
 		}
 		this.dataService.getProfileInfo(this.id)
-		  .subscribe(info => {
-		    this.oprofile = info;
+		  .subscribe(response => {
+			this.profile = response;
+			console.log(response);
 		  })
 
-		setTimeout(() => {
-			if (this.id == 5) {
-				var thing: Comment;
-				thing = {
-					body: "My comment has stuff in it",
-					name: "Hanna Montana"
-				}
-				var array: Array<Comment> = [thing];
-				this.profile = {
-					firstName: "Miley",
-					lastName: "Cyrus",
-					id: 5,
-					email: "WreckingHoes@Career.gov",
-					distance: 50,
-					posts: [
-						{
-							body: "Something I just wonder what would have happened if I focused more on my career.",
-							name: "Miley Cyrus",
-							title: "My career is a dump now...",
-							displayComments: false,
-							comments: array,
-							userId: 5,
-							postId: 2,
-							distance: 20
-						},
-						{
-							body: "Something something daddy issues. JKFDS:JFK:LDFJSK L: Jfkljfakldsfj iaj eilj afis;j flsakjiewjo pdjfkad;slfj a;sdjfs da;fjkas; fjdakl ;fj",
-							name: "Miley Cyrus",
-							title: "My dad sucks",
-							displayComments: false,
-							userId: 5,
-							postId: 1,
-							distance: 50
-						}
-					],
-					fullName: "Miley Cyrus"
-				}
-				console.log(this.profile);
-			}
-		}, 10);
+	// 	setTimeout(() => {
+	// 		if (this.id == 5) {
+	// 			var thing: Comment;
+	// 			thing = {
+	// 				body: "My comment has stuff in it",
+	// 				name: "Hanna Montana"
+	// 			}
+	// 			var array: Array<Comment> = [thing];
+	// 			this.profile = {
+	// 				firstName: "Miley",
+	// 				lastName: "Cyrus",
+	// 				id: 5,
+	// 				email: "WreckingHoes@Career.gov",
+	// 				distance: 50,
+	// 				posts: [
+	// 					{
+	// 						body: "Something I just wonder what would have happened if I focused more on my career.",
+	// 						name: "Miley Cyrus",
+	// 						title: "My career is a dump now...",
+	// 						displayComments: false,
+	// 						comments: array,
+	// 						userId: 5,
+	// 						postId: 2,
+	// 						distance: 20
+	// 					},
+	// 					{
+	// 						body: "Something something daddy issues. JKFDS:JFK:LDFJSK L: Jfkljfakldsfj iaj eilj afis;j flsakjiewjo pdjfkad;slfj a;sdjfs da;fjkas; fjdakl ;fj",
+	// 						name: "Miley Cyrus",
+	// 						title: "My dad sucks",
+	// 						displayComments: false,
+	// 						userId: 5,
+	// 						postId: 1,
+	// 						distance: 50
+	// 					}
+	// 				],
+	// 				fullName: "Miley Cyrus"
+	// 			}
+	// 			console.log(this.profile);
+	// 		}
+	// 	}, 10);
 	}
 
 	createPost() {
 		this.dialog.open(CreatePostDialogComponent,{
 			data: {
-				name: this.profile.fullName
+				// name: this.profile.full_name
 			}
 		});
 	}

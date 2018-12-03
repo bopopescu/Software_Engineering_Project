@@ -1,5 +1,7 @@
+import { User } from "./user";
+
 export interface Comment {
     body: String
-    name: String
+    user: User
     time?: DateConstructor
 }

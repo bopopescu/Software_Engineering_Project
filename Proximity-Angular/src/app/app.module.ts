@@ -21,11 +21,8 @@ import { JwtInterceptor } from './models/jwt-interceptor';
 import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { PostComponent } from './post/post.component';
-<<<<<<< HEAD
-import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
-=======
 import { EventPageComponent } from './event-page/event-page.component';
->>>>>>> 704706fb46e2e7a1eb546e11f309af035783c755
+import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
 
 
 @NgModule({
@@ -41,11 +38,8 @@ import { EventPageComponent } from './event-page/event-page.component';
     LogoutDialogComponent,
     HomePageComponent,
     PostComponent,
-<<<<<<< HEAD
     CreatePostDialogComponent,
-=======
     EventPageComponent,
->>>>>>> 704706fb46e2e7a1eb546e11f309af035783c755
   ],
   imports: [
     BrowserModule,
