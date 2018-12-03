@@ -141,7 +141,7 @@ class User(_BaseModel):
 
 		if claims:
 			print(claims)
-			user = cls(id=claims.get("id"), username=claims.get("username"), scope=claims.get("scope"))
+			user = cls(id=claims.get("id"), username=claims.get("username"), scope=claims.get("scope"), latitude=claims.get("latitude"), longitude=claims.get("longitude"))
 			return user
 
 		return None
