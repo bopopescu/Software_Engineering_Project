@@ -121,10 +121,10 @@ def get_comments(user):
 			print(comments, flush=True)
 
 			if comments:
-				response = []
+				response["comments"] = []
 
 				for comment in comments:
-					response.append(comment.get_json())
+					response["comments"].append(comment.get_json())
 			else:
 				response["message"] = "Unable to find comments."
 
