@@ -230,6 +230,27 @@ class DatabaseController:
 
 		return filtered_rows
 
+	def get_user_posts(self, user_id):
+		"""
+		Gets all posts made within a radius of the latitude and longitude provided
+		"""
+		cursor = self._database.cursor()
+		query_string = "SELECT * FROM [Post] WHERE user_id = ?"
+
+		cursor.execute(query_string, (user_id,))
+		rows = cursor.fetchall()
+
+		filtered_rows = []
+		for row in rows:
+			user = User.from_row(self.get_user(row[1]))
+
+			if user:
+				row[1] = user.get_json()
+
+				filtered_rows.append(row)
+
+		return filtered_rows
+
 	def create_comment(self, comment):
 		"""
 		Creates a new comment in the comment database

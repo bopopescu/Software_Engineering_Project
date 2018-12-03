@@ -22,7 +22,7 @@ class Post(_BaseModel):
 			"title": self.title,
 			"body": self.body,
 			"time": self.time,
-			"distance": self.distance
+			"distance": str(self.distance)
 		}
 
 	@property

@@ -58,6 +58,7 @@ def get_posts(user):
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
 		group_id = body.get("group_id", 0)
+		user_id = body.get("user_id", 0)
 
 		# print(request.args, flush=True)
 		# print(request.query_string, flush=True)
@@ -80,6 +81,19 @@ def get_posts(user):
 					response["posts"].append(post.get_json())
 			else:
 				response["message"] = "Unable to find posts."
+		elif user_id:
+			posts = Post.from_list(database.get_user_posts(user_id))
+
+			print(posts, flush=True)
+
+			if posts:
+				response["posts"] = []
+
+				for post in posts:
+					response["posts"].append(post.get_json())
+			else:
+				response["message"] = "Unable to find posts."
+
 
 	print(response, flush=True)
 
