@@ -43,6 +43,20 @@ export class DataService {
 			)
   }
 
+  resetPassword(username: string, password: string){
+    var account = {
+      username: username,
+      password: password
+    }
+    this.http.post(this.baseUrl + '/account/v1/create', account)
+			.subscribe(
+				response => 
+					console.log(response),
+				error => 
+					console.log(error)
+			)
+  }
+
   getFriends(): Observable<any>{
     return this.http.get<any>(this.baseUrl + '/account/v1/friends/fetch');
   }
