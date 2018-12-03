@@ -25,6 +25,7 @@ import { EventPageComponent } from './event-page/event-page.component';
 import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
 import { EventsComponent } from './events/events.component';
 import { UserService } from './services/user.service';
+import { MessageComponent } from './message/message.component';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { UserService } from './services/user.service';
     PostComponent,
     CreatePostDialogComponent,
     EventPageComponent,
-    EventsComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,17 @@
         <span class="label">Profile</span>
       </a>
       <a mat-list-item routerLink="/login">
+      </a>
+      <a mat-list-item routerLink="/messaging">
+        <mat-icon class="icon">face</mat-icon>
+        <span class="label">Messaging</span>
+      </a>
+      <a mat-list-item *ngIf="!loggedIn" routerLink="/login">
+        <mat-icon class="icon">input</mat-icon>
+        <span class="label">Login</span>
+      </a>
+
+      <a mat-list-item *ngIf="loggedIn" routerLink="/login" type="button">
         <mat-icon class="icon">input</mat-icon>
         <span class="label">{{ loggedIn ? "Logout" : "Login" }}</span>
       </a>
