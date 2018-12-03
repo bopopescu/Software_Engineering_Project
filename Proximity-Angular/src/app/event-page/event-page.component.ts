@@ -14,15 +14,15 @@ export class EventPageComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   events = [{
-    title: "Donald",
-    owner: "Healthy young child goes to doctor, gets pumped with massive shot of many vaccines, doesn’t feel good and changes – AUTISM. Many such cases!", 
-    time: "TRUTH, YOU WONT BELIEVE",
+    title: "Sand Volleyball",
+    owner: "Pauly D", 
+    time: "12:00",
     distance: "1.0 miles away",
   },
   {
-    title: "Donald",
-    owner: "Every time I speak of the haters and losers I do so with great love and affection. They cannot help the fact that they were born fucked up!", 
-    time: "CANT BELIEVE THIS COUNTRY",
+    title: "Rave",
+    owner: "DeadMau5", 
+    time: "1:00",
     distance: "1.0 miles away",
   },
 ];
