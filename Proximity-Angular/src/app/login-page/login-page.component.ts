@@ -51,6 +51,7 @@ export class LoginPageComponent implements OnInit {
 						id: response.user.id,
 						full_name: response.user.full_name
 					}
+
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);
 				},

@@ -46,12 +46,30 @@ export class DataService {
 			)
   }
 
+  resetPassword(username: string, password: string){
+    var account = {
+      username: username,
+      password: password
+    }
+    this.http.post(this.baseUrl + '/account/v1/create', account)
+			.subscribe(
+				response => 
+					console.log(response),
+				error => 
+					console.log(error)
+			)
+  }
+
   getFriends(): Observable<any>{
     return this.http.get<any>(this.baseUrl + '/account/v1/friends/fetch');
   }
 
   getProfileInfo(id: Number): Observable<any>{
     return this.http.get<any>(this.baseUrl + '/account/v1/profile/' + id);
+  }
+
+  getEvents(lat: number, long: number): Observable<any>{
+    return this.http.post<any>(this.baseUrl + '/event/v1/fetch', {latitude: lat, longitude:long});
   }
 
   getFeed(lat: number, long: number): Observable<any>{

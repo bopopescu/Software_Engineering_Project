@@ -6,6 +6,7 @@ import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
+import {Event} from "../models/event"
 
 
 @Component({
@@ -87,6 +88,39 @@ export class MapPageComponent implements OnInit {
 					}
 				}
 			)
+			
+			this.dataService.getEvents(this.latitude,this.longitude)
+			.subscribe(
+				events => {
+					var loc = events.friends;
+					for (var i = 0; i < loc.length; i++) {
+						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
+						var contentString =
+							'<p><b>Name</b>: ' + loc[i].name + '</br>' +
+							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
+							'</p>';
+						var infoWindow = new google.maps.InfoWindow({
+							content: contentString
+						})
+
+						var marker = new google.maps.Marker({
+							position: position,
+							map: this.map
+						})
+
+						marker.addListener('mouseover', () => {
+							infoWindow.open(this.map, marker);
+						});
+
+						marker.addListener('mouseout', () => {
+							infoWindow.close();
+						});
+						setTimeout(() => {
+							this.friendMarkers.push(marker);
+						}, 100);
+					}
+				}
+			)
 	}
 
 	search() {
@@ -153,8 +187,7 @@ export class MapPageComponent implements OnInit {
 		})
 
 		marker.addListener('click', () => {
-			//this.router.navigateByUrl("/profile/" + loc.id);
-			this.router.navigateByUrl("/event");
+			this.router.navigateByUrl("/profile/" + loc.id);
 		});
 
 		marker.addListener('mouseover', () => {
