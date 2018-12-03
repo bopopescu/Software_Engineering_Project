@@ -74,10 +74,10 @@ def get_posts(user):
 			print(posts, flush=True)
 
 			if posts:
-				response = []
+				response["posts"] = []
 
 				for post in posts:
-					response.append(post.get_json())
+					response["posts"].append(post.get_json())
 			else:
 				response["message"] = "Unable to find posts."
 

@@ -17,6 +17,16 @@ from App import (
 
 account_api = Blueprint('AccountModule', __name__)
 
+
+@account_api.route('/profile/<int:user_id>')
+def profile(user_id):
+	user = User.from_row(database.get_user(user_id))
+
+	response = user.get_json()
+
+	return jsonify(response), 200
+
+
 @account_api.route('/create', methods=['POST'])
 def account_create():
 	body = request.get_json()
