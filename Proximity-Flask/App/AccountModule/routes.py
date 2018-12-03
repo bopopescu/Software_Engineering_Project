@@ -142,7 +142,7 @@ def get_friends(user):
 
 	response = {}
 
-	if body:
+	if body != None:
 		# latitude = body.get("latitude")
 		# longitude = body.get("longitude")
 
