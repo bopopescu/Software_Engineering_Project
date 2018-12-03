@@ -21,13 +21,14 @@ export class ResetPasswordComponent implements OnInit {
 	})
 
 	onSubmit() {
-		let password = this.resetPassword.get('password').value;
+		let old_password = this.resetPassword.get('oldPassword').value;
+		let new_password = this.resetPassword.get('password').value;
 		let passwordCheck = this.resetPassword.get('passwordCheck').value;
 
-		if (password == passwordCheck) {
+		if (new_password == passwordCheck) {
 			this.isValid = true;
 			var username = this.resetPassword.get('username').value;
-      this.dataService.resetPassword(username, password);
+      this.dataService.resetPassword(username, old_password, new_password);
 		}
 		else {
 			this.isValid = false;
