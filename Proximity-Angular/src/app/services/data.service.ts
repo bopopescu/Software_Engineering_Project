@@ -65,6 +65,10 @@ export class DataService {
     return this.http.get<any>(this.baseUrl + '/account/v1/' + id);
   }
 
+  getEvents(): Observable<any>{
+    return this.http.get<any>(this.baseUrl + '????');
+  }
+
   getFeed(lat: number, long: number): Observable<any>{
     // var params = new HttpParams();
 
