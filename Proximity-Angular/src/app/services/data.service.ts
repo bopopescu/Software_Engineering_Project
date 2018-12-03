@@ -46,12 +46,13 @@ export class DataService {
 			)
   }
 
-  resetPassword(username: string, password: string){
+  resetPassword(username: string, old_password: string, new_password: string){
     var account = {
       username: username,
-      password: password
+      old_password: old_password,
+      new_password: new_password
     }
-    this.http.post(this.baseUrl + '/account/v1/create', account)
+    this.http.post(this.baseUrl + '/account/v1/reset', account)
 			.subscribe(
 				response => 
 					console.log(response),

@@ -72,3 +72,7 @@
   mat-side-nav {
     min-height: 100%;
   }
+
+  .topNavItem{
+    margin-left: 10px;
+  }
