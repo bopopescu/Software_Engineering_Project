@@ -54,6 +54,9 @@ def get_events(user):
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
 
+		latitude = user.latitude
+		longitude = user.longitude
+
 		if latitude and longitude:
 			events = Event.from_list(database.get_events(latitude, longitude, 100))
 

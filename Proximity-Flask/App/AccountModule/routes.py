@@ -155,10 +155,10 @@ def get_friends(user):
 			friends = User.from_list(database.get_friends(user.id, latitude, longitude))
 
 			if friends:
-				response = []
+				response["friends"] = []
 
 				for friend in friends:
-					response.append(friend.get_json())
+					response["friends"].append(friend.get_json())
 			else:
 				response["message"] = "Unable to find friends."
 
