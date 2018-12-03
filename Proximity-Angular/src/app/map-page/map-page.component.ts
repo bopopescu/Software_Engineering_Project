@@ -19,6 +19,7 @@ import { UserService } from '../services/user.service';
 
 export class MapPageComponent implements OnInit {
 	constructor(private fb: FormBuilder,private router: Router, private dataService: DataService, private userService: UserService) {
+		this.markers = new Array<google.maps.Marker>();
 	}
 
 	searchBar = this.fb.group({
@@ -32,6 +33,7 @@ export class MapPageComponent implements OnInit {
 	longitude: any;
 	friendMarkers: google.maps.Marker[] = [];
 	groupMarkers: google.maps.Marker[];
+	markers: google.maps.Marker[];
 	results: Observable<google.maps.Marker[]>;
 
 	iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -48,18 +50,17 @@ export class MapPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.initMap();
-		this.results = this.searchBar.valueChanges
+		this.results = this.searchBar.get('search').valueChanges
 			.pipe(
 				startWith(''),
-				map(value => this.filterSearch(value))
-			);
+				map(value => {
+					return this.filterSearch(value)
+				}));
 		this.dataService.getFriends()
 			.subscribe(
 				locations => {
-					console.log(locations);
 					var loc = locations.friends;
 					for (var i = 0; i < loc.length; i++) {
-						console.log(loc[i]);
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
 						var contentString =
 							'<p><b>Name</b>: ' + loc[i].full_name + '</br>' +
@@ -71,10 +72,12 @@ export class MapPageComponent implements OnInit {
 
 						var marker = new google.maps.Marker({
 							position: position,
-							map: this.map
+							map: this.map,
+							title: loc[i].id.toString() + "_" + loc[i].full_name
 						})
 
-						marker.addListener('click', (id) => {
+						marker.addListener('click', () => {
+							var id = marker.getTitle().split(" ")[0];
 							this.router.navigateByUrl('/profile/' + id);
 						});
 
@@ -87,7 +90,8 @@ export class MapPageComponent implements OnInit {
 						});
 						setTimeout(() => {
 							this.friendMarkers.push(marker);
-						}, 100);
+							this.markers.push(marker);
+						}, 500);
 					}
 				}
 			)
@@ -95,7 +99,7 @@ export class MapPageComponent implements OnInit {
 			this.dataService.getEvents(this.latitude,this.longitude)
 			.subscribe(
 				events => {
-					console.log(events)
+					this.groupMarkers = new Array<google.maps.Marker>();
 					var loc = events;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
@@ -109,7 +113,8 @@ export class MapPageComponent implements OnInit {
 
 						var marker = new google.maps.Marker({
 							position: position,
-							map: this.map
+							map: this.map,
+							title: loc[i].id.toString() + "_" + loc[i].title
 						})
 
 						marker.addListener('mouseover', () => {
@@ -119,17 +124,16 @@ export class MapPageComponent implements OnInit {
 						marker.addListener('mouseout', () => {
 							infoWindow.close();
 						});
-						setTimeout(() => {
-							this.friendMarkers.push(marker);
-						}, 100);
+						this.groupMarkers.push(marker);
+						this.markers.push(marker);
 					}
 				}
 			)
 	}
 
 	search() {
-		var search = this.friendMarkers.find((element) => {
-			return element.getTitle().toLowerCase() == this.searchBar.get('search').value.toLowerCase();
+		var search = this.markers.find((element) => {
+			return element.getTitle().split("_")[1].toLowerCase() == this.searchBar.get('search').value.toLowerCase();
 		});
 
 		if(search){
@@ -138,12 +142,12 @@ export class MapPageComponent implements OnInit {
 	}
 
 	private filterSearch(value: string): google.maps.Marker[]{
-		const filterValue = value.search.toString().toLowerCase();
+		const filterValue = value.toLowerCase();
 
-		return this.friendMarkers.filter(marker => marker.getTitle().toLowerCase().includes(filterValue));
+		return this.friendMarkers.filter(marker => {
+			marker.getTitle().split("_")[1].toLowerCase().includes(filterValue)
+		});
 	}
-
-
 
 	private initMap() {
 		var mapProp = {
@@ -163,44 +167,44 @@ export class MapPageComponent implements OnInit {
 			)
 		}
 
-		this.testData();
+		// this.testData();
 	}
 
-	private testData(){
-		var loc = {
-			name: "bob",
-			distance: 32.7,
-			latitude: 38.951706,
-			longitude: -92.334068,
-			id: 1
+	// private testData(){
+	// 	var loc = {
+	// 		name: "bob",
+	// 		distance: 32.7,
+	// 		latitude: 38.951706,
+	// 		longitude: -92.334068,
+	// 		id: 1
 
-		}
-		var position = new google.maps.LatLng(loc.latitude, loc.longitude);
-		var contentString =
-			'<p><b>Name</b>: ' + loc.name + '</br>' +
-			'<b>Distance</b>: ' + loc.distance + '</br>' +
-			'</p>';
-		var infoWindow = new google.maps.InfoWindow({
-			content: contentString
-		})
+	// 	}
+	// 	var position = new google.maps.LatLng(loc.latitude, loc.longitude);
+	// 	var contentString =
+	// 		'<p><b>Name</b>: ' + loc.name + '</br>' +
+	// 		'<b>Distance</b>: ' + loc.distance + '</br>' +
+	// 		'</p>';
+	// 	var infoWindow = new google.maps.InfoWindow({
+	// 		content: contentString
+	// 	})
 
-		var marker = new google.maps.Marker({
-			position: position,
-			map: this.map,
-			title: loc.name,
-		})
+	// 	var marker = new google.maps.Marker({
+	// 		position: position,
+	// 		map: this.map,
+	// 		title: loc.name,
+	// 	})
 
-		marker.addListener('click', () => {
-			this.router.navigateByUrl("/profile/" + loc.id);
-		});
+	// 	marker.addListener('click', () => {
+	// 		this.router.navigateByUrl("/profile/" + loc.id);
+	// 	});
 
-		marker.addListener('mouseover', () => {
-			infoWindow.open(this.map, marker);
-		});
+	// 	marker.addListener('mouseover', () => {
+	// 		infoWindow.open(this.map, marker);
+	// 	});
 
-		marker.addListener('mouseout', () => {
-			infoWindow.close();
-		});
-		this.friendMarkers.push(marker);
-	}
+	// 	marker.addListener('mouseout', () => {
+	// 		infoWindow.close();
+	// 	});
+	// 	this.friendMarkers.push(marker);
+	// }
 }

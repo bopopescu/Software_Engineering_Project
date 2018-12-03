@@ -77,6 +77,10 @@ export class DataService {
     return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', { latitude: lat, longitude:long });
   }
 
+  getPost(id: Number): Observable<any> {
+    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {id: id})
+  }
+
   getComments(id: Number): Observable<any>{
     return this.http.post<any>(this.baseUrl + "/feed/v1/comments/fetch", { post_id: id });
   }

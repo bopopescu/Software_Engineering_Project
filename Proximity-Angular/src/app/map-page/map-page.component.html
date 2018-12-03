@@ -17,8 +17,8 @@
 <button mat-raised-button (click)='search()' type="submit">Search</button>
 
 <mat-autocomplete #auto="matAutocomplete">
-  <mat-option *ngFor="let result of results | async" [value]="result.getTitle()">
-    {{ result.getTitle() }}
+  <mat-option *ngFor="let result of markers" [value]="result.getTitle().split('_')[1]">
+    {{result.getTitle().split('_')[1]}}
   </mat-option>
 </mat-autocomplete>
 

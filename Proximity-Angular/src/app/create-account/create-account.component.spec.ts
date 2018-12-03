@@ -4,6 +4,7 @@ import { CreateAccountComponent } from './create-account.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from '../services/data.service';
 import { DebugElement } from '@angular/core';
+import { MaterialModule } from '../material.module';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -15,7 +16,7 @@ describe('CreateAccountComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateAccountComponent ],
-      imports: [ReactiveFormsModule, HttpClientModule],
+      imports: [ReactiveFormsModule, HttpClientModule, MaterialModule],
       providers: [ DataService ]
     })
     .compileComponents();

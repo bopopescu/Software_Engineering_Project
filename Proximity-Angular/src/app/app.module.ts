@@ -26,6 +26,7 @@ import { CreatePostDialogComponent } from './create-post-dialog/create-post-dial
 import { EventsComponent } from './events/events.component';
 import { UserService } from './services/user.service';
 import { MessageComponent } from './message/message.component';
+import { CreateCommentDialogComponent } from './create-comment-dialog/create-comment-dialog.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { MessageComponent } from './message/message.component';
     EventPageComponent,
     EventsComponent,
     MessageComponent,
+    CreateCommentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,6 @@ import { MessageComponent } from './message/message.component';
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
               UserService],
   bootstrap: [AppComponent],
-  entryComponents: [LogoutDialogComponent, CreatePostDialogComponent]
+  entryComponents: [LogoutDialogComponent, CreatePostDialogComponent,CreateCommentDialogComponent]
 })
 export class AppModule { }

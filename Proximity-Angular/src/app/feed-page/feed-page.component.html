@@ -1,37 +1,4 @@
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div id="main" class="col-12">
-  <div id="inner" class="col-12">
-      <div id="searchBarDiv" class="col-12">
-          <p id="searchText">Search Feed: </p>        
-          <input type="text" placeholder="Enter Search Here..." class="searchBar">
-      </div>
-      <div id="newsFeed" class="col-12">
-            
-          <div *ngFor="let post of posts" class="w3-panel w3-card w3-white">
-              <div class="w3-display-container">
-
-                <span>{{post.user_id}}</span>
-                <span class="w3-display-topmiddle">{{post.title}}</span>
-                <img src={{post.prof_pic}} alt="Avatar" class="w3-left w3-circle w3-margin-right" 
-                  style="width:60px"> 
-                <p>   
-                    {{post.body}}
-                </p>
-                
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-up"></i>  Like</button>
-                <button type="button" class="w3-button w3-theme-d1 w3-margin-bottom"><i class="fa fa-thumbs-down"></i>  Dislike</button> 
-                <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button> 
-                <span class="w3-display-bottomright">{{post.latitude}}, {{post.longitude}} {{post.time}}</span>
-              </div>
-            </div>
-      </div>
-  </div>
-
-  <div>  
-    </div>
-</div> -->
-
+<h1>Public Feed</h1>
 <div *ngFor="let post of posts">
     <app-post [post]=post></app-post>
 </div>
