@@ -14,7 +14,7 @@ class Comment(_BaseModel):
 			"user": self.user_id,
 			"post_id": self.post_id,
 			"body": self.body,
-			"time": self.time
+			"time": self.time.strftime("%Y-%m-%d %H:%M:%S")
 		}
 
 	@property

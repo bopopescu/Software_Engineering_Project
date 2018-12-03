@@ -17,8 +17,8 @@ class Event(_BaseModel):
 			"title": self.title,
 			"latitude": str(self.latitude),
 			"longitude": str(self.longitude),
-			"time": self.time,
-			"distance": self.distance
+			"time": self.time.strftime("%Y-%m-%d %H:%M:%S"),
+			"distance": str(self.distance)
 		}
 
 	@property

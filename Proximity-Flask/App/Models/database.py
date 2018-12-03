@@ -370,12 +370,12 @@ class DatabaseController:
 
 		print(rows, flush=True)
 
-		# filtered_rows = []
-		# for row in rows:
-		# 	if row[5] < 50:
-		# 		filtered_rows.append(row)
+		filtered_rows = []
+		for row in rows:
+			if row[6] < 100:
+				filtered_rows.append(row)
 
-		return rows
+		return filtered_rows
 
 
 	def delete_group(self, group_id):
@@ -415,7 +415,7 @@ class DatabaseController:
 		cursor = self._database.cursor()
 		query_string = "INSERT INTO [Event] (owner, title, latitude, longitude, time) VALUES (?, ?, ?, ?, ?)"
 
-		cursor.execute(query_string, (event.owner, event.title, event.latitude, event.longitude, event.time))
+		cursor.execute(query_string, (event.owner, event.title, event.latitude, event.longitude, datetime.datetime.now()))
 		self._database.commit()
 
 		return True
@@ -436,11 +436,13 @@ class DatabaseController:
 		filtered_rows = []
 		for row in rows:
 			if row[6] < 50:
-				user = User.from_row(self.get_user(row[1]))
+				user_data = self.get_user(row[1])
 
-				if user:
+				if user_data:
+					user = User.from_row(user_data)
 					row[1] = user.get_json()
 					filtered_rows.append(row)
+
 		return filtered_rows
 
 	def create_attendee(self, attendee):

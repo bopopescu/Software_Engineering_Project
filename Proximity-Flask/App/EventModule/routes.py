@@ -26,13 +26,12 @@ def create_event(user):
 	response = {}
 
 	if body:
-		owner = body.get("owner")
 		title = body.get("title")
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
 
-		if owner and title and latitude and longitude:
-			event = Event(owner=owner, title=title, latitude=latitude, longitude=longitude)
+		if title and latitude and longitude:
+			event = Event(owner=user.id, title=title, latitude=latitude, longitude=longitude)
 
 			if database.create_event(event):
 				response["message"] = "Event made"
