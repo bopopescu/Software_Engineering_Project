@@ -445,6 +445,7 @@ class DatabaseController:
 
 		return filtered_rows
 
+
 	def create_attendee(self, attendee):
 		"""
 		Create a new attendee
@@ -457,6 +458,7 @@ class DatabaseController:
 
 		return True
 
+
 	def get_attendees(self, event_id):
 		"""
 		Fecthes all attendees of an event
@@ -467,12 +469,18 @@ class DatabaseController:
 		cursor.execute(query_string, (event_id,))
 		rows = cursor.fetchall()
 
-		users = []
-		for row in rows:
-			user = get_user(row[0])
-			user.append(user)
+		print(rows, flush=True)
 
-		return users
+		filtered_rows = []
+		for row in rows:
+			user_data = self.get_user(row[0])
+
+			if user_data:
+				user = User.from_row(user_data)
+
+				filtered_rows.append(user)
+
+		return filtered_rows
 
 
 """ UTILITIES """

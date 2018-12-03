@@ -43,7 +43,7 @@ def create_event(user):
 	return jsonify(response), 200
 
 
-@event_api.route('/fetch')
+@event_api.route('/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_events(user):
 	body = request.get_json()
@@ -93,7 +93,7 @@ def create_attendee(user):
 	return jsonify(response), 200
 
 
-@event_api.route('/attendees/fetch')
+@event_api.route('/attendees/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_attendees(user):
 	body = request.get_json()
@@ -104,13 +104,13 @@ def get_attendees(user):
 		event_id = body.get("event_id")
 
 		if event_id:
-			attendees = Attendee.from_list(database.get_attendees(event_id))
+			attendees = database.get_attendees(event_id)
 
 			if attendees:
-				response = []
+				response["attendees"] = []
 
 				for attendee in attendees:
-					response.append(attendee.get_json())
+					response["attendees"].append(attendee.get_json())
 			else:
 				response["message"] = "Unable to fetch attendees"
 
