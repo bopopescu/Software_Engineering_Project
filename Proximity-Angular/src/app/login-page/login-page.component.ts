@@ -49,8 +49,9 @@ export class LoginPageComponent implements OnInit {
 						lastName: response.lastName,
 						email: response.email,
 						id: response.id,
-						fullName: response.fullName
+						fullName: response.fullName,
 					}
+
 					this.userService.setUser(user);
 					this.router.navigate([this.returnUrl]);
 				},

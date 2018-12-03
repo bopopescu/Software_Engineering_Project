@@ -65,8 +65,8 @@ export class DataService {
     return this.http.get<any>(this.baseUrl + '/account/v1/' + id);
   }
 
-  getEvents(): Observable<any>{
-    return this.http.get<any>(this.baseUrl + '????');
+  getEvents(lat: number, long: number): Observable<any>{
+    return this.http.post<any>(this.baseUrl + '/event/v1/fetch', {latitude: lat, longitude:long});
   }
 
   getFeed(lat: number, long: number): Observable<any>{

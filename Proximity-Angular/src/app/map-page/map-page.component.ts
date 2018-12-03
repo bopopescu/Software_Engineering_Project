@@ -88,8 +88,8 @@ export class MapPageComponent implements OnInit {
 					}
 				}
 			)
-
-			this.dataService.getEvents()
+			
+			this.dataService.getEvents(this.latitude,this.longitude)
 			.subscribe(
 				events => {
 					var loc = events.friends;
