@@ -57,8 +57,9 @@ export class MapPageComponent implements OnInit {
 			.subscribe(
 				locations => {
 					console.log(locations);
-					var loc = locations;
+					var loc = locations.friends;
 					for (var i = 0; i < loc.length; i++) {
+						console.log(loc[i]);
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
 						var contentString =
 							'<p><b>Name</b>: ' + loc[i].full_name + '</br>' +
@@ -73,8 +74,8 @@ export class MapPageComponent implements OnInit {
 							map: this.map
 						})
 
-						marker.addListener('click', () => {
-							this.router.navigateByUrl('/profile/' + loc.id);
+						marker.addListener('click', (id) => {
+							this.router.navigateByUrl('/profile/' + id);
 						});
 
 						marker.addListener('mouseover', () => {
@@ -94,12 +95,12 @@ export class MapPageComponent implements OnInit {
 			this.dataService.getEvents(this.latitude,this.longitude)
 			.subscribe(
 				events => {
-					console.log("events: " + events)
-					var loc = events.friends;
+					console.log(events)
+					var loc = events;
 					for (var i = 0; i < loc.length; i++) {
 						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
 						var contentString =
-							'<p><b>Name</b>: ' + loc[i].name + '</br>' +
+							'<p><b>Name</b>: ' + loc[i].title + '</br>' +
 							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
 							'</p>';
 						var infoWindow = new google.maps.InfoWindow({

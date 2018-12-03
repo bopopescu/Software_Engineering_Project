@@ -9,32 +9,29 @@ export class UserService {
 
   constructor() { }
 
-  private user: User; 
-
   setUser(user: User){
-    this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
     console.log("User set");
   }
 
-  getId(): Number{
-    return this.user.id;
+  get id(): Number{
+    return JSON.parse(localStorage.getItem('user')).id;
   }
 
   getUser(): User{
-    console.log("Getting user" + this.user);
-    return this.user;
+    return JSON.parse(localStorage.getItem('user')).user;
   }
 
-  getUserObservable(): User{
-    return this.user;
-  }
+  // getUserObservable(): User{
+  //   return this.user;
+  // }
 
   userIsSet(): Boolean{
-    return this.user === null;
+    return JSON.parse(localStorage.getItem('user')) === null;
   }
 
   isFriend(id: Number): Boolean{
-    var friend = this.user.friends.find(friend => friend.id === id);
-    return this.user.friends.includes(friend);
+    var friend = JSON.parse(localStorage.getItem('user')).friends.find(friend => friend.id === id);
+    return JSON.parse(localStorage.getItem('user')).friends.includes(friend);
   }
 }

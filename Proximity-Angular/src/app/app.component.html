@@ -14,16 +14,16 @@
         <mat-icon class="icon">face</mat-icon>
         <span class="label">Feed</span>
       </a>
-      <a mat-list-item *ngIf="loggedIn" routerLink="/profile/{{userService.getId()}}">
+      <a mat-list-item *ngIf="loggedIn" routerLink="/profile/{{userService.id}}">
         <mat-icon class="icon">account_circle</mat-icon>
         <span class="label">Profile</span>
       </a>
       <a mat-list-item routerLink="/events">
-        <mat-icon class="icon">face</mat-icon>
+        <mat-icon class="icon">event</mat-icon>
         <span class="label">Events</span>
       </a>
       <a mat-list-item routerLink="/messaging">
-        <mat-icon class="icon">face</mat-icon>
+        <mat-icon class="icon">message</mat-icon>
         <span class="label">Messaging</span>
       </a>
       <a mat-list-item *ngIf="!loggedIn" routerLink="/login">

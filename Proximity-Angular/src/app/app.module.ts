@@ -60,6 +60,6 @@ import { MessageComponent } from './message/message.component';
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
               UserService],
   bootstrap: [AppComponent],
-  entryComponents: [LogoutDialogComponent]
+  entryComponents: [LogoutDialogComponent, CreatePostDialogComponent]
 })
 export class AppModule { }

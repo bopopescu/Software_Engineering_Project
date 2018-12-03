@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-post-dialog',
@@ -8,10 +9,21 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 })
 export class CreatePostDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CreatePostDialogComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CreatePostDialogComponent>, private fb: FormBuilder) { }
 
-
+  createPost = this.fb.group({
+    body: ['']
+  })
+  
   ngOnInit() {
   }
 
+  cancel(){
+    this.dialogRef.close();
+  }
+
+  create(){
+    console.log("Trying");
+    this.dialogRef.close(this.createPost.get('body').value);
+  }
 }

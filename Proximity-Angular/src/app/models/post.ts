@@ -5,7 +5,7 @@ export interface Post{
     title: String
     body: String
     username: String
-    time?: DateConstructor
+    time?: Number
     comments?: Array<Comment>
     displayComments?: Boolean
     isFriend?: Boolean

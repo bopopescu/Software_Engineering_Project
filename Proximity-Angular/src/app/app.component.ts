@@ -16,27 +16,30 @@ import { User } from './models/user';
 
 export class AppComponent{
 	constructor(private userService: UserService, private auth: AuthGuard, private router: Router, public dialog: MatDialog){
-		this.loggedIn = false;
-		this.router.events.subscribe( () =>{
-			this.loggedIn = this.auth.isLoggedIn();
-			if(this.loggedIn){
-				this.id = this.userService.getId();
-			}
-			console.log("Woooo");
-		})
+		// this.loggedIn = this.auth.isLoggedIn();
+		// this.router.events.subscribe( () =>{
+		// 	this.loggedIn = this.auth.isLoggedIn();
+		// 	if(this.loggedIn){
+		// 		this.id = this.userService.getId();
+		// 	}
+		// })
 		// this.user = this.userService.getUser();
 	}
 
-	loggedIn: Boolean
+	// loggedIn: Boolean
 	id: Number
 	user: User
+
+	get loggedIn(){
+		return this.auth.isLoggedIn();
+	}
 
 	loginDialog(){
 		if(this.loggedIn){
 			const dialogRef = this.dialog.open(LogoutDialogComponent);
-			dialogRef.afterClosed().subscribe(loggedIn => {
-				this.loggedIn = loggedIn;
-			})
+			// dialogRef.afterClosed().subscribe(loggedIn => {
+			// 	this.loggedIn = loggedIn;
+			// })
 		}
 		else{
 			this.router.navigateByUrl("/login");
