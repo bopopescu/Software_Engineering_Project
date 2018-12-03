@@ -226,6 +226,8 @@ class DatabaseController:
 				if user:
 					row[1] = user.get_json()
 
+					print(row[5], flush=True)
+
 					filtered_rows.append(row)
 
 		return filtered_rows
@@ -246,7 +248,6 @@ class DatabaseController:
 
 			if user:
 				row[1] = user.get_json()
-
 				filtered_rows.append(row)
 
 		return filtered_rows

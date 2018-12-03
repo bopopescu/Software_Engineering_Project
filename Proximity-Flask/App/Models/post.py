@@ -1,4 +1,5 @@
 from App.Models import _BaseModel
+from decimal import *
 
 class Post(_BaseModel):
 	def __init__(self, id=None, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
@@ -21,8 +22,8 @@ class Post(_BaseModel):
 			"username": self.username,
 			"title": self.title,
 			"body": self.body,
-			"time": self.time,
-			"distance": str(self.distance)
+			"time": self.time.strftime("%Y-%m-%d %H:%M:%S"),
+			"distance": str(self.distance.quantize(Decimal('.01')))
 		}
 
 	@property
