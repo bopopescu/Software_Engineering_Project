@@ -50,7 +50,7 @@ def get_events(user):
 
 	response = {}
 
-	if body:
+	if body != None:
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
 
