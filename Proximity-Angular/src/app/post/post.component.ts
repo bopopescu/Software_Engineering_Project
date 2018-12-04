@@ -5,6 +5,7 @@ import { DataService } from '../services/data.service';
 import { Observable } from 'rxjs';
 import { CreateCommentDialogComponent } from '../create-comment-dialog/create-comment-dialog.component';
 import { MatDialog } from '@angular/material';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-post',
@@ -17,6 +18,7 @@ export class PostComponent implements OnInit {
     private dialog: MatDialog) { }
 
   @Input() post: Post
+  // @Input() user: User
   comments: Array<Comment>
 
   ngOnInit() { }
@@ -43,8 +45,7 @@ export class PostComponent implements OnInit {
   createComment(){
     const dialogRef = this.dialog.open(CreateCommentDialogComponent);
     dialogRef.afterClosed().subscribe(data => {
-      console.log("Data: " + data); 
-      this.comments.push(data);
+      this.dataService.createComment(this.post.id, data);
     })
   }
 }

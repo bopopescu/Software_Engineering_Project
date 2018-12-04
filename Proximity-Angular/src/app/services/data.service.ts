@@ -4,13 +4,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Post } from '../models/post';
+import { Comment } from '../models/comment';
+import { CommentStmt } from '@angular/compiler';
+import { userInfo } from 'os';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private userService: UserService) { 
 
   }
   baseUrl = 'http://104.42.175.128';
@@ -78,11 +82,23 @@ export class DataService {
   }
 
   getPost(id: Number): Observable<any> {
-    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {id: id})
+    return this.http.post<any>(this.baseUrl + '/feed/v1/fetch', {user_id: id})
   }
 
   getComments(id: Number): Observable<any>{
     return this.http.post<any>(this.baseUrl + "/feed/v1/comments/fetch", { post_id: id });
+  }
+
+  createComment(postId: Number, body: String): Observable<any>{
+    return this.http.post<any>(this.baseUrl + '/feed/v1/comments/create', {post_id: postId, body: body})
+  }
+
+  createPost(post: Post){
+    return this.http.post<any>(this.baseUrl + "/feed/v1/create", {
+      title: post.title,
+      body: post.body,
+      group_id: this.userService.id
+    })
   }
 
 }

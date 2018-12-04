@@ -77,7 +77,7 @@ export class MapPageComponent implements OnInit {
 						})
 
 						marker.addListener('click', () => {
-							var id = marker.getTitle().split(" ")[0];
+							var id = marker.getTitle().split("_")[0];
 							this.router.navigateByUrl('/profile/' + id);
 						});
 

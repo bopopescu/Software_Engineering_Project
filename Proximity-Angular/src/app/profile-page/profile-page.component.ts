@@ -47,7 +47,7 @@ export class ProfilePageComponent implements OnInit {
 		this.dataService.getPost(this.id)
 		  .subscribe(response => {
 			  console.log(response);
-			  this.profile.posts = response;
+			  this.profile.posts = response.posts;
 		  })
 		
 	}
@@ -71,6 +71,7 @@ export class ProfilePageComponent implements OnInit {
 				username: "irrelevant",
 				user: this.profile
 			}
+			this.dataService.createPost(post);
 			this.profile.posts.push(post);
 		})
 	}
