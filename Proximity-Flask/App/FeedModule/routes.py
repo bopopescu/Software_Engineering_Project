@@ -29,8 +29,11 @@ def create_post(user):
 	if body:
 		post_title = body.get("title")
 		post_body = body.get("body")
-		post_latitude = body.get("latitude")
-		post_longitude = body.get("longitude")
+		# post_latitude = body.get("latitude")
+		# post_longitude = body.get("longitude")
+
+		post_latitude = user.latitude
+		post_longitude = user.longitude
 
 		if post_title and post_body and post_latitude and post_longitude:
 			post = Post(user_id=user.id, title=post_title, body=post_body, latitude=post_latitude, longitude=post_longitude)
