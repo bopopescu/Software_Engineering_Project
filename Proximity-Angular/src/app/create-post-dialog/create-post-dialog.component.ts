@@ -12,7 +12,8 @@ export class CreatePostDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<CreatePostDialogComponent>, private fb: FormBuilder) { }
 
   createPost = this.fb.group({
-    body: ['']
+    body: [''],
+    title: ['']
   })
   
   ngOnInit() {
@@ -24,6 +25,6 @@ export class CreatePostDialogComponent implements OnInit {
 
   create(){
     console.log("Trying");
-    this.dialogRef.close(this.createPost.get('body').value);
+    this.dialogRef.close(this.createPost);
   }
 }

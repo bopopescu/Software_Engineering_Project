@@ -88,10 +88,8 @@ export class MapPageComponent implements OnInit {
 						marker.addListener('mouseout', () => {
 							infoWindow.close();
 						});
-						setTimeout(() => {
 							this.friendMarkers.push(marker);
 							this.markers.push(marker);
-						}, 500);
 					}
 				}
 			)

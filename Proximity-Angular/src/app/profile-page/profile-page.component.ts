@@ -62,17 +62,22 @@ export class ProfilePageComponent implements OnInit {
 		},
 		);
 		dialogRef.afterClosed().subscribe(body => {
+			if(this.profile.posts === null){
+				this.profile.posts = new Array<Post>();
+			}
 			var post: Post = {
-				body: body,
+				body: body.get('body').value,
 				distance: 0.00,
 				id: 0,
 				time: Date.now(),
-				title: this.profile.full_name,
+				title: body.get('title').value,
 				username: "irrelevant",
 				user: this.profile
 			}
-			this.dataService.createPost(post);
-			this.profile.posts.push(post);
+			this.dataService.createPost(post).subscribe( data => {
+				console.log(data);
+			}) 
+			// this.profile.posts.push(post);
 		})
 	}
 }
