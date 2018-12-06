@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Post } from '../models/post';
 import { Comment } from '../models/comment';
 import { CommentStmt } from '@angular/compiler';
-import { userInfo } from 'os';
+//import { userInfo } from 'os';
 import { UserService } from './user.service';
 
 @Injectable({
