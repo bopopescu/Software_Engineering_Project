@@ -8,3 +8,5 @@ List of changes to documentations
 
 4. individuals_contributions.pdf stay the same as demo 1
 
+5. Update technical_documentation.pdf to match with our current code and report. Changes includes the revised Domain model and Class diagram and other technical changes
+
