@@ -1,6 +1,7 @@
 Run front end tests by making sure you have node installed on computer "install node on mac"
 	- Then go to 1_code/Proximity-Angular folder on terminal and type "ng test"
 
+******No changes to the front end tests for Demo 2 because tests for all page components already written in Demo 1. For Demo 2, we just continue to update those pages
 
 There are two options to run the backend unit tests, either hosting locally or using the instance that is being hosted on an Azure VM.
 I recommend using the already running instance, installing the database drivers can be very tricky on some machines.
