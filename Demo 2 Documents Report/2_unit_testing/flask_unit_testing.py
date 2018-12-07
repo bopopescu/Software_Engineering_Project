@@ -7,12 +7,12 @@ import time
 LOCAL_ADDRESS = "http://127.0.0.1:5000"
 REMOTE_ADDRESS = "http://104.42.175.128"
 
-LATITUDE = 38.951881
-LONGITUDE = 92.333740
+LATITUDE = "38.951881"
+LONGITUDE = "-92.333740"
 
 USERNAME_BASE = "testdev"
 
-FEED_API = "/feed/v1"
+FEED_API	= "/feed/v1"
 MESSAGE_API = "/message/v1"
 ACCOUNT_API = "/account/v1"
 
@@ -21,12 +21,14 @@ ACCOUNT_API = "/account/v1"
 def test_create_account(address):
 	address = address + ACCOUNT_API + "/create"
 
-	username = USERNAME_BASE + str(random.randint(0,1000))
+	username = USERNAME_BASE + str(random.randint(0,1000000))
 	password = "password"
 
 	request_body = {
 		"username": username,
-		"password": password
+		"password": password,
+		"first_name": "I'm",
+		"last_name": "A Dev"
 	}
 
 	try:
@@ -45,8 +47,8 @@ def test_login_account(address, account):
 	request_body = {
 		"username": account["username"],
 		"password": account["password"],
-		"latitude": str(LATITUDE),
-		"longitude": str(LONGITUDE)
+		"latitude": "38.792581",
+		"longitude": "-92.495740"
 	}
 
 	try:
@@ -71,9 +73,7 @@ def test_create_posts(address, token):
 		request_body = {
 			"title": "Test title " + str(i),
 			"body": "Test body " + str(i),
-			"group_id": 0,
-			"latitude": str(LATITUDE + random.uniform(-0.05, 0.05)),
-			"longitude": str(LONGITUDE + random.uniform(-0.05, 0.05))
+			"group_id": 0
 		}
 
 		try:
@@ -95,12 +95,13 @@ def test_fetch_posts(address, token):
 
 	request_body = {
 		"latitude": LATITUDE,
-		"longitude": LONGITUDE
+		"longitude": LONGITUDE,
+		"group_id": 0
 	}
 
 	try:
 		response = requests.post(address, headers=headers, json=request_body).json()
-		print(response["message"])
+		print("Response recieved from server:")
 		for post in response["posts"]:
 			print(json.dumps(post, indent=4))
 			time.sleep(1)
@@ -123,8 +124,8 @@ def test_send_messages(address, token):
 				"body": "Test body " + str(i)
 			}
 
-			response = requests.post(address, headers=headers, json=request_body).json()
-			print(response["message"])
+			response = requests.post(address, headers=headers, json=request_body)
+			print(response)
 	except Exception as error:
 		print("Error executing test_send_messages: {}".format(error))
 		raise Exception(str(error))
@@ -143,16 +144,32 @@ def test_fetch_messages(address, token):
 				"to_id": i
 			}
 
-			response = requests.get(address, headers=headers, json=request_body).json()
-			print(response["message"])
-			print(json.dumps(response["messages"][0], indent=4))
+			response = requests.post(address, headers=headers, json=request_body).json()
+			print(json.dumps(response, indent=4))
 	except Exception as error:
 		print("Error executing test_fetch_messages: {}".format(error))
 		raise Exception(str(error))
 	
 
-def test_add_friends(address, token):
+def test_add_friends(address, token, account):
+	###
+	print("Creating other user accounts to add friends")
+
+	for i in range(3):
+		request_body = {
+			"username": account["username"] + "-testFriend" + str(i),
+			"password": "password",
+			"first_name": "I'm",
+			"last_name": "aFriend"
+		}
+
+		response = requests.post(address + ACCOUNT_API + "/create", json=request_body).json()
+
+		print(response["message"])
+
 	address = address + ACCOUNT_API + "/friends/new"
+
+	###
 
 	headers = {
 		"Authorization": "token {}".format(token)
@@ -179,9 +196,8 @@ def test_fetch_friends(address, token):
 	}
 
 	try:
-		response = requests.get(address, headers=headers).json()
+		response = requests.post(address, headers=headers, json={}).json()
 
-		print(response["message"])
 		print("Location is updated when the user signs in so these may have null locations")
 		for friend in response["friends"]:
 			print(json.dumps(friend, indent=4))
@@ -218,7 +234,7 @@ def run_unit_tests(address):
 		time.sleep(2)
 
 		print("\n\nAdding friends:")
-		test_add_friends(address, token)
+		test_add_friends(address, token, account)
 		time.sleep(2)
 
 		print("\n\nFetching friends:")
