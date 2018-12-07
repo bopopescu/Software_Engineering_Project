@@ -1,7 +1,8 @@
 from flask import (
 	Blueprint, 
 	request,
-	jsonify
+	jsonify,
+	abort
 )
 
 from App.Models import (
@@ -17,6 +18,19 @@ from App import (
 
 account_api = Blueprint('AccountModule', __name__)
 
+
+@account_api.route('/profile/<int:user_id>', methods=['POST'])
+def profile(user_id):
+	user_data = database.get_user(user_id)
+
+	if user_data:
+		user = User.from_row(user_data)
+		response = user.get_json()
+		return jsonify(response), 200
+
+	return abort(404)
+
+
 @account_api.route('/create', methods=['POST'])
 def account_create():
 	body = request.get_json()
@@ -26,9 +40,11 @@ def account_create():
 	if body:
 		username = body.get('username')
 		password = body.get('password')
+		first_name = body.get('first_name')
+		last_name = body.get('last_name')
 
-		if username and password:
-			user = User(username=username, password=password)
+		if username and password and first_name and last_name:
+			user = User(username=username, password=password, first_name=first_name, last_name=last_name)
 
 			if database.create_user(user):
 				response["message"] = "Account {} created!".format(username)
@@ -42,6 +58,8 @@ def account_create():
 def account_login():
 	body = request.get_json()
 
+	print(str(body), flush=True)
+
 	response = {}
 
 	if body:
@@ -54,13 +72,16 @@ def account_login():
 			user = User(username=username, password=password)
 
 			if database.verify_user(user):
-				token = user.get_token("AccountAccess")
-
 				if user_latitude and user_longitude:
 					database.update_user_location(user.id, user_latitude, user_longitude)
+					user.latitude = user_latitude
+					user.longitude = user_longitude
+
+				token = user.get_token("AccountAccess")
 
 				if token:
 					response["token"] = token.decode('utf8')
+					response["user"] = user.get_json()
 					response["message"] = "Account {} logged in!".format(username)
 				else:
 					response["message"] = "Error logging in with {}.".format(username)
@@ -116,23 +137,31 @@ def new_friend(user):
 	return jsonify(response), 200
 
 
-@account_api.route('friends/fetch')
+@account_api.route('friends/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_friends(user):
 	body = request.get_json()
 
 	response = {}
 
-	if body:
-		friends = User.from_list(database.get_friends(user.id))
+	if body != None:
+		# latitude = body.get("latitude")
+		# longitude = body.get("longitude")
 
-		if friends:
-			response["message"] = "Friends found."
-			response["friends"] = []
+		latitude = user.latitude
+		longitude = user.longitude
 
-			for friend in friends:
-				response["friends"].append(friend.get_json())
-		else:
-			response["message"] = "Unable to find friends."
+		print("{} {}".format(latitude, longitude))
+
+		if latitude and longitude:
+			friends = User.from_list(database.get_friends(user.id, latitude, longitude))
+
+			if friends:
+				response["friends"] = []
+
+				for friend in friends:
+					response["friends"].append(friend.get_json())
+			else:
+				response["message"] = "Unable to find friends."
 
 	return jsonify(response), 200

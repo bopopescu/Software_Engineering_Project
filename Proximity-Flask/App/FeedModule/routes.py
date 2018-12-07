@@ -6,7 +6,8 @@ from flask import (
 
 from App.Models import (
 	User,
-	Post
+	Post,
+	Comment
 )
 
 from App import (
@@ -28,8 +29,11 @@ def create_post(user):
 	if body:
 		post_title = body.get("title")
 		post_body = body.get("body")
-		post_latitude = body.get("latitude")
-		post_longitude = body.get("longitude")
+		# post_latitude = body.get("latitude")
+		# post_longitude = body.get("longitude")
+
+		post_latitude = user.latitude
+		post_longitude = user.longitude
 
 		if post_title and post_body and post_latitude and post_longitude:
 			post = Post(user_id=user.id, title=post_title, body=post_body, latitude=post_latitude, longitude=post_longitude)
@@ -44,10 +48,12 @@ def create_post(user):
 	return jsonify(response), 200
 
 
-@feed_api.route('/fetch')
+@feed_api.route('/fetch', methods=['POST'])
 @authorization.require_auth("AccountAccess")
 def get_posts(user):
 	body = request.get_json()
+
+	print(body, flush=True)
 
 	response = {}
 
@@ -55,18 +61,44 @@ def get_posts(user):
 		latitude = body.get("latitude")
 		longitude = body.get("longitude")
 		group_id = body.get("group_id", 0)
+		user_id = body.get("user_id", 0)
+
+		# print(request.args, flush=True)
+		# print(request.query_string, flush=True)
+
+		# latitude = request.args.get("latitude")
+		# longitude = request.args.get("longitude")
+		# group_id = request.args.get("group_id", 0)
+
+		print("{} {}".format(latitude, longitude), flush=True)
 
 		if latitude and longitude:
 			posts = Post.from_list(database.get_posts(latitude, longitude, 100, group_id=group_id))
 
+			print(posts, flush=True)
+
 			if posts:
-				response["message"] = "Posts found."
 				response["posts"] = []
 
 				for post in posts:
 					response["posts"].append(post.get_json())
 			else:
 				response["message"] = "Unable to find posts."
+		elif user_id:
+			posts = Post.from_list(database.get_user_posts(user_id))
+
+			print(posts, flush=True)
+
+			if posts:
+				response["posts"] = []
+
+				for post in posts:
+					response["posts"].append(post.get_json())
+			else:
+				response["message"] = "Unable to find posts."
+
+
+	print(response, flush=True)
 
 	return jsonify(response), 200
 
@@ -86,5 +118,52 @@ def delete_post(user):
 				response["message"] = "Post {} deleted.".format(post_id)
 			else:
 				response["message"] = "Unable to delete post."
+
+	return jsonify(response), 200
+
+
+@feed_api.route('/comments/fetch', methods=['POST'])
+@authorization.require_auth("AccountAccess")
+def get_comments(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		post_id = body.get("post_id")
+
+		if post_id:
+			comments = Comment.from_list(database.get_comments(post_id = post_id))
+
+			print(comments, flush=True)
+
+			if comments:
+				response["comments"] = []
+
+				for comment in comments:
+					response["comments"].append(comment.get_json())
+			else:
+				response["message"] = "Unable to find comments."
+
+	print(response, flush=True)
+
+	return jsonify(response), 200
+
+
+@feed_api.route('/comments/create', methods=['POST'])
+@authorization.require_auth("AccountAccess")
+def create_comment(user):
+	body = request.get_json()
+
+	response = {}
+
+	if body:
+		post_id = body.get("post_id")
+		comment_body = body.get("body")
+
+		comment = Comment(user_id = user.id, post_id = post_id, body=comment_body)
+
+		if database.create_comment(comment):
+			response["message"] = "Created comment"
 
 	return jsonify(response), 200
