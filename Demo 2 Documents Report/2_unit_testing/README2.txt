@@ -1,9 +1,12 @@
+******No changes to the front end tests for Demo 2 because tests for all page components already written in Demo 1. For Demo 2, we just continue to update those pages. Update instruction on how to run the back end test since we added new tests for back end
+
+
 Run front end tests by making sure you have node installed on computer "install node on mac"
 	- Then go to 1_code/Proximity-Angular folder on terminal and type "ng test"
 
-******No changes to the front end tests for Demo 2 because tests for all page components already written in Demo 1. For Demo 2, we just continue to update those pages
 
-There are two options to run the backend unit tests, either hosting locally or using the instance that is being hosted on an Azure VM.
+
+There are two options to run the back end unit tests, either hosting locally or using the instance that is being hosted on an Azure VM.
 I recommend using the already running instance, installing the database drivers can be very tricky on some machines.
 
 In either case:
@@ -13,7 +16,7 @@ In either case:
 
 To host the backend API locally (Ubuntu):
 1) Follow the instructions at https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-2017 for you OS to install the ODBC drivers
-2) Navigate to the 1_code/Proximity-Flask folder that contains the wsgi.py file
+2) Navigate to the 1_code/Proximity-Flask folder
 3) Run "flask run"
 
 

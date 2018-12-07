@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    margin: 0;
+  }
+
+  mat-sidenav-container {
+    min-height: 100vh;
+  }
+  #inner{
+    margin-bottom: 10px;
+  }
+  #logInForm{
+    margin-bottom: 10px;
+  }
+  #createAccountForm{
+    margin-bottom: 10px;
+  }
+  #mapView{
+    width: 90%;
+    height: 75vh;
+    margin: auto;
+
+  }
+
+  mat-card{
+    margin: 20px auto;
+    width: 60%;
+  }

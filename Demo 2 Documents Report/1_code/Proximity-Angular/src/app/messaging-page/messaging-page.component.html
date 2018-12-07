@@ -1,0 +1,22 @@
+<!-- <div id="main" class="col-12">
+  <div id="inner" class="col-12">
+      <div id="friends" class="col-12">
+          <div class="friendsProfiles"></div>
+          <div class="friendsProfiles"></div>
+          <div class="friendsProfiles"></div>
+          <div class="friendsProfiles"></div>
+      </div>
+      <div id="messageList" class="col-12">
+      <p class="message">A list of all messages will be listed below</p>
+      <p class="message"></p>
+      <p class="message"></p>
+      <p class="message"></p>
+      <p class="message"></p>
+
+      </div>
+  </div>
+</div> -->
+
+<div *ngFor="let message of messages">
+    <app-message [message]=message></app-message>
+</div>
