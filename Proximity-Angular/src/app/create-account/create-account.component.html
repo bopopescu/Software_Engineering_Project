@@ -1,20 +1,24 @@
-<div>
-	<form [formGroup]="createAccount" (ngSubmit)="onSubmit()">
-		<input formControlName="username" placeholder="Username" type="text">
+	<form id="createAccountForm" [formGroup]="createAccount" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="Username" type="text">
+    </mat-form-field>
     <br>
-    <input formControlName="email" placeholder="Email" type="text">
+    <mat-form-field>
+      <input matInput formControlName="email" placeholder="Email" type="text">
+    </mat-form-field>
     <br>
-    <label>Please input your password: </label>
-		<input formControlName="password" placeholder="Password" type="password">
+    <mat-form-field>
+      <input matInput formControlName="password" placeholder="Password" type="password">
+    </mat-form-field>
     <br>
-    <label>Please re-enter your password: </label>
-    <input formControlName="passwordCheck" placeholder="Password" type="password">
+    <mat-form-field>
+      <input matInput formControlName="passwordCheck" placeholder="Confirm Password" type="password">
+    </mat-form-field>
 		<br>
-		<button type="submit">Create Account</button>
+		<button mat-raised-button type="submit">Create Account</button>
     <br>
     <span>{{ isValid ? ' ' : 'Passwords do not match' }}</span>
 		<br>
-		<button routerLink="/reset-password">Forgot Password</button>
+		<button mat-raised-button routerLink="/reset-password">Forgot Password</button>
 		<br>
 	</form>
-</div>

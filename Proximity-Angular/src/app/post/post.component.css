@@ -1,0 +1,19 @@
+mat-card {
+    width: 60%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+mat-card-header {
+    margin: auto;
+    text-align: center;
+}
+
+.comments{
+    color: blue;
+}
+
+span {
+    padding: 40px;
+}

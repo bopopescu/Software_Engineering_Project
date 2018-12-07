@@ -72,10 +72,12 @@ def account_login():
 			user = User(username=username, password=password)
 
 			if database.verify_user(user):
-				token = user.get_token("AccountAccess")
-
 				if user_latitude and user_longitude:
 					database.update_user_location(user.id, user_latitude, user_longitude)
+					user.latitude = user_latitude
+					user.longitude = user_longitude
+
+				token = user.get_token("AccountAccess")
 
 				if token:
 					response["token"] = token.decode('utf8')

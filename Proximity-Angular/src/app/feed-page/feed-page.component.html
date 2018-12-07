@@ -1,13 +1,4 @@
-<div id="main" class="col-12">
-  <div id="inner" class="col-12">
-      <div id="searchBarDiv" class="col-12">
-          <p id="searchText">Search Feed: </p>        
-          <input type="text" placeholder="Enter Search Here..." class="searchBar">
-      </div>
-      <div id="newsFeed" class="col-12">
-          <li *ngFor="let message of messages | async">
-            {{message}}            
-          </li>
-      </div>
-  </div>
+<h1>Public Feed</h1>
+<div *ngFor="let post of posts">
+    <app-post [post]=post></app-post>
 </div>

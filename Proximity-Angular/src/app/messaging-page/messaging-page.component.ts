@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-messaging-page',
@@ -7,7 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessagingPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
+
+  messages = [{
+    Sender: "Donald",
+    Receiver: "Steven", 
+    Body: "Hey buddy hows it going",
+  },
+  {
+    Sender: "Stacey",
+    Receiver: "Steven", 
+    Body: "Hi :)",
+  },
+];
+
 
   ngOnInit() {
   }

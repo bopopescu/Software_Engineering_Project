@@ -1,5 +1,11 @@
 
 Proximity-Angular/node_modules/
+<<<<<<< HEAD
+=======
+.DS_Store
+.DS_Store
+Proximity-Angular/package-lock.json
+>>>>>>> de2b2ae469eacaf47d1148bf1fa66a56ea7ad88a
 .DS_Store
 .DS_Store
 Proximity-Angular/package-lock.json

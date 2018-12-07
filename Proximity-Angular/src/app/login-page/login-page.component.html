@@ -1,4 +1,4 @@
-<div id="main" class="col-12">
+<!-- <div id="main" class="col-12">
 	<div id="inner" class="col-12">
 		<div id="logoDiv">
 			<img src="src/app/login-page/logo.png" alt="logo">
@@ -19,4 +19,29 @@
 			</form>
 		</div>
 	</div>
-</div>
+</div> -->
+
+<form id="logInForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<br>
+		<div id="create">
+			<button mat-raised-button class="center" routerLink="/create-account">Create an Account</button>
+		</div>
+		<br>
+		<div id="login">
+			<button mat-raised-button routerLink="/reset-password">Forgot Password</button>
+		</div>
+		<br>
+		<br>
+	<mat-form-field>
+		<input matInput type="text" formControlName="username" placeholder="UserName">
+	</mat-form-field>
+	<br>
+
+	<mat-form-field>
+		<input matInput type="password" formControlName="password" placeholder="Password">
+	</mat-form-field>
+		<br>
+		<br>
+		<button mat-raised-button type="submit">Login</button>
+
+</form>

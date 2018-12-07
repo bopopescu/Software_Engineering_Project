@@ -2,26 +2,39 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from "rxjs";
-import { Location } from "../models/location"
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
+import { FormBuilder} from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import {Event} from "../models/event"
+import { UserService } from '../services/user.service';
+
 
 @Component({
 	selector: 'app-map-page',
 	templateUrl: './map-page.component.html',
-	styleUrls: ['./map-page.component.css', '../app.component.css']
+	styleUrls: ['../app.component.css', './map-page.component.css']
 })
 
 
 export class MapPageComponent implements OnInit {
-	constructor(private dataService: DataService) { }
+	constructor(private fb: FormBuilder,private router: Router, private dataService: DataService, private userService: UserService) {
+		this.markers = new Array<google.maps.Marker>();
+	}
+
+	searchBar = this.fb.group({
+		search: ['']
+	})
 
 	@ViewChild('gmap') gmapElement: any;
 	map: google.maps.Map;
 
 	latitude: any;
 	longitude: any;
-	friendMarkers: google.maps.Marker[];
+	friendMarkers: google.maps.Marker[] = [];
 	groupMarkers: google.maps.Marker[];
+	markers: google.maps.Marker[];
+	results: Observable<google.maps.Marker[]>;
 
 	iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 
@@ -37,42 +50,104 @@ export class MapPageComponent implements OnInit {
 
 	ngOnInit() {
 		this.initMap();
+		this.results = this.searchBar.get('search').valueChanges
+			.pipe(
+				startWith(''),
+				map(value => {
+					return this.filterSearch(value)
+				}));
+		this.dataService.getFriends()
+			.subscribe(
+				locations => {
+					var loc = locations.friends;
+					for (var i = 0; i < loc.length; i++) {
+						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
+						var contentString =
+							'<p><b>Name</b>: ' + loc[i].full_name + '</br>' +
+							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
+							'</p>';
+						var infoWindow = new google.maps.InfoWindow({
+							content: contentString
+						})
 
-		var friends = this.dataService.getFriends();
-		friends.subscribe(
-			locations => {
-				for (var i = 0; i < this.friendMarkers.length; i++) {
-					this.friendMarkers[i].setMap(null);
-					this.friendMarkers.length = 0;
-				}
-				for (var i = 0; i < locations.length; i++) {
-					var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-					var marker = new google.maps.Marker({
-						position: position,
-						map: this.map
-					})
-					this.friendMarkers.push(marker);
-				}
-			})
+						var marker = new google.maps.Marker({
+							position: position,
+							map: this.map,
+							title: loc[i].id.toString() + "_" + loc[i].full_name
+						})
 
-		//  this.httpClient.get<Location[]>("url").subscribe(
-		//   locations => {
-		//     for(var i = 0;i < this.groupMarkers.length; i++){
-		//       this.groupMarkers[i].setMap(null);
-		//       this.groupMarkers.length = 0;
-		//     }
-		//     for(var i = 0; i < locations.length; i++){
-		//       var position = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
-		//       var marker = new google.maps.Marker({
-		//         position: position,
-		//         map: this.map
-		//       })
-		//       this.groupMarkers.push(marker);
-		//     }
-		// })
+						marker.addListener('click', () => {
+							var id = marker.getTitle().split("_")[0];
+							this.router.navigateByUrl('/profile/' + id);
+						});
+
+						marker.addListener('mouseover', () => {
+							infoWindow.open(this.map, marker);
+						});
+
+						marker.addListener('mouseout', () => {
+							infoWindow.close();
+						});
+							this.friendMarkers.push(marker);
+							this.markers.push(marker);
+					}
+				}
+			)
+			
+			this.dataService.getEvents(this.latitude,this.longitude)
+			.subscribe(
+				events => {
+					this.groupMarkers = new Array<google.maps.Marker>();
+					var loc = events;
+					for (var i = 0; i < loc.length; i++) {
+						var position = new google.maps.LatLng(loc[i].latitude, loc[i].longitude);
+						var contentString =
+							'<p><b>Name</b>: ' + loc[i].title + '</br>' +
+							'<b>Distance</b>: ' + loc[i].distance + '</br>' +
+							'</p>';
+						var infoWindow = new google.maps.InfoWindow({
+							content: contentString
+						})
+
+						var marker = new google.maps.Marker({
+							position: position,
+							map: this.map,
+							title: loc[i].id.toString() + "_" + loc[i].title
+						})
+
+						marker.addListener('mouseover', () => {
+							infoWindow.open(this.map, marker);
+						});
+
+						marker.addListener('mouseout', () => {
+							infoWindow.close();
+						});
+						this.groupMarkers.push(marker);
+						this.markers.push(marker);
+					}
+				}
+			)
 	}
 
-	initMap() {
+	search() {
+		var search = this.markers.find((element) => {
+			return element.getTitle().split("_")[1].toLowerCase() == this.searchBar.get('search').value.toLowerCase();
+		});
+
+		if(search){
+			this.map.panTo(search.getPosition());
+		}
+	}
+
+	private filterSearch(value: string): google.maps.Marker[]{
+		const filterValue = value.toLowerCase();
+
+		return this.friendMarkers.filter(marker => {
+			marker.getTitle().split("_")[1].toLowerCase().includes(filterValue)
+		});
+	}
+
+	private initMap() {
 		var mapProp = {
 			center: new google.maps.LatLng(38.951706, -92.334068),
 			zoom: 15,
@@ -89,5 +164,45 @@ export class MapPageComponent implements OnInit {
 				}
 			)
 		}
+
+		// this.testData();
 	}
+
+	// private testData(){
+	// 	var loc = {
+	// 		name: "bob",
+	// 		distance: 32.7,
+	// 		latitude: 38.951706,
+	// 		longitude: -92.334068,
+	// 		id: 1
+
+	// 	}
+	// 	var position = new google.maps.LatLng(loc.latitude, loc.longitude);
+	// 	var contentString =
+	// 		'<p><b>Name</b>: ' + loc.name + '</br>' +
+	// 		'<b>Distance</b>: ' + loc.distance + '</br>' +
+	// 		'</p>';
+	// 	var infoWindow = new google.maps.InfoWindow({
+	// 		content: contentString
+	// 	})
+
+	// 	var marker = new google.maps.Marker({
+	// 		position: position,
+	// 		map: this.map,
+	// 		title: loc.name,
+	// 	})
+
+	// 	marker.addListener('click', () => {
+	// 		this.router.navigateByUrl("/profile/" + loc.id);
+	// 	});
+
+	// 	marker.addListener('mouseover', () => {
+	// 		infoWindow.open(this.map, marker);
+	// 	});
+
+	// 	marker.addListener('mouseout', () => {
+	// 		infoWindow.close();
+	// 	});
+	// 	this.friendMarkers.push(marker);
+	// }
 }

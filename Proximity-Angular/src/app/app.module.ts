@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { routes } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +17,17 @@ import { MapPageComponent } from './map-page/map-page.component';
 import { MessagingPageComponent } from './messaging-page/messaging-page.component';
 import { FeedPageComponent } from './feed-page/feed-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { JwtInterceptor } from './models/jwt-interceptor';
+import { LogoutDialogComponent } from './logout-dialog/logout-dialog.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { PostComponent } from './post/post.component';
+import { EventPageComponent } from './event-page/event-page.component';
+import { CreatePostDialogComponent } from './create-post-dialog/create-post-dialog.component';
+import { EventsComponent } from './events/events.component';
+import { UserService } from './services/user.service';
+import { MessageComponent } from './message/message.component';
+import { CreateCommentDialogComponent } from './create-comment-dialog/create-comment-dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +38,15 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     MapPageComponent,
     MessagingPageComponent,
     FeedPageComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    LogoutDialogComponent,
+    HomePageComponent,
+    PostComponent,
+    CreatePostDialogComponent,
+    EventPageComponent,
+    EventsComponent,
+    MessageComponent,
+    CreateCommentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +54,14 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    FlexLayoutModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+              UserService],
+  bootstrap: [AppComponent],
+  entryComponents: [LogoutDialogComponent, CreatePostDialogComponent,CreateCommentDialogComponent]
 })
 export class AppModule { }

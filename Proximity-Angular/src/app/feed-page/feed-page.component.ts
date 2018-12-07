@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 import { Observable } from 'rxjs';
+import { Post } from '../models/post';
+import { PositionStrategy } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-feed-page',
@@ -9,13 +11,16 @@ import { Observable } from 'rxjs';
 })
 export class FeedPageComponent implements OnInit {
 
-  messages: Observable<string[]>;
-  
   constructor(private dataService: DataService) { }
   
+  posts: Observable<Post>;
   ngOnInit() {
-    this.messages = this.dataService.getFeed();
-    this.messages.subscribe();
+    navigator.geolocation.getCurrentPosition(position => {
+      this.dataService.getFeed(position.coords.latitude, position.coords.longitude)
+      .subscribe(posts => {
+        this.posts = posts.posts;
+        console.log(this.posts);
+      })
+    })
   }
-
 }

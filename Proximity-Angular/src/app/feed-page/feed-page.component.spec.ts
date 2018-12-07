@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FeedPageComponent } from './feed-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 
 describe('FeedPageComponent', () => {
   let component: FeedPageComponent;

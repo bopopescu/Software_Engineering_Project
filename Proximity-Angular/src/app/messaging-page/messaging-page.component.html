@@ -1,4 +1,4 @@
-<div id="main" class="col-12">
+<!-- <div id="main" class="col-12">
   <div id="inner" class="col-12">
       <div id="friends" class="col-12">
           <div class="friendsProfiles"></div>
@@ -15,4 +15,8 @@
 
       </div>
   </div>
+</div> -->
+
+<div *ngFor="let message of messages">
+    <app-message [message]=message></app-message>
 </div>

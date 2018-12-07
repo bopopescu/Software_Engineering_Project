@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-title>{{post.title}}</mat-card-title>
+    <mat-card-subtitle>{{post.user.full_name}}</mat-card-subtitle>
+<mat-card-content>{{post.body}}</mat-card-content>
+<mat-card-actions>
+    <button mat-raised-button (click)="like">Like</button>
+    <button mat-raised-button (click)="dislike">Dislike</button>
+    <button mat-raised-button (click)="createComment()">Comment</button>
+    <button mat-raised-button *ngIf="post.isFriend" (click)="add()">Add Friend</button>
+</mat-card-actions>
+<mat-divider></mat-divider>
+<mat-card-content>
+    <span>Distance: {{post.distance}} </span><span>Time: {{post.time}}</span>
+    <button mat-button class="comments" (click)="displayComments(post)">Comments</button>
+</mat-card-content>
+<div *ngIf="post.displayComments" class="comment">
+    <mat-divider></mat-divider>
+    <mat-card-footer>
+        <div *ngFor="let comment of comments">
+            <mat-card-title>{{comment.user.full_name}}</mat-card-title>
+            <mat-card-content>{{comment.body}}</mat-card-content>
+            <mat-card-content>{{comment.time}}</mat-card-content>
+            <mat-divider></mat-divider>
+        </div>
+        <!-- <button mat-button class="comments" (click)="createComment()">Add a comment</button> -->
+    </mat-card-footer>
+</div>
+
+</mat-card>
