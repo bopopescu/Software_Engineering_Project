@@ -1,8 +1,9 @@
-from App.Models import User
 from App.Models import _BaseModel
+from decimal import *
 
 class Post(_BaseModel):
-	def __init__(self, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
+	def __init__(self, id=None, user_id=None, username=None, title=None, body=None, time=None, distance=None, latitude=None, longitude=None):
+		self._id = id
 		self._user_id = user_id
 		self._username = username
 		self._title = title
@@ -16,14 +17,18 @@ class Post(_BaseModel):
 
 	def get_json(self):
 		return {
-			"user_id": self.user_id,
+			"id": self.id,
+			"user": self.user_id,
 			"username": self.username,
 			"title": self.title,
 			"body": self.body,
-			"time": self.time,
-			"distance": self.distance
+			"time": self.time.strftime("%Y-%m-%d %H:%M:%S"),
+			"distance": str(self.distance)
 		}
 
+	@property
+	def id(self):
+		return self._id	
 
 	@property
 	def user_id(self):
@@ -32,7 +37,6 @@ class Post(_BaseModel):
 	@property
 	def username(self):
 		return self._username
-	
 
 	@property
 	def title(self):
@@ -45,7 +49,6 @@ class Post(_BaseModel):
 	@property
 	def time(self):
 		return self._time
-	
 	
 	@property
 	def latitude(self):

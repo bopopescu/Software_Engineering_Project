@@ -9,16 +9,19 @@ class DefaultConfig:
 	database = "proximity_database"
 
 	""" Databse Config Info """
-	user_table = "User"
+	user_table = "[User]"
 	post_table = "Post"
 	message_table = "Message"
-	group_table = "`Group`"
+	group_table = "[Group]"
 	friendship_table = "Friendship"
 
 	""" Security Info """
 	
-	private_key_filepath = "/home/developer/Software_Engineering_Project/Proximity-Flask/App/Keys/private_key.pem"
-	public_key_filepath = "/home/developer/Software_Engineering_Project/Proximity-Flask/App/Keys/public_key.pem"
+	# private_key_filepath = "/home/developer/Software_Engineering_Project/Proximity-Flask/App/Keys/private_key.pem"
+	# public_key_filepath = "/home/developer/Software_Engineering_Project/Proximity-Flask/App/Keys/public_key.pem"
+
+	private_key_filepath = "/mnt/c/prog/2018Fall/4320/Software_Engineering_Project/Proximity-Flask/App/Keys/private_key.pem"
+	public_key_filepath = "/mnt/c/prog/2018Fall/4320/Software_Engineering_Project/Proximity-Flask/App/Keys/public_key.pem"
 
 	private_key_password = b"4320Group16"
 
