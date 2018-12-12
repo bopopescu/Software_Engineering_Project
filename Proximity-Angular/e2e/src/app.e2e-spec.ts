@@ -5,6 +5,9 @@
   https://github.com/wallabyjs/public/issues/1768
   https://www.codeproject.com/Articles/1251554/%2FArticles%2F1251554%2FEnd-to-End-E2E-Tests-in-Angular-Application-Using
 */
+
+//written by: Song Vu Nguyen
+
 import { AppPage } from './app.po';
 import { CreateAccountComponent } from '../../src/app/create-account/create-account.component';
 import { FeedPageComponent } from '../../src/app/feed-page/feed-page.component';
