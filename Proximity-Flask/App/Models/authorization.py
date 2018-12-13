@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 from functools import wraps
 
 from App.Models import (

@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 import jwt
 from werkzeug.security import generate_password_hash
 

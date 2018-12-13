@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 import datetime
 import MySQLdb
 import pyodbc

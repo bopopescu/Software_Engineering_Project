@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 from flask import (
 	Blueprint, 
 	request,

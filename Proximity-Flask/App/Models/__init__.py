@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 from .base import _BaseModel
 
 from .config import DefaultConfig
