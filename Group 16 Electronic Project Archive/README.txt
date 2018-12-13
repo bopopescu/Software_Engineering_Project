@@ -8,15 +8,15 @@ Directory Tree and files contents
       |
       +-----> Proximity-Flask                //contain source code for the back-end of the webApp        
 |
-+-----> design                               //UML diagram and README1.txt explains how it match with our code
++-----> design                               //UML diagram and README.txt explains how it match with our code
 |
 +-----> doc                                  //contains Report 1-3, demo 1-2 presentation slides 
 |
 +-----> tests                                //program tests 
       |
-      +-----> unit_testing                   //contain code and README2.txt explains how to run unit tests
+      +-----> unit_testing                   //contain code and README.txt explains how to run unit tests
       |
-      +-----> integration_testing            //contain README3.txt explains how to run integration test
+      +-----> integration_testing            //contain README.txt explains how to run integration test
 
 
 
