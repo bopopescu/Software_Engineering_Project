@@ -1,3 +1,4 @@
+//written by: John Oatey
 import { Component, OnInit, NgModule, OnChanges } from '@angular/core';
 import { AuthGuard } from './services/auth.guard';
 import { Router } from '@angular/router';

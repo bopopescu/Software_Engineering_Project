@@ -1,3 +1,4 @@
+//written by: John Oatey
 import { Comment } from './comment';
 import { User } from './user';
 

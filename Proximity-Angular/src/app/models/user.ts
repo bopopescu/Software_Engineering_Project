@@ -1,3 +1,4 @@
+//written by: John Oatey
 import{ Post } from "./post"
 export interface User{
     first_name: String

@@ -1,3 +1,4 @@
+//written by: John Oatey
 import { Injectable } from '@angular/core';
 import { User } from "../models/user"
 import { Observable } from 'rxjs/Observable';

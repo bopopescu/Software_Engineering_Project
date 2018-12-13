@@ -1,3 +1,4 @@
+//written by: John Oatey
 import { User } from "./user";
 
 export interface Comment {

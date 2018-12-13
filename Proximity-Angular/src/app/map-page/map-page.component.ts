@@ -1,4 +1,5 @@
 /// <reference types="@types/googlemaps" />
+//written by: John Oatey
 import { Component, OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Observable } from "rxjs";

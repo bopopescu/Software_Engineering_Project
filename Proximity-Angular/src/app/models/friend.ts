@@ -1,3 +1,4 @@
+//written by: John Oatey
 export class Friend {
 	private id: Number;
 	private lastName: String

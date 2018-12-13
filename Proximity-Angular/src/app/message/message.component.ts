@@ -1,3 +1,4 @@
+//written by: John Oatey
 import { Component, OnInit,Input } from '@angular/core';
 import { Message } from '../models/message';
 import { UserService } from '../services/user.service';
