@@ -5,7 +5,20 @@ Directory Tree and files contents
 +-----> code                                 //source code
       |
       +-----> Proximity-Angular              //contain source code for the front-end of the webApp
-      |
+            |
+            +-----> src
+                  |
+                  +------>app
+                         |
+                         +------>create account           //contain source code for AccountModule account_create()
+                         |
+                         +------>create-post-dialog       //contain source code for FeedModule create_post()
+                         |
+                         +------>services
+                                |
+                                +------->data.service.ts //contain source code for AccountModule(account_login(),                                                                                //account_create(),password_reset(),get_friends()),                                                                                      //MapModule(get_events()), FeedModule(get_post(),create_post)
+                   
+            
       +-----> Proximity-Flask                //contain source code for the back-end of the webApp  
 |
 +-----> data                                 //contains README.txt that have our database schemas      
@@ -50,11 +63,5 @@ Important Notes:
 ***In order to load the test data that was already on the database, you will need to download and  install a Chrome plugin called Allow-Control-Allow-Origin in order to allow AJAX calls.
 ***The nature of this application is that data collection and fetching is essentially the only backend unit testing that can occur.
 As such, the unit testing script does its own data collection and no other data collection is needed.
-
-
-
-
-
-
         
  
