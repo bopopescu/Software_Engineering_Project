@@ -1,0 +1,48 @@
+<!-- <div id="main" class="col-12">
+	<div id="inner" class="col-12">
+		<div id="logoDiv">
+			<img src="src/app/login-page/logo.png" alt="logo">
+		</div>
+		<div id="slogan"><p>Keep your friends close...</p></div>
+		<div id="logIn">
+			<form id="logInForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<button class="center" routerLink="/create-account">Create an Account</button>
+			<br>
+			<button routerLink="/reset-password">Forgot Password</button>
+			<br>
+			<br>
+			<input type="text" formControlName="username" placeholder="UserName">
+			<input type="password" formControlName="password" placeholder="Password">
+			<br>
+			<br>
+			<button type="submit">Login</button>
+			</form>
+		</div>
+	</div>
+</div> -->
+<!-- written by: John Oatey-->
+
+<form id="logInForm" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<br>
+		<div id="create">
+			<button mat-raised-button class="center" routerLink="/create-account">Create an Account</button>
+		</div>
+		<br>
+		<div id="login">
+			<button mat-raised-button routerLink="/reset-password">Forgot Password</button>
+		</div>
+		<br>
+		<br>
+	<mat-form-field>
+		<input matInput type="text" formControlName="username" placeholder="UserName">
+	</mat-form-field>
+	<br>
+
+	<mat-form-field>
+		<input matInput type="password" formControlName="password" placeholder="Password">
+	</mat-form-field>
+		<br>
+		<br>
+		<button mat-raised-button type="submit">Login</button>
+
+</form>

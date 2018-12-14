@@ -1,0 +1,20 @@
+/* Reference: https://medium.freecodecamp.org/how-to-center-things-with-style-in-css-dc87b7542689 */
+
+/* written by: Song Vu Nguyen */
+
+#logoDiv{
+    width: 40%;
+    height: 40%;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+    margin-bottom: -20px;
+}
+img{
+    width: 40%;
+    height: 40%;
+}
+h1{
+    font-size: 60px;
+    color: blue;
+}

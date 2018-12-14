@@ -1,0 +1,17 @@
+<!-- written by: John Oatey-->
+<div id="dialog">
+    <h1 mat-dialog-title>{{data.name}}</h1>
+
+    <form [formGroup]="createPost">
+            <mat-form-field>
+                    <input matNativeControl formControlName="title" placeholder="Enter title here...">
+                </mat-form-field>
+        <mat-form-field>
+            <textarea matNativeControl formControlName="body" placeholder="What's up..."></textarea>
+        </mat-form-field>
+        <br>
+        <button mat-button (click)="cancel()">Cancel</button>
+        <button mat-button (click)="create()">Create</button>
+    </form>  
+</div>
+
