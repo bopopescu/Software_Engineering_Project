@@ -1,3 +1,5 @@
+//written by Ryan Wortmann
+
 import { Component, OnInit,Input } from '@angular/core';
 import { Event } from '../models/event';
 import { UserService } from '../services/user.service';
