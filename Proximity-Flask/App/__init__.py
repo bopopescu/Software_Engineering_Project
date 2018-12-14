@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 import MySQLdb
 from flask import Flask
 

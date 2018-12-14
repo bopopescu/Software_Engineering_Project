@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 from App.Models import _BaseModel
 
 class Message(_BaseModel):

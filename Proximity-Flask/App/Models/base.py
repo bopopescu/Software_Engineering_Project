@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 
 class _BaseModel:
 	"""

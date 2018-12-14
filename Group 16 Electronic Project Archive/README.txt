@@ -6,17 +6,19 @@ Directory Tree and files contents
       |
       +-----> Proximity-Angular              //contain source code for the front-end of the webApp
       |
-      +-----> Proximity-Flask                //contain source code for the back-end of the webApp        
+      +-----> Proximity-Flask                //contain source code for the back-end of the webApp  
 |
-+-----> design                               //UML diagram and README1.txt explains how it match with our code
++-----> data                                 //contains README.txt that have our database schemas      
+|
++-----> design                               //UML diagram and README.txt explains how it match with our code
 |
 +-----> doc                                  //contains Report 1-3, demo 1-2 presentation slides 
 |
 +-----> tests                                //program tests 
       |
-      +-----> unit_testing                   //contain code and README2.txt explains how to run unit tests
+      +-----> unit_testing                   //contain code and README.txt explains how to run unit tests
       |
-      +-----> integration_testing            //contain README3.txt explains how to run integration test
+      +-----> integration_testing            //contain README.txt explains how to run integration test
 
 
 
@@ -24,8 +26,6 @@ Directory Tree and files contents
 Instruction on how to run our code
 
 Proximity is a web app for finding events and friends in real life. We currently aren’t hosting it on a server so to use it you will have to install angular so you can run it locally. Follow these steps to do this.
-
-Go to our Github page (https://github.com/Rdubya54/Software_Engineering_Project) and download the project as a zip. 
 
 Install the latest version of Node.js on your machine.
 

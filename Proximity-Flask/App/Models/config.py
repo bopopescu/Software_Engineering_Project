@@ -1,3 +1,5 @@
+# Written by: Nathan Kulczak
+
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.serialization import load_pem_private_key
 
