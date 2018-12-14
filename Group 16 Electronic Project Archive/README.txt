@@ -6,7 +6,9 @@ Directory Tree and files contents
       |
       +-----> Proximity-Angular              //contain source code for the front-end of the webApp
       |
-      +-----> Proximity-Flask                //contain source code for the back-end of the webApp        
+      +-----> Proximity-Flask                //contain source code for the back-end of the webApp  
+|
++-----> data                                 //contains README.txt that have our database schemas      
 |
 +-----> design                               //UML diagram and README.txt explains how it match with our code
 |
